@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Ubuntu:ital,wght@0,500;0,700;1,400;1,500&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+}
+html,body{
+    /* background-image: url("./img/bg.jpg"); */
+    background-color: #1a237e;
+    width: 100%;
+    background-repeat: repeat-y;
+    font-family: 'Ubuntu', sans-serif;
+}
+nav{
+    background-color: rgb(7, 65, 151) !important;
+    width: 100%;
+    border-radius: 50px;
+}
