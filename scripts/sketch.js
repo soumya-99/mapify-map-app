@@ -1,8 +1,8 @@
 // for the maze
-let windowSize = 800
-let cellSize = 4
-let n = windowSize / cellSize // maze dimensions. So maze is currently 10x10
-let vertices = n * n // number of vertices
+const WINDOWSIZE = 800
+const CELLSIZE = 4
+const GRIDSIZE = WINDOWSIZE / CELLSIZE // maze dimensions. So maze is currently 10x10
+const VERTICES = GRIDSIZE * GRIDSIZE // number of vertices
 let grid = new Array() //the maze
 let colorWhite = "rgba(255,255,255,1)" // strings of white and black colours
 let colorBlack = "rgba(0,0,0,1)"
@@ -10,8 +10,8 @@ let colorBlack = "rgba(0,0,0,1)"
 // for algorithm
 let adj = new Array() // this is the first layer
 // second layer is creatd locally
-let pred = new Array(vertices).fill(-1) // predecessor
-let path = new Array(vertices).fill(0) // path
+let pred = new Array(VERTICES).fill(-1) // predecessor
+let path = new Array(VERTICES).fill(0) // path
 //initially
 let source = 0
 let des = 99
@@ -24,7 +24,7 @@ function preload() {
 // this function is called only once when loding
 function setup() {
 	//frameRate(60)
-	createCanvas(windowSize, windowSize)
+	createCanvas(WINDOWSIZE, WINDOWSIZE)
 	init()
 }
 
@@ -37,11 +37,11 @@ function draw() {
 	for (let i = 0; i < grid.length; i++) {
 		for (let j = 0; j < grid[i].length; j++) {
 			if (grid[i][j].isWall === true) fill(32, 32, 32)
-			else if (grid[i][j].isPath === true) fill(255, 0, 0)
+			else if (grid[i][j].isPath === true) fill(0, 0, 255)
 			else if (grid[i][j].vertexNumber === source || grid[i][j].isSourceMarked === true) fill(0, 255, 0)
-			else if (grid[i][j].vertexNumber === des || grid[i][j].isDestMarked === true) fill(0, 0, 255)
+			else if (grid[i][j].vertexNumber === des || grid[i][j].isDestMarked === true) fill(255, 0, 0)
 			else fill(160, 160, 160)
-			rect(grid[i][j].y, grid[i][j].x, cellSize, cellSize)
+			rect(grid[i][j].y, grid[i][j].x, CELLSIZE, CELLSIZE)
 		}
 	}
 }
@@ -67,13 +67,13 @@ function init() {
 	let count = 0 // this will be vertex number
 	let arr = new Array()
 
-	for (let i = 0; i < n; i++) {
+	for (let i = 0; i < GRIDSIZE; i++) {
 		arr = [] // clear
-		for (let j = 0; j < n; j++) {
-			let tempOb = new Cell(false, false, count, j * cellSize, i * cellSize) // j in x as going row-wise
-			let halfSize = cellSize / 2
-			let pixelX = i * cellSize + halfSize
-			let pixelY = j * cellSize + halfSize
+		for (let j = 0; j < GRIDSIZE; j++) {
+			let tempOb = new Cell(false, false, count, j * CELLSIZE, i * CELLSIZE) // j in x as going row-wise
+			let halfSize = CELLSIZE / 2
+			let pixelX = i * CELLSIZE + halfSize
+			let pixelY = j * CELLSIZE + halfSize
 			let pixelColor = mapImg.get(pixelX, pixelY)
 			let colour = color(pixelColor).toString()
 			if (colour === colorBlack) // basically make it wall
@@ -120,16 +120,16 @@ function keyPressed() {
 	if (keyCode === 13) {
 		// if "Enter" is pressed then create data structrue and run bfs on it.
 		adj = new Array()
-		pred = new Array(vertices).fill(-1)
-		path = new Array(vertices).fill(0)
+		pred = new Array(VERTICES).fill(-1)
+		path = new Array(VERTICES).fill(0)
 		createStructure()
 		bfs()
 		let length = getPath()
 
 		// now setting toggling the isPath to make them highlight
 		for (let k = 0; k < length; k++)
-			for (let i = 0; i < n; i++)
-				for (let j = 0; j < n; j++)
+			for (let i = 0; i < GRIDSIZE; i++)
+				for (let j = 0; j < GRIDSIZE; j++)
 					if (grid[i][j].vertexNumber === path[k]) 
 						grid[i][j].isPath = true
 	}
@@ -138,16 +138,16 @@ function keyPressed() {
 // the parts for implementing algorithm
 function createStructure() {
 	// this creates the actual internal adjacent list like structure
-	for (let i = 0; i < n; i++) {
-		for (let j = 0; j < n; j++) {
+	for (let i = 0; i < GRIDSIZE; i++) {
+		for (let j = 0; j < GRIDSIZE; j++) {
 			let temp = new Array()
 
 			if (grid[i][j].isWall === false) {
-				if (j + 1 < n && grid[i][j + 1].isWall === false)
+				if (j + 1 < GRIDSIZE && grid[i][j + 1].isWall === false)
 					temp.push(grid[i][j + 1].vertexNumber)
 				if (j - 1 > 0 && grid[i][j - 1].isWall === false)
 					temp.push(grid[i][j - 1].vertexNumber)
-				if (i + 1 < n && grid[i + 1][j].isWall === false)
+				if (i + 1 < GRIDSIZE && grid[i + 1][j].isWall === false)
 					temp.push(grid[i + 1][j].vertexNumber)
 				if (i - 1 > 0 && grid[i - 1][j].isWall === false)
 					temp.push(grid[i - 1][j].vertexNumber)
@@ -160,7 +160,7 @@ function createStructure() {
 
 // bfs algorithm
 function bfs() {
-	let visited = new Array(vertices).fill(false)
+	let visited = new Array(VERTICES).fill(false)
 	let queue = new Array()
 
 	visited[source] = true
