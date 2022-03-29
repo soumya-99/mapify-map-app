@@ -7,12 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map</title>
     <link rel="stylesheet" href="./libs/materialize/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./css/map.css">
     <script src="./libs/p5js/p5.min.js"></script>
     <script src="./scripts/sketch.js"></script>
+    <script src="./libs/jQuery/jquery.min.js"></script>
+    <script src="./utils/smooth-scroll.js"></script>
+    <script src="./libs/materialize/js/materialize.min.js"></script>
+    <script src="./scripts/script.js"></script>
 </head>
 
 <body>
+    <nav>
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Mapify</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a class="waves-effect waves-light green btn" onclick="addSource()">Source</a></li>
+                    <!-- Add source -->
+                    <li><a class="waves-effect waves-light red btn" onclick="addDestination()">Destination</a></li>
+                    <!-- Add Destination -->
+                    <li><a class="waves-effect waves-light blue btn" onclick="reset()">Reset</a></li> <!-- Reset -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li class="sidenav__li">You cann't add source/destination without a laptop or computer.</li>
+    </ul>
+
+
     <div class="heading">
         <h1>Our Map</h1>
         <div class="divider"></div>

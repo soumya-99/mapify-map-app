@@ -8,11 +8,28 @@ body {
 	background: aliceblue;
 }
 
-.heading {
-	margin-bottom: 40px;
+nav{
+    background-color: rgb(51, 68, 85) !important;
+    width: 100%;
+    border-radius: 50px;
+}
+
+a {
+	border-radius: 20px !important;
 }
 
 canvas {
 	height: 600px !important;
 	width: 600px !important;
+}
+
+.heading {
+	margin-bottom: 40px;
+}
+
+.sidenav__li {
+	margin: 20px;
+	font-size: 15px;
+	color: red;
+	font-weight: 500;
 }
