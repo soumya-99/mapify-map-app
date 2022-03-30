@@ -1,14 +1,17 @@
 // for the maze
-const WINDOWSIZE = 800
+const WINDOWSIZE_X = 800
+const WINDOWSIZE_Y = 800
+
 const CELLSIZE = 4
-const GRIDSIZE = WINDOWSIZE / CELLSIZE // maze dimensions. So maze is currently 10x10
-const VERTICES = GRIDSIZE * GRIDSIZE // number of vertices
+const MAX_X = WINDOWSIZE_X / CELLSIZE
+const MAX_Y = WINDOWSIZE_Y / CELLSIZE
+const VERTICES = MAX_X * MAX_Y
+
 let grid = new Array() //the maze
-let colorWhite = "rgba(255,255,255,1)" // strings of white and black colours
-let colorBlack = "rgba(0,0,0,1)"
+let colorWhite = "rgba(255,255,255,1)" // strings of white colour
 
 // for algorithm
-let adj = new Array() // this is the first layer
+let adj = new Map()
 // second layer is creatd locally
 let pred = new Array(VERTICES).fill(-1) // predecessor
 let path = new Array(VERTICES).fill(0) // path
@@ -18,28 +21,28 @@ let des = 99
 
 function preload() {
 	// change your map image here
-	mapImg = loadImage("maps/map2.png")
+	mapImg = loadImage("maps/map3.png")
 }
 
 // this function is called only once when loding
 function setup() {
 	//frameRate(60)
-	createCanvas(WINDOWSIZE, WINDOWSIZE)
+	createCanvas(WINDOWSIZE_X, WINDOWSIZE_Y)
 	init()
 }
 
 // this function is called in every frame
 function draw() {
-	background(220)
+	background(0)
+	noStroke();
 	fill(160, 160, 160)
 
 	// drawing maze
 	for (let i = 0; i < grid.length; i++) {
 		for (let j = 0; j < grid[i].length; j++) {
-			if (grid[i][j].isWall === true) fill(32, 32, 32)
-			else if (grid[i][j].isPath === true) fill(0, 0, 255)
-			else if (grid[i][j].vertexNumber === source || grid[i][j].isSourceMarked === true) fill(0, 255, 0)
-			else if (grid[i][j].vertexNumber === des || grid[i][j].isDestMarked === true) fill(255, 0, 0)
+			if (grid[i][j].isPath === true) fill(255, 0, 0)
+			else if (grid[i][j].isSourceMarked === true) fill(0, 255, 0)
+			else if (grid[i][j].isDestMarked === true) fill(0, 0, 255)
 			else fill(160, 160, 160)
 			rect(grid[i][j].y, grid[i][j].x, CELLSIZE, CELLSIZE)
 		}
@@ -50,9 +53,7 @@ function draw() {
 // this is my cell calss. Represents each cell in the grid.
 // each cell is a vertex
 class Cell {
-	constructor(isWall, isVisited, vertexNumber, x, y) {
-		this.isWall = isWall
-		this.isVisited = isVisited
+	constructor(vertexNumber, x, y) {
 		this.isPath = false // if it is in the final path. False initially
 		this.isSourceMarked = false // if soruce or dest
 		this.isDestMarked = false
@@ -67,19 +68,19 @@ function init() {
 	let count = 0 // this will be vertex number
 	let arr = new Array()
 
-	for (let i = 0; i < GRIDSIZE; i++) {
+	for (let i = 0; i < MAX_X; i++) {
 		arr = [] // clear
-		for (let j = 0; j < GRIDSIZE; j++) {
-			let tempOb = new Cell(false, false, count, j * CELLSIZE, i * CELLSIZE) // j in x as going row-wise
+		for (let j = 0; j < MAX_Y; j++) {
 			let halfSize = CELLSIZE / 2
 			let pixelX = i * CELLSIZE + halfSize
 			let pixelY = j * CELLSIZE + halfSize
 			let pixelColor = mapImg.get(pixelX, pixelY)
 			let colour = color(pixelColor).toString()
-			if (colour === colorBlack) // basically make it wall
-				tempOb.isWall = true
-
-			arr.push(tempOb)
+			if (colour === colorWhite) {	// basically make it wall
+				let tempOb = new Cell(count, j*CELLSIZE, i*CELLSIZE);
+				arr.push(tempOb);
+			} 
+			
 			count = count + 1
 		}
 		grid.push(arr)
@@ -122,38 +123,66 @@ function keyPressed() {
 		adj = new Array()
 		pred = new Array(VERTICES).fill(-1)
 		path = new Array(VERTICES).fill(0)
-		createStructure()
+		Create_AdjacencyMap()
 		bfs()
 		let length = getPath()
 
 		// now setting toggling the isPath to make them highlight
 		for (let k = 0; k < length; k++)
-			for (let i = 0; i < GRIDSIZE; i++)
-				for (let j = 0; j < GRIDSIZE; j++)
+			for (let i = 0; i < grid.length; i++)
+				for (let j = 0; j < grid[i].length; j++)
 					if (grid[i][j].vertexNumber === path[k]) 
 						grid[i][j].isPath = true
 	}
 }
 
 // the parts for implementing algorithm
-function createStructure() {
-	// this creates the actual internal adjacent list like structure
-	for (let i = 0; i < GRIDSIZE; i++) {
-		for (let j = 0; j < GRIDSIZE; j++) {
+function Create_AdjacencyMap() {
+
+	for (let i = 0; i < grid.length; i++) {
+		for (let j = 0; j < grid[i].length; j++) {
 			let temp = new Array()
 
-			if (grid[i][j].isWall === false) {
-				if (j + 1 < GRIDSIZE && grid[i][j + 1].isWall === false)
-					temp.push(grid[i][j + 1].vertexNumber)
-				if (j - 1 > 0 && grid[i][j - 1].isWall === false)
-					temp.push(grid[i][j - 1].vertexNumber)
-				if (i + 1 < GRIDSIZE && grid[i + 1][j].isWall === false)
-					temp.push(grid[i + 1][j].vertexNumber)
-				if (i - 1 > 0 && grid[i - 1][j].isWall === false)
-					temp.push(grid[i - 1][j].vertexNumber)
+			//up
+			if (i - 1 >= 0) {
+				let item = grid[i][j].vertexNumber - MAX_X - 1;
+				for (let k = 0; k < grid[i - 1].length; k++) {
+					// if (gridVector[i - 1][k].vertex > item)
+					// 	break;
+					if (grid[i - 1][k].vertexNumber === item) {
+						temp.push(item);
+						break;
+					}
+				}
 			}
 
-			adj.push(temp)
+			//left
+			if (j - 1 >= 0) {
+				if (grid[i][j - 1].vertexNumber === grid[i][j].vertexNumber - 1)
+					temp.push(grid[i][j - 1].vertexNumber);
+			}
+
+			//right
+			if (j + 1 < grid[i].length) {
+				if (grid[i][j + 1].vertexNumber === grid[i][j].vertexNumber + 1)
+					temp.push(grid[i][j + 1].vertexNumber);
+			}
+
+			//down
+			if (i + 1 < grid.length) {
+				let item = grid[i][j].vertexNumber + MAX_X + 1;
+				for (let k = 0; k < grid[i + 1].length; k++) {
+					// if (gridVector[i - 1][k].vertex > item)
+					// 	break;
+					if (grid[i + 1][k].vertexNumber === item) {
+						temp.push(item);
+						break;
+					}
+				}
+			}
+
+			//adj.set(grid[i][j].vertexNumber, temp);
+			adj[grid[i][j].vertexNumber] = temp;
 		}
 	}
 }
@@ -173,10 +202,11 @@ function bfs() {
 			return
 		}
 
-		// accessing the first array element with random access, here adj[x].
-		// it's reference arrays are accessed sequentially. here adj[x][i] in loop
-		for (let i = 0; i < adj[x].length; i++) {
-			let vNum = adj[x][i]
+		//in this new approach adjacencyMap is a hash map of integer key and a vector of int as value
+		//directly access the vector with the unique key (here x)
+		let curr = adj[x];
+		for (let k = 0; k < curr.length; k++) {
+			let vNum = curr[k];
 			if (visited[vNum] === false) {
 				visited[vNum] = true
 				queue.push(vNum)
@@ -205,6 +235,5 @@ function clearPath() {
 			grid[i][j].isPath = false
 			grid[i][j].isSourceMarked = false
 			grid[i][j].isDestMarked = false
-		}
-			
+		}		
 }
