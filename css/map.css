@@ -48,8 +48,12 @@ canvas {
 }
 
 .card {
-	flex-wrap: nowrap;
 	margin-right: 50px;
 	margin-left: 50px;
 	margin-top: -10px;
+	border-radius: 15px;
+}
+
+.card-image {
+	border-radius: 15px 15px 0 0;
 }
