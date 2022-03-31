@@ -5,7 +5,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background: aliceblue;
+	background: rgb(216, 237, 255);
 }
 
 nav{
@@ -19,8 +19,14 @@ a {
 }
 
 canvas {
-	height: 800px !important;
-	width: 800px !important;
+	height: 600px !important;
+	width: 600px !important;
+	cursor: url("../ico/icons8-flag-2-25.png"), auto;
+	border-radius: 15px;
+}
+
+.divider {
+	background-color: black;
 }
 
 .heading {
@@ -32,4 +38,18 @@ canvas {
 	font-size: 15px;
 	color: red;
 	font-weight: 500;
+}
+
+.cards__all {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 50vw;
+}
+
+.card {
+	flex-wrap: nowrap;
+	margin-right: 50px;
+	margin-left: 50px;
+	margin-top: -10px;
 }
