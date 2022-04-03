@@ -23,16 +23,38 @@
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">Mapify</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <ul id="nav-mobile" class="right hide-on-med-and-down" style="display: flex; justify-content: space-around;">
                     <li><a class="waves-effect waves-light red accent-2 btn" onclick="findPath()">Find Path</a></li>
-                    <!-- Add source -->
-                    <!-- <li><a class="waves-effect waves-light pink darken-1 btn" onclick="addDestination()">Destination</a></li> -->
-                    <!-- Add Destination -->
                     <li><a class="waves-effect waves-light blue btn" onclick="clearPath()">Reset</a></li> <!-- Reset -->
+                    <li><a class="waves-effect waves-light yellow darken-3 btn modal-trigger" href="#modal1">Help</a>
+                    </li>
+                    <li>
+                        <div class="switch">
+                            <label>
+                                Light Mode
+                                <input type="checkbox" onclick="switchDarkForMap()">
+                                <span class="lever"></span>
+                                Dark Mode
+                            </label>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <!-- Modal for User Guide -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>User Guide</h4>
+            <div class="divider"></div>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Accept</a>
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat">Decline</a>
+        </div>
+    </div>
 
     <ul class="sidenav" id="mobile-demo">
         <li class="sidenav__li">You cann't add source/destination without a laptop or computer.</li>
@@ -42,38 +64,6 @@
     <div class="heading">
         <h3>User Guide (Click on The Cards)</h3>
         <div class="divider"></div>
-    </div>
-
-    <div class="cards__all">
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="./img/office.jpg">
-            </div>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">Keyboard<i
-                        class="material-icons right">more_vert</i></span>
-            </div>
-            <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Keyboard<i
-                        class="material-icons right">close</i></span>
-                <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="./img/office.jpg">
-            </div>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">GUI Manual<i
-                        class="material-icons right">more_vert</i></span>
-            </div>
-            <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">GUI Manual<i
-                        class="material-icons right">close</i></span>
-                <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-        </div>
     </div>
 </body>
 

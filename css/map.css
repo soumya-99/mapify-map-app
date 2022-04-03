@@ -1,3 +1,21 @@
+@font-face {
+	font-family: "GoogleSans";
+	src: url("../fonts/GoogleSans-Medium.ttf");
+}
+
+:root {
+	--material-grey: rgb(51, 68, 85);
+	--material-grey-dark: rgb(55, 71, 79);
+	--material-white: rgb(216, 237, 255);
+	--material-red: rgb(255, 59, 48);
+	--material-red-light: tomato;
+	--material-blue: dodgerblue;
+	--material-green: rgb(0, 166, 81);
+	--material-yellow: rgb(255, 204, 0);
+
+	--divider-color: rgb(114, 114, 114);
+}
+
 body {
 	padding: 0;
 	margin: 0;
@@ -5,13 +23,14 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background: rgb(216, 237, 255);
+	background: var(--material-white) !important;
+	font-family: "GoogleSans";
 }
 
-nav{
-    background-color: rgb(51, 68, 85) !important;
-    width: 100%;
-    border-radius: 50px;
+nav {
+	background-color: var(--material-grey) !important;
+	width: 100%;
+	border-radius: 50px;
 }
 
 a {
@@ -19,14 +38,31 @@ a {
 }
 
 canvas {
-	height: 600px !important;
-	width: 600px !important;
+	height: 800px !important;
+	width: 800px !important;
 	cursor: url("../ico/icons8-flag-2-25.png"), auto;
 	border-radius: 15px;
 }
 
 .divider {
-	background-color: black;
+	background-color: var(--divider-color);
+}
+
+.dark {
+	background: var(--material-grey) !important;
+	color: var(--material-white);
+}
+
+.modal__dark {
+	background-color: var(--material-grey);
+}
+
+.modal-footer__dark {
+	background-color: var(--material-grey) !important;
+}
+
+.modal-footer a {
+	color: var(--divider-color) !important;
 }
 
 .heading {
@@ -36,24 +72,6 @@ canvas {
 .sidenav__li {
 	margin: 20px;
 	font-size: 15px;
-	color: red;
+	color: var(--material-red);
 	font-weight: 500;
-}
-
-.cards__all {
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-	width: 50vw;
-}
-
-.card {
-	margin-right: 50px;
-	margin-left: 50px;
-	margin-top: -10px;
-	border-radius: 15px;
-}
-
-.card-image {
-	border-radius: 15px 15px 0 0;
 }
