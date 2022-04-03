@@ -1,5 +1,5 @@
 // For smooth-scroll initialization
-new SmoothScroll('a[href*="#"]')
+var scroll = new SmoothScroll('a[href*="#"]')
 
 // jQueries for MATERIALIZE CSS
 $(document).ready(function () {

@@ -12,6 +12,7 @@
 	--material-blue: dodgerblue;
 	--material-green: rgb(0, 166, 81);
 	--material-yellow: rgb(255, 204, 0);
+	--material-teal: rgb(0, 150, 136);
 
 	--divider-color: rgb(114, 114, 114);
 }
@@ -74,4 +75,28 @@ canvas {
 	font-size: 15px;
 	color: var(--material-red);
 	font-weight: 500;
+}
+
+.helpText {
+	font-size: 1.2rem;
+}
+
+.src {
+	color: var(--material-green);
+}
+
+.dest {
+	color: var(--material-blue);
+}
+
+.return {
+	color: var(--material-red);
+}
+
+.reset {
+	color: var(--material-yellow);
+}
+
+.toggle {
+	color: var(--material-teal);
 }
