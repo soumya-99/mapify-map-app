@@ -36,13 +36,23 @@
     <nav>
         <div class="container">
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo" style="padding-left: 30px; font-family: 'Lobster', cursive;">Mapify</a>
+                <a href="#!" class="brand-logo" style="padding-left: 30px; font-weight: 500;">Mapify</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
+                <ul class="right hide-on-med-and-down" style="display: flex; justify-content: space-around;">
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">GO TO<i
                                 class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="./map.html" target="_blank">Open Map</a></li>
                     <li><a href="#aboutus">About Us</a></li>
+                    <li>
+                        <div class="switch">
+                            <label>
+                                Light Mode
+                                <input type="checkbox" onclick="switchDarkForIndex()">
+                                <span class="lever"></span>
+                                Dark Mode
+                            </label>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -97,7 +107,7 @@
                 </div>
                 <div class="col l8 s12" style="padding-top: 15px;">
                     <img src="./img/tajmahal.jpg" alt="" style="width: 100%; border-radius: 20px;">
-                    <span style="color: aliceblue;">Clicked By: Someone on the Internet.</span>
+                    <span id="image-footer">Clicked By: Someone on the Internet.</span>
                 </div>
             </div>
         </section>
@@ -110,7 +120,7 @@
             <div class="row">
                 <div class="col l8 s12">
                     <img src="./img/victoria.jfif" alt="vict" style="width: 100%; border-radius: 20px;">
-                    <span style="color: aliceblue;">Clicked By: Someone on the Internet.</span>
+                    <span id="image-footer">Clicked By: Someone on the Internet.</span>
                 </div>
                 <div class="col l4 s12">
                     <h4 style="color: rgb(214, 59, 85);"><strong>Our Aim</strong></h4>
@@ -163,7 +173,7 @@
                 </div>
                 <div class="col l8 s12">
                     <img src="./img/goa.jpg" alt="" style="width: 100%; border-radius: 20px;">
-                    <span style="color: aliceblue;">Clicked By: Someone on the Internet.</span>
+                    <span id="image-footer">Clicked By: Someone on the Internet.</span>
                 </div>
             </div>
         </section>
@@ -177,7 +187,7 @@
             <div class="row">
                 <div class="col l8 s12">
                     <img src="./img/rajasthan-tourism.jpg" alt="vict" style="width: 100%; border-radius: 20px;">
-                    <span style="color: aliceblue;">Clicked By: Someone on the Internet.</span>
+                    <span id="image-footer">Clicked By: Someone on the Internet.</span>
                 </div>
                 <div class="col l4 s12">
                     <h4 style="color: rgb(241, 127, 21);"><strong>Conclusion</strong></h4>
@@ -232,7 +242,7 @@
                 <div class="col l8 s12">
                     <img src="./img/Nalanda_University_India_ruins.jpg" alt=""
                         style="width: 100%; border-radius: 20px;">
-                    <span style="color: aliceblue;">Clicked By: Someone on the Internet.</span>
+                    <span id="image-footer">Clicked By: Someone on the Internet.</span>
                 </div>
             </div>
         </section>
@@ -245,10 +255,9 @@
 
     <section id="pricing">
         <div class="container">
-            <h3 style="color:azure">Algorithm Complexity Table</h3>
+            <h3 class="h3__algoTable center">Algorithm Complexity Table</h3>
 
-            <table class="responsive-table highlight centered"
-                style="color: aliceblue; border: 1px solid; border-color: aliceblue;">
+            <table class="responsive-table highlight centered">
                 <thead class="blue">
                     <tr>
                         <th>Algorithm</th>
@@ -257,7 +266,7 @@
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="table-algo">
                     <tr>
                         <td>Breadth First Search</td>
                         <td>O(V + E)</td>
@@ -284,7 +293,7 @@
 
     <section id="glance">
         <div class="container">
-            <h3 style="color: aliceblue; border-bottom: 1px dotted; padding-bottom: 8px;" class="center">At a Glance
+            <h3 class="h3__atAGlance center">At a Glance
             </h3>
             <div class="carousel">
                 <a class="carousel-item" href="#one!">

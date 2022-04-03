@@ -21,7 +21,7 @@ let destination = 99
 
 function preload() {
 	// change your map image here
-	mapImg = loadImage("maps/map4.png")
+	mapImg = loadImage("maps/map2.png")
 }
 
 // this function is called only once when loding
