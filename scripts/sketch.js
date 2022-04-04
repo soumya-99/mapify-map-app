@@ -17,7 +17,9 @@ let pred = new Array(VERTICES).fill(-1) // predecessor
 let path = new Array(VERTICES).fill(0) // path
 //initially
 let source = 0
+let sourceAdded = false
 let destination = 99
+let destAdded = false
 
 function preload() {
 	// change your map image here
@@ -111,10 +113,12 @@ function keyPressed() {
 					// if "S" is pressed
 					source = grid[i][j].vertexNumber
 					grid[i][j].isSourceMarked = true
+					sourceAdded = true
 				} else if (keyIsDown(68)) {
 					// if "D" is pressed
 					destination = grid[i][j].vertexNumber
 					grid[i][j].isDestMarked = true
+					destAdded = true
 				}
 			}
 		}
@@ -134,6 +138,9 @@ function keyPressed() {
 }
 
 const findPath = () => {
+	if(!sourceAdded || !destAdded)
+		return
+
 	// adj = new Array()
 	pred = new Array(VERTICES).fill(-1)
 	path = new Array(VERTICES).fill(0)
@@ -241,10 +248,13 @@ function getPath() {
 }
 
 function clearPath() {
-	for (let i = 0; i < grid.length; i++)
+	for (let i = 0; i < grid.length; i++) {
 		for (let j = 0; j < grid[i].length; j++) {
 			grid[i][j].isPath = false
 			grid[i][j].isSourceMarked = false
 			grid[i][j].isDestMarked = false
 		}
+	}
+	sourceAdded = false
+	destAdded = false
 }
