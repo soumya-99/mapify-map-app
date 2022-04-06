@@ -11,6 +11,7 @@ $(document).ready(function () {
 	}, 2500)
 	$(".dropdown-trigger").dropdown()
 	$(".modal").modal()
+	$('select').formSelect();
 })
 
 const switchDarkForMap = () => {

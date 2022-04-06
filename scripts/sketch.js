@@ -9,10 +9,15 @@ let VERTICES = 0
 
 let grid = new Array() //the maze
 let colorWhite = "rgba(255,255,255,1)" // strings of white colour
-let imageNameArray = ["maps/map2.png", "maps/map3.png", "maps/map4.png", "maps/map5.png", "maps/map6.png"]	
-let lodedImages = []	//holds the loded images
-let currentMapIndex = 0	//current image index
-
+let imageNameArray = [
+	"maps/map2.png",
+	"maps/map3.png",
+	"maps/map4.png",
+	"maps/map5.png",
+	"maps/map6.png",
+]
+let lodedImages = [] //holds the loded images
+let currentMapIndex = 0 //current image index
 
 // for algorithm
 let adj = new Map()
@@ -27,17 +32,17 @@ let destAdded = false
 
 function preload() {
 	//load all maps
-	for(let i=0;i<imageNameArray.length;i++) {
-		mapImg = loadImage(imageNameArray[i])
+	imageNameArray.forEach((img) => {
+		mapImg = loadImage(img)
 		lodedImages.push(mapImg)
-	}
-	mapImg = lodedImages[currentMapIndex]	
+	})
+	mapImg = lodedImages[currentMapIndex]
 }
 
 // this function is called only once when loding
 function setup() {
 	//create a canvas with the dimension of the image
-	image(mapImg,0,0)
+	image(mapImg, 0, 0)
 	WINDOWSIZE_X = mapImg.width
 	WINDOWSIZE_Y = mapImg.height
 	MAX_X = WINDOWSIZE_X / CELLSIZE
@@ -51,14 +56,12 @@ function setup() {
 
 function reSetup() {
 	//load the next image
-	if(currentMapIndex === lodedImages.length - 1)
-		currentMapIndex = 0
-	else
-		currentMapIndex = currentMapIndex + 1
+	if (currentMapIndex === lodedImages.length - 1) currentMapIndex = 0
+	else currentMapIndex = currentMapIndex + 1
 	mapImg = lodedImages[currentMapIndex]
 
 	//re initialize all the values
-	image(mapImg,0,0)
+	image(mapImg, 0, 0)
 	WINDOWSIZE_X = mapImg.width
 	WINDOWSIZE_Y = mapImg.height
 	MAX_X = WINDOWSIZE_X / CELLSIZE
@@ -72,7 +75,6 @@ function reSetup() {
 	createAdjacencyMap()
 }
 
-
 // this function is called in every frame
 function draw() {
 	background(55, 71, 79)
@@ -80,19 +82,19 @@ function draw() {
 	fill(160, 160, 0)
 
 	// drawing maze
-	for (let i = 0; i < grid.length; i++) {
-		for (let j = 0; j < grid[i].length; j++) {
-			if (grid[i][j].isPath === true) fill(255, 0, 0)
-			else if (grid[i][j].isSourceMarked === true) fill(0, 255, 0)
-			else if (grid[i][j].isDestMarked === true) fill(0, 0, 255)
+	grid.forEach((row) => {
+		row.forEach((cell) => {
+			if (cell.isPath === true) fill(255, 0, 0)
+			else if (cell.isSourceMarked === true) fill(0, 255, 0)
+			else if (cell.isDestMarked === true) fill(0, 0, 255)
 			else fill(255, 255, 255)
-			rect(grid[i][j].y, grid[i][j].x, CELLSIZE, CELLSIZE)
-		}
-	}
+			rect(cell.y, cell.x, CELLSIZE, CELLSIZE)
+		})
+	})
 }
 ////////////////////////////////////////////////////////////////////
 
-// this is my cell calss. Represents each cell in the grid.
+// this is my Cell class. Represents each cell in the grid.
 // each cell is a vertex
 class Cell {
 	constructor(vertexNumber, x, y) {
@@ -109,7 +111,7 @@ class Cell {
 function init() {
 	let count = 0 // this will be vertex number
 	let arr = new Array()
-	grid = []	//this needs to be cleared for every reSet() call
+	grid = [] //this needs to be cleared for every reSet() call
 
 	for (let i = 0; i < MAX_Y; i++) {
 		arr = [] // clear
@@ -130,38 +132,31 @@ function init() {
 	}
 }
 
-// this function will be called each time mouse is pressed
-function mousePressed() {
-	//don't need to add walls anymore
-}
-
 // this function will be called each time keyboard key is pressed
 function keyPressed() {
 	// toggling for source and destination
-	for (let i = 0; i < grid.length; i++) {
-		for (let j = 0; j < grid[i].length; j++) {
-			let posX = grid[i][j].y
-			let posY = grid[i][j].x
+	grid.forEach((row) => {
+		row.forEach((cell) => {
 			if (
-				mouseX > posX &&
-				mouseX < posX + 12 &&
-				mouseY > posY &&
-				mouseY < posY + 12
+				mouseX > cell.y && // posX
+				mouseX < cell.y + 12 && // posX
+				mouseY > cell.x && // posY
+				mouseY < cell.x + 12 //posY
 			) {
 				if (keyIsDown(83)) {
 					// if "S" is pressed
-					source = grid[i][j].vertexNumber
-					grid[i][j].isSourceMarked = true
+					source = cell.vertexNumber
+					cell.isSourceMarked = true
 					sourceAdded = true
 				} else if (keyIsDown(68)) {
 					// if "D" is pressed
-					destination = grid[i][j].vertexNumber
-					grid[i][j].isDestMarked = true
+					destination = cell.vertexNumber
+					cell.isDestMarked = true
 					destAdded = true
 				}
 			}
-		}
-	}
+		})
+	})
 
 	//clear paths and source and destination marks
 	if (keyCode === 82) {
@@ -175,16 +170,15 @@ function keyPressed() {
 		findPath()
 	}
 
-	if(keyCode == 81) {
-		//if "Q" is pressed then load next map and re-initialize everything 
+	if (keyCode == 81) {
+		//if "Q" is pressed then load next map and re-initialize everything
 		reSetup()
 		clearPath()
 	}
 }
 
 const findPath = () => {
-	if(!sourceAdded || !destAdded)
-		return
+	if (!sourceAdded || !destAdded) return
 
 	// adj = new Array()
 	pred = new Array(VERTICES).fill(-1)
@@ -195,9 +189,11 @@ const findPath = () => {
 
 	// now setting toggling the isPath to make them highlight
 	for (let k = 0; k < length; k++)
-		for (let i = 0; i < grid.length; i++)
-			for (let j = 0; j < grid[i].length; j++)
-				if (grid[i][j].vertexNumber === path[k]) grid[i][j].isPath = true
+		grid.forEach((row) => {
+			row.forEach((cell) => {
+				if (cell.vertexNumber === path[k]) cell.isPath = true
+			})
+		})
 }
 
 // the parts for implementing algorithm
@@ -270,14 +266,13 @@ function bfs() {
 		//in this new approach adjacencyMap is a hash map of integer key and a vector of int as value
 		//directly access the vector with the unique key (here x)
 		let curr = adj[x]
-		for (let k = 0; k < curr.length; k++) {
-			let vNum = curr[k]
+		curr.forEach((vNum) => {
 			if (visited[vNum] === false) {
 				visited[vNum] = true
 				queue.push(vNum)
 				pred[vNum] = x
 			}
-		}
+		})
 	}
 }
 
@@ -295,13 +290,13 @@ function getPath() {
 }
 
 function clearPath() {
-	for (let i = 0; i < grid.length; i++) {
-		for (let j = 0; j < grid[i].length; j++) {
-			grid[i][j].isPath = false
-			grid[i][j].isSourceMarked = false
-			grid[i][j].isDestMarked = false
-		}
-	}
+	grid.forEach((row) => {
+		row.forEach((cell) => {
+			cell.isPath = false
+			cell.isSourceMarked = false
+			cell.isDestMarked = false
+		})
+	})
 	sourceAdded = false
 	destAdded = false
 }

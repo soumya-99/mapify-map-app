@@ -23,7 +23,7 @@
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">Mapify</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down" style="display: flex; justify-content: space-around;">
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a class="waves-effect waves-light red accent-2 btn" onclick="findPath()">Find Path</a></li>
                     <li><a class="waves-effect waves-light blue btn" onclick="clearPath()">Reset</a></li> <!-- Reset -->
                     <li><a class="waves-effect waves-light yellow darken-3 btn modal-trigger" href="#modal1">Help</a>
@@ -70,6 +70,16 @@
     <div class="heading">
         <h3>Map App</h3>
         <div class="divider"></div>
+        <div class="input-field col s12 m6">
+            <select class="icons" id="maps">
+                <option value="" disabled selected>Choose Map</option>
+                <option value="" data-icon="maps/map2.png">Map 2</option>
+                <option value="" data-icon="maps/map3.png">Map 3</option>
+                <option value="" data-icon="maps/map4.png">Map 4</option>
+                <option value="" data-icon="maps/map5.png">Map 5</option>
+                <option value="" data-icon="maps/map6.png">Map 6</option>
+            </select>
+        </div>
     </div>
 </body>
 
