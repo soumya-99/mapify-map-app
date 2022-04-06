@@ -39,8 +39,8 @@ a {
 }
 
 canvas {
-	height: 800px !important;
-	width: 800px !important;
+	/* height: 800px !important; */
+	/* width: 800px !important; */
 	cursor: url("../ico/icons8-flag-2-25.png"), auto;
 	border-radius: 15px;
 }

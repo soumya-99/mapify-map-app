@@ -1,14 +1,18 @@
 // for the maze
-const WINDOWSIZE_X = 800
-const WINDOWSIZE_Y = 800
+let WINDOWSIZE_X = 0
+let WINDOWSIZE_Y = 0
 
 const CELLSIZE = 4
-const MAX_X = WINDOWSIZE_X / CELLSIZE
-const MAX_Y = WINDOWSIZE_Y / CELLSIZE
-const VERTICES = MAX_X * MAX_Y
+let MAX_X = 0
+let MAX_Y = 0
+let VERTICES = 0
 
 let grid = new Array() //the maze
 let colorWhite = "rgba(255,255,255,1)" // strings of white colour
+let imageNameArray = ["maps/map2.png", "maps/map3.png", "maps/map4.png", "maps/map5.png", "maps/map6.png"]	
+let lodedImages = []	//holds the loded images
+let currentMapIndex = 0	//current image index
+
 
 // for algorithm
 let adj = new Map()
@@ -22,17 +26,52 @@ let destination = 99
 let destAdded = false
 
 function preload() {
-	// change your map image here
-	mapImg = loadImage("maps/map2.png")
+	//load all maps
+	for(let i=0;i<imageNameArray.length;i++) {
+		mapImg = loadImage(imageNameArray[i])
+		lodedImages.push(mapImg)
+	}
+	mapImg = lodedImages[currentMapIndex]	
 }
 
 // this function is called only once when loding
 function setup() {
-	//frameRate(60)
+	//create a canvas with the dimension of the image
+	image(mapImg,0,0)
+	WINDOWSIZE_X = mapImg.width
+	WINDOWSIZE_Y = mapImg.height
+	MAX_X = WINDOWSIZE_X / CELLSIZE
+	MAX_Y = WINDOWSIZE_Y / CELLSIZE
+	VERTICES = MAX_X * MAX_Y
+
 	createCanvas(WINDOWSIZE_X, WINDOWSIZE_Y)
 	init()
 	createAdjacencyMap()
 }
+
+function reSetup() {
+	//load the next image
+	if(currentMapIndex === lodedImages.length - 1)
+		currentMapIndex = 0
+	else
+		currentMapIndex = currentMapIndex + 1
+	mapImg = lodedImages[currentMapIndex]
+
+	//re initialize all the values
+	image(mapImg,0,0)
+	WINDOWSIZE_X = mapImg.width
+	WINDOWSIZE_Y = mapImg.height
+	MAX_X = WINDOWSIZE_X / CELLSIZE
+	MAX_Y = WINDOWSIZE_Y / CELLSIZE
+	VERTICES = MAX_X * MAX_Y
+	console.log(MAX_X, MAX_Y)
+
+	//resize canvas
+	resizeCanvas(WINDOWSIZE_X, WINDOWSIZE_Y)
+	init()
+	createAdjacencyMap()
+}
+
 
 // this function is called in every frame
 function draw() {
@@ -70,21 +109,21 @@ class Cell {
 function init() {
 	let count = 0 // this will be vertex number
 	let arr = new Array()
+	grid = []	//this needs to be cleared for every reSet() call
 
-	for (let i = 0; i < MAX_X; i++) {
+	for (let i = 0; i < MAX_Y; i++) {
 		arr = [] // clear
-		for (let j = 0; j < MAX_Y; j++) {
+		for (let j = 0; j < MAX_X; j++) {
 			let halfSize = CELLSIZE / 2
-			let pixelX = i * CELLSIZE + halfSize
-			let pixelY = j * CELLSIZE + halfSize
+			let pixelX = j * CELLSIZE + halfSize
+			let pixelY = i * CELLSIZE + halfSize
 			let pixelColor = mapImg.get(pixelX, pixelY)
 			let colour = color(pixelColor).toString()
 			if (colour === colorWhite) {
 				// basically make it wall
-				let tempOb = new Cell(count, j * CELLSIZE, i * CELLSIZE)
+				let tempOb = new Cell(count, i * CELLSIZE, j * CELLSIZE)
 				arr.push(tempOb)
 			}
-
 			count = count + 1
 		}
 		grid.push(arr)
@@ -135,6 +174,12 @@ function keyPressed() {
 		// if "Enter" is pressed then create data structrue and run bfs on it.
 		findPath()
 	}
+
+	if(keyCode == 81) {
+		//if "Q" is pressed then load next map and re-initialize everything 
+		reSetup()
+		clearPath()
+	}
 }
 
 const findPath = () => {
@@ -144,7 +189,7 @@ const findPath = () => {
 	// adj = new Array()
 	pred = new Array(VERTICES).fill(-1)
 	path = new Array(VERTICES).fill(0)
-	createAdjacencyMap()
+	//createAdjacencyMap()
 	bfs()
 	let length = getPath()
 
@@ -157,6 +202,8 @@ const findPath = () => {
 
 // the parts for implementing algorithm
 function createAdjacencyMap() {
+	adj.clear()
+
 	for (let i = 0; i < grid.length; i++) {
 		for (let j = 0; j < grid[i].length; j++) {
 			let temp = new Array()
