@@ -35,14 +35,20 @@ nav {
 }
 
 a {
-	border-radius: 20px !important;
+	border-radius: 30px !important;
 }
 
 canvas {
-	/* height: 800px !important; */
-	/* width: 800px !important; */
-	cursor: url("../ico/icons8-flag-2-25.png"), auto;
-	border-radius: 15px;
+	border-radius: 30px;
+	cursor: pointer;
+}
+
+canvas:active {
+	cursor: grab;
+}
+
+.row {
+	margin-top: 15px;
 }
 
 .divider {
@@ -99,4 +105,42 @@ canvas {
 
 .toggle {
 	color: var(--material-teal);
+}
+
+/* MapBody Style Starts */
+.row {
+	display: flex;
+	justify-content: center;
+}
+
+.map-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 30px;
+	width: 50vw; /* size of container */
+	height: 80vh; /* size of container */
+	overflow: scroll; /* Overflows the map */
+}
+
+::-webkit-scrollbar {
+	width: 0;
+}
+
+body > div > div.col.s7 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+footer {
+	border-radius: 30px;
+}
+
+.carousel {
+	margin-left: 10%;
+}
+
+.card {
+	border-radius: 30px;
 }

@@ -11,6 +11,7 @@ $(document).ready(function () {
 	}, 2500)
 	$(".dropdown-trigger").dropdown()
 	$(".modal").modal()
+	$("select").formSelect()
 })
 
 const switchDarkForMap = () => {
@@ -20,7 +21,7 @@ const switchDarkForMap = () => {
 	document.querySelector(".modal-footer").classList.toggle("modal-footer__dark")
 }
 
-const switchDarkForIndex = () => {
+const switchDarkForAboutUs = () => {
 	document.body.classList.toggle("dark")
 	// document.querySelector(".divider").classList.toggle("divider__dark")
 	document.getElementById("image-footer").classList.toggle("image-footer__dark")
