@@ -18,7 +18,7 @@ let context = canvas.getContext("2d")
 let sourceSet = true,
 	destSet = true
 let source, destination
-let box_dimensions = 4
+let box_dimensions = 2
 let maxX = canvas.width / box_dimensions //image loading needs to be done before this
 let maxY = canvas.height / box_dimensions //cause accessing the canvas element here
 let vertex = maxX * maxY
@@ -27,8 +27,18 @@ let adj = new Map()
 let pred = new Array(vertex).fill(-1) // predecessor
 let path = new Array(vertex).fill(0) // path
 
-img.onload = function () {
-	context.drawImage(img, 0, 0, canvas.width, canvas.height)
+img.onload = async () => {
+	await context.drawImage(
+		img,
+		0,
+		0,
+		img.width,
+		img.height,
+		0,
+		0,
+		canvas.width,
+		canvas.height
+	)
 	createAdjMap() //create the hash map form the image after loading the image
 }
 
@@ -191,8 +201,18 @@ function swapMap() {
 	var img = new Image()
 	var newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
-	img.onload = () => {
-		context.drawImage(img, 0, 0, canvas.width, canvas.height)
+	img.onload = async () => {
+		await context.drawImage(
+			img,
+			0,
+			0,
+			img.width,
+			img.height,
+			0,
+			0,
+			canvas.width,
+			canvas.height
+		)
 		createAdjMap()
 	}
 }
@@ -229,9 +249,19 @@ reset.onclick = () => {
 	let img = new Image()
 	var newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
-	img.onload = () => {
-		context.drawImage(img, 0, 0, canvas.width, canvas.height)
-		createAdjMap()
+	img.onload = async () => {
+		await context.drawImage(
+			img,
+			0,
+			0,
+			img.width,
+			img.height,
+			0,
+			0,
+			canvas.width,
+			canvas.height
+		)
+		// createAdjMap()
 	}
 }
 

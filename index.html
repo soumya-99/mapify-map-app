@@ -13,6 +13,7 @@
     <script src="./utils/smooth-scroll.js"></script>
     <script src="./libs/materialize/js/materialize.min.js"></script>
     <script src="./scripts/script.js"></script>
+    <script src="./utils/animations/lottie-player.js"></script>
 </head>
 
 <body>
@@ -32,11 +33,11 @@
                                 class="material-icons">play_circle_outline</i></a></li>
                     <li><a class="waves-effect waves-light purple btn hoverable" id="reset"><i
                                 class="material-icons">refresh</i></a></li> <!-- Reset -->
-                    <li><a class="waves-effect waves-light yellow darken-3 modal-trigger btn hoverable" href="#modal1"><i
-                                class="material-icons">import_contacts</i></a>
+                    <li><a class="waves-effect waves-light yellow darken-3 modal-trigger btn hoverable"
+                            href="#modal1"><i class="material-icons">import_contacts</i></a>
                     </li>
-                    <li><a class="waves-effect waves-light red darken-3 btn hoverable"
-                            href="#aboutus"><i class="material-icons">accessibility</i></a>
+                    <li><a class="waves-effect waves-light red darken-3 btn hoverable" href="#aboutus"><i
+                                class="material-icons">accessibility</i></a>
                     </li>
                     <li>
                         <div class="switch">
@@ -74,7 +75,7 @@
     </div>
 
     <ul class="sidenav" id="mobile-demo">
-        <li class="sidenav__li">You cann't add source/destination without a laptop or computer.</li>
+        <li class="sidenav__li">You can't add source/destination without a laptop or computer.</li>
     </ul>
 
     <!-- Main Body section starts -->
@@ -88,9 +89,13 @@
             <div class="input-field col s5">
                 <select class="icons" id="mapSelect" onchange="swapMap()">
                     <option disabled selected>Choose Map</option>
-                    <option value="./maps/map4.png" data-icon="./maps/map4.png">Map 1</option>
+                    <option value="./maps/map10.png" data-icon="./maps/map10.png">Map 1</option>
                     <option value="./maps/map2.png" data-icon="./maps/map2.png">Map 2</option>
                     <option value="./maps/map5.png" data-icon="./maps/map5.png">Map 3</option>
+                    <option value="./maps/map7.png" data-icon="./maps/map7.png">Map 4</option>
+                    <option value="./maps/map8.png" data-icon="./maps/map8.png">Map 5</option>
+                    <option value="./maps/map9.png" data-icon="./maps/map9.png">Map 6</option>
+                    <option value="./maps/map4.png" data-icon="./maps/map4.png">Map 7</option>
                 </select>
                 <label>Maps in select</label>
             </div>
@@ -133,7 +138,11 @@
                 </a>
             </div>
         </div>
+    </div>
 
+    <div class="pre-loader">
+        <lottie-player src="./utils/animations/51777-infinite-loop-inspired-by-google.json" background="transparent"
+            speed="1" loop autoplay></lottie-player>
     </div>
 
     <footer class="page-footer blue darken-3" id="aboutus">
@@ -157,18 +166,18 @@
                     <div class="divider"></div>
                     <ul>
                         <li style="padding-top: 6px;"><a class="grey-text text-lighten-3"
-                                href="https://www.facebook.com/soumyadeep.mondal.984/"><Button
-                                    class="btn waves-effect blue pulse">Facebook</Button></a></li>
+                                href="https://www.facebook.com/soumyadeep.mondal.984/"><button
+                                    class="btn waves-effect blue pulse">Facebook</button></a></li>
                         <br>
                         <li><a class="grey-text text-lighten-3"
-                                href="https://www.instagram.com/m0ndal.s0umyadeep/"><Button
-                                    class="btn waves-effect red darken-1 pulse">Instagram</Button></a></li>
+                                href="https://www.instagram.com/m0ndal.s0umyadeep/"><button
+                                    class="btn waves-effect red darken-1 pulse">Instagram</button></a></li>
                         <br>
-                        <li><a class="grey-text text-lighten-3" href="https://github.com/soumya-99"><Button
-                                    class="btn waves-effect green darken-1 pulse">GitHub</Button></a></li>
+                        <li><a class="grey-text text-lighten-3" href="https://github.com/soumya-99"><button
+                                    class="btn waves-effect green darken-1 pulse">GitHub</button></a></li>
                         <br>
-                        <li><a class="grey-text text-lighten-3" href="#!"><Button
-                                    class="btn waves-effect orange pulse">Twitter</Button></a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!"><button
+                                    class="btn waves-effect orange pulse">Twitter</button></a></li>
                     </ul>
                 </div>
             </div>
@@ -181,6 +190,7 @@
         </div>
     </footer>
     <script src="./scripts/map.js"></script>
+
 </body>
 
 </html>
