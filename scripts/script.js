@@ -14,6 +14,12 @@ $(document).ready(function () {
 	$("select").formSelect()
 })
 
+$(window).on("load", function () {
+	setInterval(function () {
+		$(".pre-loader").fadeOut("slow")
+	}, 2200)
+})
+
 const switchDarkForMap = () => {
 	document.body.classList.toggle("dark")
 	// document.querySelector(".divider").classList.toggle("divider__dark")
