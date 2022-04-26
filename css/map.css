@@ -28,6 +28,10 @@ body {
 	font-family: "GoogleSans";
 }
 
+.navbar-fixed {
+	width: 100% !important;
+}
+
 nav {
 	background-color: var(--material-grey) !important;
 	width: 100%;
@@ -128,11 +132,8 @@ canvas:active {
 }
 
 .map-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	border-radius: 30px;
-	width: 50vw; /* size of container */
+	width: 55vw; /* size of container */
 	height: 80vh; /* size of container */
 	overflow: scroll; /* Overflows the map */
 }
@@ -148,7 +149,13 @@ body > div > div.col.s7 {
 }
 
 footer {
-	border-radius: 30px;
+	border-radius: 60px;
+	margin-bottom: 50px !important;
+}
+
+#aboutus > div.footer-copyright {
+	border-bottom-left-radius: 60px !important;
+	border-bottom-right-radius: 60px !important;
 }
 
 .carousel {
@@ -182,4 +189,15 @@ footer {
 lottie-player {
 	width: 100%;
 	height: 100%;
+}
+
+.nav-wrapper {
+	margin-left: 11vw !important;
+	margin-right: 11vw !important;
+}
+
+#modal1 {
+	border-radius: 40px !important;
+	background-color: rgba(255, 255, 255, 0.35) !important;
+	backdrop-filter: blur(6px) !important;
 }
