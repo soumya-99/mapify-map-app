@@ -5,8 +5,8 @@ let zin = document.getElementById("zoomin")
 let swp = document.getElementById("sp")
 let reset = document.getElementById("reset")
 //image related
-let img = new Image()
-img.src = "../maps/map4.png"
+
+let img = document.getElementById("map-image")
 
 //set up the canvas
 let canvas = document.getElementById("canvas")
@@ -198,8 +198,8 @@ function highLightPath() {
 //////////////////////////////////
 
 function swapMap() {
-	var img = new Image()
-	var newImage = document.getElementById("mapSelect")
+	let img = document.getElementById("map-image")
+	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
 	img.onload = async () => {
 		await context.drawImage(
@@ -246,8 +246,8 @@ swp.onclick = (event) => {
 }
 
 reset.onclick = () => {
-	let img = new Image()
-	var newImage = document.getElementById("mapSelect")
+	let img = document.getElementById("map-image")
+	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
 	img.onload = async () => {
 		await context.drawImage(
@@ -261,7 +261,6 @@ reset.onclick = () => {
 			canvas.width,
 			canvas.height
 		)
-		// createAdjMap()
 	}
 }
 

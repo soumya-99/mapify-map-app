@@ -90,20 +90,22 @@
     <div class="row">
         <div class="col s7">
             <div class="map-container">
-                <canvas id="canvas"></canvas>
+                <canvas id="canvas">
+                    <img id="map-image" src="./maps/map4.png" alt="Map Here">
+                </canvas>
             </div>
         </div>
         <div class="col s5">
             <div class="input-field col s5">
                 <select class="icons" id="mapSelect" onchange="swapMap()">
-                    <option disabled selected>Choose Map</option>
+                    <option disabled>Choose Map</option>
                     <option value="./maps/map10.png" data-icon="./maps/map10.png">Map 1</option>
                     <option value="./maps/map2.png" data-icon="./maps/map2.png">Map 2</option>
                     <option value="./maps/map5.png" data-icon="./maps/map5.png">Map 3</option>
                     <option value="./maps/map7.png" data-icon="./maps/map7.png">Map 4</option>
                     <option value="./maps/map8.png" data-icon="./maps/map8.png">Map 5</option>
                     <option value="./maps/map9.png" data-icon="./maps/map9.png">Map 6</option>
-                    <option value="./maps/map4.png" data-icon="./maps/map4.png">Map 7</option>
+                    <option value="./maps/map4.png" data-icon="./maps/map4.png" selected>Map 7</option>
                 </select>
                 <label>Maps in select</label>
             </div>
