@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map</title>
     <link rel="stylesheet" href="./libs/materialize/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="./css/material-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/map.css">
     <script src="./libs/jQuery/jquery.min.js"></script>
     <script src="./utils/smooth-scroll.js"></script>
@@ -17,8 +17,8 @@
 </head>
 
 <body>
-    <nav>
-        <div class="container">
+    <div class="navbar-fixed">
+        <nav>
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">Mapify<sub style="font-size: xx-small;">inc.</sub></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -51,22 +51,30 @@
                     </li>
                 </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
     <!-- Modal for User Guide -->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <h4>User Guide</h4>
             <div class="divider"></div>
-            <h6>Everything Working. Even you can scroll the map with mouse.</h6>
-            <ol class="helpText">
-                <li class="src">Write help text here.</li>
-                <li class="dest">Write help text here.</li>
-                <li class="return">Write help text here.</li>
-                <li class="reset">Write help text here.</li>
-                <li class="toggle">Write help text here.</li>
-            </ol>
+            <h6>N.B. Even you can scroll the map with mouse.</h6>
+            <div class="row">
+                <div class="col s7">
+                    <ol class="helpText">
+                        <li class="src">Write help text here.</li>
+                        <li class="dest">Write help text here.</li>
+                        <li class="return">Write help text here.</li>
+                        <li class="reset">Write help text here.</li>
+                        <li class="toggle">Write help text here.</li>
+                    </ol>
+                </div>
+                <div class="col s5">
+                    <lottie-player style="width: 100%; height: 100%;" src="./utils/animations/86746-loading-blash.json"
+                        autoplay loop></lottie-player>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Accept</a>
@@ -155,11 +163,11 @@
                             style="color: rgb(235, 52, 52);">Soumyadeep Arka Souvik.</a> We've created this website only
                         for Project Purpose. Use of this website's source code without any permission will be marked as
                         an illegal step. Find Us on Google Maps.</p>
-                    <iframe
+                    <!-- <iframe
                         src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14723.466620256018!2d88.33379029999999!3d22.69600735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1590397038411!5m2!1sen!2sin"
                         width="800" height="800" frameborder="0" style="height: 240px; width: 290px;" allowfullscreen=""
                         aria-hidden="false" tabindex="0">
-                    </iframe>
+                    </iframe> -->
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Links</h5>
