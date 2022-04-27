@@ -259,17 +259,22 @@ function show_path(event) {
 db.onclick = (e) => {
 	destSet = false
 	db.classList.add("disabled")
+	sb.classList.add("disabled")
 }
 
 sb.onclick = (e) => {
 	sourceSet = false
 	sb.classList.add("disabled")
+	db.classList.add("disabled")
 }
 
 canvas.addEventListener("click", (event) => {
 	pick(event)
 	sb.classList.remove("disabled")
-	if (destSet) db.classList.remove("disabled")
+	if (destSet) {
+		db.classList.remove("disabled")
+		sb.classList.remove("disabled")
+	}
 })
 
 swp.onclick = (event) => {
