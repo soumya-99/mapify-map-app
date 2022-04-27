@@ -1,6 +1,3 @@
-// For smooth-scroll initialization
-var scroll = new SmoothScroll('a[href*="#"]')
-
 // jQueries for MATERIALIZE CSS
 $(document).ready(function () {
 	// $('.collapsible').collapsible();

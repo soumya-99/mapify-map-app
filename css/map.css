@@ -17,6 +17,10 @@
 	--divider-color: rgb(114, 114, 114);
 }
 
+* {
+	scroll-behavior: smooth;
+}
+
 body {
 	padding: 0;
 	margin: 0;

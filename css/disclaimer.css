@@ -1,0 +1,18 @@
+@font-face {
+	font-family: "GoogleSans";
+	src: url("../fonts/GoogleSans-Medium.ttf");
+}
+
+body {
+    padding: 20px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "GoogleSans";
+}
+
+h1 {
+    font-size: 3rem;
+}
