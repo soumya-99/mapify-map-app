@@ -9,6 +9,7 @@ $(document).ready(function () {
 	$(".dropdown-trigger").dropdown()
 	$(".modal").modal()
 	$("select").formSelect()
+	$(".tooltipped").tooltip()
 })
 
 $(window).on("load", function () {
