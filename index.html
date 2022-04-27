@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="./css/map.css">
     <script src="./libs/jQuery/jquery.min.js"></script>
     <script src="./libs/materialize/js/materialize.min.js"></script>
-    <script src="./scripts/script.js"></script>
     <script src="./utils/lottie-player.js"></script>
+    <script src="./scripts/script.js"></script>
 </head>
 
 <body>
@@ -23,22 +23,28 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down"
                     style="display: flex; justify-content: space-around;">
-                    <li><a class="waves-effect waves-light blue accent-2 btn hoverable" id="source"><i
+                    <li><a class="waves-effect waves-light blue accent-2 btn tooltipped hoverable"
+                            data-position="bottom" data-tooltip="Source" id="source"><i
                                 class="material-icons">place</i></a></li>
-                    <li><a class="waves-effect waves-light green btn hoverable" id="dest"><i
-                                class="material-icons">pin_drop
+                    <li><a class="waves-effect waves-light green btn tooltipped hoverable" id="dest"
+                            data-position="bottom" data-tooltip="Destination"><i class="material-icons">pin_drop
                             </i></a></li>
-                    <li><a class="waves-effect waves-light red accent-2 btn hoverable" id="sp"><i
+                    <li><a class="waves-effect waves-light red accent-2 btn tooltipped hoverable" id="sp"
+                            data-position="bottom" data-tooltip="Show Path"><i
                                 class="material-icons">play_circle_outline</i></a></li>
-                    <li><a class="waves-effect waves-light purple btn hoverable" id="reset"><i
-                                class="material-icons">refresh</i></a></li> <!-- Reset -->
-                    <li><a class="waves-effect waves-light yellow darken-3 modal-trigger btn hoverable"
-                            href="#modal1"><i class="material-icons">import_contacts</i></a>
+                    <li><a class="waves-effect waves-light purple btn tooltipped hoverable" id="reset"
+                            data-position="bottom" data-tooltip="Reset Map"><i class="material-icons">refresh</i></a>
+                    </li> <!-- Reset -->
+                    <li><a class="waves-effect waves-light yellow darken-3 modal-trigger btn tooltipped hoverable"
+                            href="#modal1" data-position="bottom" data-tooltip="Help"><i
+                                class="material-icons">import_contacts</i></a>
                     </li>
-                    <li><a class="waves-effect waves-light red darken-3 btn hoverable" href="#aboutus"><i
+                    <li><a class="waves-effect waves-light red darken-3 btn tooltipped hoverable" href="#aboutus"
+                            data-position="bottom" data-tooltip="About Us"><i
                                 class="material-icons">accessibility</i></a>
                     </li>
-                    <li><a id="download" class="waves-effect waves-light pink darken-1 btn hoverable"><i
+                    <li><a id="download" class="waves-effect waves-light pink darken-1 btn tooltipped hoverable"
+                            data-position="bottom" data-tooltip="Download Map"><i
                                 class="material-icons">download</i></a>
                     </li>
                     <li>
