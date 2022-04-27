@@ -239,7 +239,7 @@ function highLightPath() {
 //////////////////////////////////
 
 function swapMap() {
-	let img = document.getElementById("map-image")
+	// let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
 	img.onload = async () => {
