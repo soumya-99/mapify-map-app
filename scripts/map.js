@@ -128,6 +128,47 @@ function createAdjMap() {
 					}
 				}
 
+				//adding 4 diagonal vertieces
+				//top left
+				let topleftPixX = boxPixlX - box_dimensions;
+				let topleftPixY = boxPixlY - box_dimensions;
+				if(topleftPixX > 0 && topleftPixY > 0){
+					if(compareColorValues(topleftPixX, topleftPixY)){
+						let item = currItem - maxX - 1;
+						temp.push(item)
+					}
+				}
+
+				//top right
+				let toprightPixX = boxPixlX + box_dimensions;
+				let toprightPixY = boxPixlY - box_dimensions;
+				if(toprightPixX < canvas.width && toprightPixY > 0){
+					if(compareColorValues(toprightPixX, toprightPixY)){
+						let item = currItem - maxX + 1;
+						temp.push(item)
+					}
+				}
+
+				//bottom left
+				let bottomleftPixX = boxPixlX - box_dimensions;
+				let bottomleftPixY = boxPixlY + box_dimensions;
+				if(bottomleftPixX > 0 && bottomleftPixY < canvas.height){
+					if(compareColorValues(bottomleftPixX, bottomleftPixY)){
+						let item = currItem + maxX - 1;
+						temp.push(item)
+					}
+				}
+
+				//bottom right
+				let bottomrightPixX = boxPixlX + box_dimensions;
+				let bottomrightPixY = boxPixlY + box_dimensions;
+				if(bottomrightPixX < canvas.width && bottomrightPixY < canvas.height){
+					if(compareColorValues(bottomrightPixX, bottomrightPixY)){
+						let item = currItem + maxX + 1;
+						temp.push(item)
+					}
+				}
+
 				//insert the array into hash map
 				//so hash map contains the 4 adjacent vertices of the current vertexNum or cell
 				adj[currItem] = temp
@@ -191,7 +232,7 @@ function highLightPath() {
 		let x = j * box_dimensions + box_dimensions / 2
 		let y = i * box_dimensions + box_dimensions / 2
 
-		colorImagePixels(x, y, 2, 255, 0, 0)
+		colorImagePixels(x, y, 1, 255, 0, 0)
 	}
 }
 
