@@ -1,20 +1,20 @@
-//buttons
-let sb = document.getElementById("source")
-let db = document.getElementById("dest")
-let zin = document.getElementById("zoomin")
-let swp = document.getElementById("sp")
-let reset = document.getElementById("reset")
-//image related
+// buttons
+let srcButton = document.getElementById("source")
+let destButton = document.getElementById("dest")
+let showPathButton = document.getElementById("sp")
+let resetButton = document.getElementById("reset")
+let downloadButton = document.getElementById("download")
 
+// image related
 let img = document.getElementById("map-image")
 
-//set up the canvas
+// set up the canvas
 let canvas = document.getElementById("canvas")
 canvas.width = img.width
 canvas.height = img.height
 let context = canvas.getContext("2d")
 
-//algo related
+// algo related
 let sourceSet = true,
 	destSet = true
 let source, destination
@@ -256,32 +256,32 @@ function show_path(event) {
 	highLightPath()
 }
 
-db.onclick = (e) => {
+destButton.onclick = (e) => {
 	destSet = false
-	db.classList.add("disabled")
-	sb.classList.add("disabled")
+	destButton.classList.add("disabled")
+	srcButton.classList.add("disabled")
 }
 
-sb.onclick = (e) => {
+srcButton.onclick = (e) => {
 	sourceSet = false
-	sb.classList.add("disabled")
-	db.classList.add("disabled")
+	srcButton.classList.add("disabled")
+	destButton.classList.add("disabled")
 }
 
 canvas.addEventListener("click", (event) => {
 	pick(event)
-	sb.classList.remove("disabled")
+	srcButton.classList.remove("disabled")
 	if (destSet) {
-		db.classList.remove("disabled")
-		sb.classList.remove("disabled")
+		destButton.classList.remove("disabled")
+		srcButton.classList.remove("disabled")
 	}
 })
 
-swp.onclick = (event) => {
+showPathButton.onclick = (event) => {
 	show_path(event)
 }
 
-reset.onclick = () => {
+resetButton.onclick = () => {
 	let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
@@ -298,6 +298,11 @@ reset.onclick = () => {
 			canvas.height
 		)
 	}
+}
+
+downloadButton.onclick = () => {
+	downloadButton.download = img.src
+	downloadButton.href = canvas.toDataURL()
 }
 
 //created a colored box to the given coordinate with given boxSize and rgb values
