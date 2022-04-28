@@ -238,6 +238,8 @@ function swapMap() {
 	// let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
+	canvas.width = img.width
+	canvas.height = img.height
 	img.onload = async () => {
 		await context.drawImage(
 			img,
