@@ -23,7 +23,6 @@ let maxX = canvas.width / box_dimensions //image loading needs to be done before
 let maxY = canvas.height / box_dimensions //cause accessing the canvas element here
 let vertex = maxX * maxY //maximum possible number of veritces
 const cellSize = 6
-let adj = new Map() //hash map for storing adjacency data
 let pred = new Array(vertex).fill(-1) // predecessor
 let path = new Array(vertex).fill(0) // path
 
@@ -39,7 +38,6 @@ img.onload = async () => {
 		canvas.width,
 		canvas.height
 	)
-	createAdjMap() //create the hash map form the image after loading the image
 }
 
 //this is called everytime mouse is clicked
@@ -58,116 +56,15 @@ function pick(event) {
 
 	if (destSet === false) {
 		destination = hotCell
-		colorImagePixels(mx, my, cellSize, 0, 255, 0)
+		//colorImagePixels(mx, my, cellSize, 0, 255, 0)
 		destSet = true
 		return
 	}
 	if (sourceSet === false) {
 		source = hotCell
-		colorImagePixels(mx, my, cellSize, 0, 0, 255)
+		//colorImagePixels(mx, my, cellSize, 0, 0, 255)
 		sourceSet = true
 		return
-	}
-}
-
-////////////////////////
-function createAdjMap() {
-	let temp = new Array()
-
-	for (let i = 0; i < maxX; i++) {
-		for (let j = 0; j < maxY; j++) {
-			temp = []
-			let currItem = Math.trunc(i * maxX + j) //find current vertexNum with current i and j
-
-			let halfSize = box_dimensions / 2
-			let boxPixlX = j * box_dimensions + halfSize //reversed here for indexing purpose
-			let boxPixlY = i * box_dimensions + halfSize //getting the center coordinate of the current cell
-
-			if (compareColorValues(boxPixlX, boxPixlY)) {
-				//if it is white
-				//checking it's n8 adjacncy sequentially
-				// topLeft -> up -> topRight -> left -> right -> bottomLeft -> bottom -> bottomUp for adjacent vertices
-
-				//top left
-				let topleftPixX = boxPixlX - box_dimensions
-				let topleftPixY = boxPixlY - box_dimensions
-				if (topleftPixX > 0 && topleftPixY > 0) {
-					if (compareColorValues(topleftPixX, topleftPixY)) {
-						let item = currItem - maxX - 1
-						temp.push(item)
-					}
-				}
-				//up
-				let upPixlX = boxPixlX
-				let upPixlY = boxPixlY - box_dimensions
-				if (upPixlY > 0) {
-					if (compareColorValues(upPixlX, upPixlY)) {
-						let item = currItem - maxX
-						temp.push(item)
-					}
-				}
-				//top right
-				let toprightPixX = boxPixlX + box_dimensions
-				let toprightPixY = boxPixlY - box_dimensions
-				if (toprightPixX < canvas.width && toprightPixY > 0) {
-					if (compareColorValues(toprightPixX, toprightPixY)) {
-						let item = currItem - maxX + 1
-						temp.push(item)
-					}
-				}
-
-				//left
-				let leftPixX = boxPixlX - box_dimensions
-				let leftPixY = boxPixlY
-				if (leftPixX > 0) {
-					if (compareColorValues(leftPixX, leftPixY)) {
-						let item = currItem - 1
-						temp.push(item)
-					}
-				}
-				//right
-				let rightPixX = boxPixlX + box_dimensions
-				let rightPixY = boxPixlY
-				if (rightPixX < canvas.width) {
-					if (compareColorValues(rightPixX, rightPixY)) {
-						let item = currItem + 1
-						temp.push(item)
-					}
-				}
-
-				//bottom left
-				let bottomleftPixX = boxPixlX - box_dimensions
-				let bottomleftPixY = boxPixlY + box_dimensions
-				if (bottomleftPixX > 0 && bottomleftPixY < canvas.height) {
-					if (compareColorValues(bottomleftPixX, bottomleftPixY)) {
-						let item = currItem + maxX - 1
-						temp.push(item)
-					}
-				}
-				//bottom
-				let bottomPixX = boxPixlX
-				let bottomPixY = boxPixlY + box_dimensions
-				if (bottomPixY < canvas.height) {
-					if (compareColorValues(bottomPixX, bottomPixY)) {
-						let item = currItem + maxX
-						temp.push(item)
-					}
-				}
-				//bottom right
-				let bottomrightPixX = boxPixlX + box_dimensions
-				let bottomrightPixY = boxPixlY + box_dimensions
-				if (bottomrightPixX < canvas.width && bottomrightPixY < canvas.height) {
-					if (compareColorValues(bottomrightPixX, bottomrightPixY)) {
-						let item = currItem + maxX + 1
-						temp.push(item)
-					}
-				}
-
-				//insert the array into hash map
-				//so hash map contains the 8 adjacent vertices of the current vertexNum or cell
-				adj[currItem] = temp
-			}
-		}
 	}
 }
 
@@ -179,6 +76,9 @@ function bfs() {
 	visited[source] = true
 	queue.push(source)
 
+	//for execution time checking
+	let startTime = performance.now()
+
 	while (queue.length > 0) {
 		let x = queue.shift() // already popped front
 		if (x === destination) {
@@ -186,18 +86,106 @@ function bfs() {
 			return //if reached the destination
 		}
 
-		//in this approach adjacencyMap is a hash map of integer key and integer array as value
-		//directly accessing the value with the unique key (here x)
 		x = Math.trunc(x)
-		let curr = adj[x]
-		for (let k = 0; k < curr.length; k++) {
-			//check for their adjacency with current vertex
-			let vNum = curr[k]
+		let currItem = x
+		let i = Math.trunc(currItem / maxX)
+		let j = Math.trunc(currItem - i * maxX)
+		let halfSize = box_dimensions / 2
+		let boxPixlX = j * box_dimensions + halfSize
+		let boxPixlY = i * box_dimensions + halfSize
+		let queueTemp = new Array()
+
+		///now determine n8 adjacents of x
+		//up
+		let upPixlX = boxPixlX
+		let upPixlY = boxPixlY - box_dimensions
+		if (upPixlY > 0) {
+			if (compareColorValues(upPixlX, upPixlY)) {
+				let item = currItem - maxX
+				queueTemp.push(item)
+			}
+		}
+		//left
+		let leftPixX = boxPixlX - box_dimensions
+		let leftPixY = boxPixlY
+		if (leftPixX > 0) {
+			if (compareColorValues(leftPixX, leftPixY)) {
+				let item = currItem - 1
+				queueTemp.push(item)
+			}
+		}
+		//right
+		let rightPixX = boxPixlX + box_dimensions
+		let rightPixY = boxPixlY
+		if (rightPixX < canvas.width) {
+			if (compareColorValues(rightPixX, rightPixY)) {
+				let item = currItem + 1
+				queueTemp.push(item)
+			}
+		}
+		//bottom
+		let bottomPixX = boxPixlX
+		let bottomPixY = boxPixlY + box_dimensions
+		if (bottomPixY < canvas.height) {
+			if (compareColorValues(bottomPixX, bottomPixY)) {
+				let item = currItem + maxX
+				queueTemp.push(item)
+			}
+		}
+
+		//top left
+		let topleftPixX = boxPixlX - box_dimensions
+		let topleftPixY = boxPixlY - box_dimensions
+		if (topleftPixX > 0 && topleftPixY > 0) {
+			if (compareColorValues(topleftPixX, topleftPixY)) {
+				let item = currItem - maxX - 1
+				queueTemp.push(item)
+			}
+		}
+		//top right
+		let toprightPixX = boxPixlX + box_dimensions
+		let toprightPixY = boxPixlY - box_dimensions
+		if (toprightPixX < canvas.width && toprightPixY > 0) {
+			if (compareColorValues(toprightPixX, toprightPixY)) {
+				let item = currItem - maxX + 1
+				queueTemp.push(item)
+			}
+		}
+		//bottom left
+		let bottomleftPixX = boxPixlX - box_dimensions
+		let bottomleftPixY = boxPixlY + box_dimensions
+		if (bottomleftPixX > 0 && bottomleftPixY < canvas.height) {
+			if (compareColorValues(bottomleftPixX, bottomleftPixY)) {
+				let item = currItem + maxX - 1
+				queueTemp.push(item)
+			}
+		}
+		//bottom right
+		let bottomrightPixX = boxPixlX + box_dimensions
+		let bottomrightPixY = boxPixlY + box_dimensions
+		if (bottomrightPixX < canvas.width && bottomrightPixY < canvas.height) {
+			if (compareColorValues(bottomrightPixX, bottomrightPixY)) {
+				let item = currItem + maxX + 1
+				queueTemp.push(item)
+			}
+		}
+
+		//now all the adjacents of x are in queueTemp and can be used 
+		//as an alternative of any supporting data structure for bfs.
+		for (let k = 0; k < queueTemp.length; k++) {
+			let vNum = queueTemp[k];
 			if (visited[vNum] === false) {
 				visited[vNum] = true
 				queue.push(vNum)
 				pred[vNum] = x
 			}
+		}
+
+		let endTime = performance.now()
+		if(endTime-startTime > 10000){
+			//soo if it's stuck then
+			console.log("f**k I'm out...")
+			return
 		}
 	}
 }
@@ -238,6 +226,11 @@ function swapMap() {
 	// let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
+	canvas.width = img.width	//f**king cursed lines 
+	canvas.height = img.height	//f**k offfffffffff	//not sure that they are really cursed...
+	maxX = canvas.width / box_dimensions
+	maxY = canvas.height / box_dimensions
+	vertex = maxX * maxY
 	img.onload = async () => {
 		await context.drawImage(
 			img,
@@ -250,7 +243,6 @@ function swapMap() {
 			canvas.width,
 			canvas.height
 		)
-		createAdjMap()
 	}
 }
 
@@ -329,7 +321,7 @@ function colorImagePixels(x, y, size, colorR, colorG, colorB) {
 //to compare two color values
 function compareColorValues(x, y) {
 	pixel = context.getImageData(x, y, 1, 1)
-	if (pixel.data[0] >= 240 && pixel.data[1] >= 240 && pixel.data[2] >= 240)
+	if (pixel.data[0] >= 250 && pixel.data[1] >= 250 && pixel.data[2] >= 250)
 		return true
 	else return false
 }

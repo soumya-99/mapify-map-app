@@ -145,14 +145,14 @@ canvas:active {
 
 .map-container {
 	border-radius: 30px;
-	width: 50vw; /* size of container */
-	height: 80vh; /* size of container */
+	width: 65vw; /* size of container */
+	height: 85vh; /* size of container */
 	overflow: scroll; /* Overflows the map */
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
 	width: 0;
-}
+} */
 
 body > div > div.col.s7 {
 	display: flex;
