@@ -145,8 +145,8 @@ canvas:active {
 
 .map-container {
 	border-radius: 30px;
-	width: 65vw; /* size of container */
-	height: 85vh; /* size of container */
+	width: 55vw; /* size of container */
+	height: 84vh; /* size of container */
 	overflow: scroll; /* Overflows the map */
 }
 

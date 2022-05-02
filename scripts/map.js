@@ -34,10 +34,6 @@ img.onload = async () => {
 		0,
 		img.width,
 		img.height,
-		0,
-		0,
-		canvas.width,
-		canvas.height
 	)
 }
 
@@ -244,10 +240,6 @@ function swapMap() {
 			0,
 			img.width,
 			img.height,
-			0,
-			0,
-			canvas.width,
-			canvas.height
 		)
 	}
 	sourceSet = false
@@ -308,10 +300,6 @@ resetButton.onclick = () => {
 			0,
 			img.width,
 			img.height,
-			0,
-			0,
-			canvas.width,
-			canvas.height
 		)
 	}
 	sourceSet = false
