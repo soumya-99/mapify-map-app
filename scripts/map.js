@@ -25,7 +25,8 @@ let maxY = canvas.height / box_dimensions //cause accessing the canvas element h
 let vertex = maxX * maxY //maximum possible number of veritces
 const cellSize = 6
 let pred = new Array(vertex).fill(-1) // predecessor
-let path = new Array(vertex).fill(0) // path
+let pathFound = false
+//let path = new Array(vertex).fill(0) // path
 
 img.onload = async () => {
 	await context.drawImage(
@@ -81,6 +82,7 @@ function bfs() {
 	while (queue.length > 0) {
 		let x = queue.shift() // already popped front
 		if (x === destination) {
+			pathFound = true
 			pred[source] = -1
 			return //if reached the destination
 		}
@@ -179,47 +181,62 @@ function bfs() {
 				pred[vNum] = x
 			}
 		}
-		console.log(queue.length)
+		//console.log(queue.length)
 
-		// let endTime = performance.now()
-		// if(endTime-startTime > 10000){
-		// 	//I don't know mannnnn
-		// 	//seeming sus lately
-		// 	console.log("f**k I'm out...")
-		// 	return
-		// }
+		let endTime = performance.now()
+		if(endTime-startTime > 10000){
+			//I don't know mannnnn
+			//seeming sus lately
+			console.log("f**k I'm out...")
+			return
+		}
 	}
-	console.log("returning from bfs")
+	pathFound = false
+	//console.log("returning from bfs")
+	M.toast({ html: "Path Not Found!", classes: "rounded" })
 }
 
-function getPath() {
-	//creats path array using predecessor array
-	let k = 0
-	let i = destination
-	while (pred[i] !== -1) {
-		path[k] = i
-		k = k + 1
-		i = pred[i]
-	}
-	path[k] = i
-	k = k + 1
-	return k
-}
+// function getPath() {
+// 	//creats path array using predecessor array
+// 	let k = 0
+// 	let i = destination
+// 	while (pred[i] !== -1) {
+// 		path[k] = i
+// 		k = k + 1
+// 		i = pred[i]
+// 	}
+// 	path[k] = i
+// 	k = k + 1
+// 	return k
+// }
 
 function highLightPath() {
-	let length = getPath()
+	//let length = getPath()
 
-	if (length < 2) M.toast({ html: "Path Not Found!", classes: "rounded" })
-	//directly change the image colors to show path
-	for (let k = 0; k < length; k++) {
-		let currCell = path[k]
+	let temp = destination
+	while (pred[temp] !== -1) {
+
+		let currCell = temp
 		let i = Math.trunc(currCell / maxX)
 		let j = Math.trunc(currCell - i * maxX)
 		let x = j * box_dimensions + box_dimensions / 2
 		let y = i * box_dimensions + box_dimensions / 2
-
 		colorImagePixels(x, y, 1, 255, 0, 0)
+
+		temp = pred[temp]
 	}
+
+
+	//directly change the image colors to show path
+	// for (let k = 0; k < length; k++) {
+	// 	let currCell = path[k]
+	// 	let i = Math.trunc(currCell / maxX)
+	// 	let j = Math.trunc(currCell - i * maxX)
+	// 	let x = j * box_dimensions + box_dimensions / 2
+	// 	let y = i * box_dimensions + box_dimensions / 2
+
+	// 	colorImagePixels(x, y, 1, 255, 0, 0)
+	// }
 }
 
 //////////////////////////////////
@@ -246,13 +263,15 @@ function swapMap() {
 	destSet = false
 	srcButtonOn = false
 	destButtonOn = false
+	pathFound = false
 	srcButton.classList.remove("disabled")
 	destButton.classList.remove("disabled")
 }
 
 function show_path(event) {
 	bfs()
-	highLightPath()
+	if(pathFound)
+		highLightPath()
 }
 
 destButton.onclick = (e) => {
@@ -306,6 +325,7 @@ resetButton.onclick = () => {
 	destSet = false
 	srcButtonOn = false
 	destButtonOn = false
+	pathFound = false
 	srcButton.classList.remove("disabled")
 	destButton.classList.remove("disabled")
 }
