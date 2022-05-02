@@ -26,7 +26,6 @@ let vertex = maxX * maxY //maximum possible number of veritces
 const cellSize = 6
 let pred = new Array(vertex).fill(-1) // predecessor
 let pathFound = false
-//let path = new Array(vertex).fill(0) // path
 
 img.onload = async () => {
 	await context.drawImage(
@@ -187,7 +186,8 @@ function bfs() {
 		if(endTime-startTime > 10000){
 			//I don't know mannnnn
 			//seeming sus lately
-			console.log("f**k I'm out...")
+			console.log("Error..forcing return")
+			M.toast({ html: "Error..forcing return", classes: "rounded" })
 			return
 		}
 	}
@@ -196,47 +196,17 @@ function bfs() {
 	M.toast({ html: "Path Not Found!", classes: "rounded" })
 }
 
-// function getPath() {
-// 	//creats path array using predecessor array
-// 	let k = 0
-// 	let i = destination
-// 	while (pred[i] !== -1) {
-// 		path[k] = i
-// 		k = k + 1
-// 		i = pred[i]
-// 	}
-// 	path[k] = i
-// 	k = k + 1
-// 	return k
-// }
-
 function highLightPath() {
-	//let length = getPath()
-
 	let temp = destination
 	while (pred[temp] !== -1) {
-
 		let currCell = temp
 		let i = Math.trunc(currCell / maxX)
 		let j = Math.trunc(currCell - i * maxX)
 		let x = j * box_dimensions + box_dimensions / 2
 		let y = i * box_dimensions + box_dimensions / 2
 		colorImagePixels(x, y, 1, 255, 0, 0)
-
 		temp = pred[temp]
 	}
-
-
-	//directly change the image colors to show path
-	// for (let k = 0; k < length; k++) {
-	// 	let currCell = path[k]
-	// 	let i = Math.trunc(currCell / maxX)
-	// 	let j = Math.trunc(currCell - i * maxX)
-	// 	let x = j * box_dimensions + box_dimensions / 2
-	// 	let y = i * box_dimensions + box_dimensions / 2
-
-	// 	colorImagePixels(x, y, 1, 255, 0, 0)
-	// }
 }
 
 //////////////////////////////////
@@ -245,8 +215,8 @@ function swapMap() {
 	// let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
-	canvas.width = img.width	//f**king cursed lines 
-	canvas.height = img.height	//f**k offfffffffff	//not sure that they are really cursed...
+	canvas.width = img.width
+	canvas.height = img.height
 	maxX = canvas.width / box_dimensions
 	maxY = canvas.height / box_dimensions
 	vertex = maxX * maxY
@@ -259,6 +229,26 @@ function swapMap() {
 			img.height,
 		)
 	}
+	resetStates()
+}
+
+resetButton.onclick = () => {
+	let img = document.getElementById("map-image")
+	let newImage = document.getElementById("mapSelect")
+	img.src = newImage.value
+	img.onload = async () => {
+		await context.drawImage(
+			img,
+			0,
+			0,
+			img.width,
+			img.height,
+		)
+	}
+	resetStates()
+}
+
+function resetStates() {
 	sourceSet = false
 	destSet = false
 	srcButtonOn = false
@@ -268,6 +258,7 @@ function swapMap() {
 	destButton.classList.remove("disabled")
 }
 
+//methods for buttons
 function show_path(event) {
 	bfs()
 	if(pathFound)
@@ -288,6 +279,18 @@ srcButton.onclick = (e) => {
 	destButton.classList.add("disabled")
 }
 
+showPathButton.onclick = (event) => {
+	if(sourceSet && destSet)
+		show_path(event)
+	else
+		M.toast({ html: "Add source and destination first", classes: "rounded" })
+}
+
+downloadButton.onclick = () => {
+	downloadButton.download = img.src
+	downloadButton.href = canvas.toDataURL()
+}
+
 canvas.addEventListener("click", (event) => {
 	pick(event)
 
@@ -301,40 +304,8 @@ canvas.addEventListener("click", (event) => {
 	}
 })
 
-showPathButton.onclick = (event) => {
-	if(sourceSet && destSet)
-		show_path(event)
-	else
-		M.toast({ html: "Add source and destination first", classes: "rounded" })
-}
 
-resetButton.onclick = () => {
-	let img = document.getElementById("map-image")
-	let newImage = document.getElementById("mapSelect")
-	img.src = newImage.value
-	img.onload = async () => {
-		await context.drawImage(
-			img,
-			0,
-			0,
-			img.width,
-			img.height,
-		)
-	}
-	sourceSet = false
-	destSet = false
-	srcButtonOn = false
-	destButtonOn = false
-	pathFound = false
-	srcButton.classList.remove("disabled")
-	destButton.classList.remove("disabled")
-}
-
-downloadButton.onclick = () => {
-	downloadButton.download = img.src
-	downloadButton.href = canvas.toDataURL()
-}
-
+//utility functions
 //created a colored box to the given coordinate with given boxSize and rgb values
 function colorImagePixels(x, y, size, colorR, colorG, colorB) {
 	let xLow = x - size
