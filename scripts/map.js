@@ -15,9 +15,10 @@ canvas.height = img.height
 let context = canvas.getContext("2d")
 
 // algo related
-let sourceSet = true,
-	destSet = true
+let sourceSet = false, destSet = false
+let srcButtonOn = false, destButtonOn = false	//state of buttons
 let source, destination
+
 const box_dimensions = 2
 let maxX = canvas.width / box_dimensions //image loading needs to be done before this
 let maxY = canvas.height / box_dimensions //cause accessing the canvas element here
@@ -54,16 +55,18 @@ function pick(event) {
 	//calculating curr vertex number logically where the mouse pointer is
 	let hotCell = Math.trunc(boxI * maxX + boxJ)
 
-	if (destSet === false) {
+	if (destSet === false && destButtonOn === true) {
 		destination = hotCell
 		//colorImagePixels(mx, my, cellSize, 0, 255, 0)
 		destSet = true
+		destButtonOn = false
 		return
 	}
-	if (sourceSet === false) {
+	if (sourceSet === false && srcButtonOn === true) {
 		source = hotCell
 		//colorImagePixels(mx, my, cellSize, 0, 0, 255)
 		sourceSet = true
+		srcButtonOn = false
 		return
 	}
 }
@@ -180,14 +183,17 @@ function bfs() {
 				pred[vNum] = x
 			}
 		}
+		console.log(queue.length)
 
-		let endTime = performance.now()
-		if(endTime-startTime > 10000){
-			//soo if it's stuck then
-			console.log("f**k I'm out...")
-			return
-		}
+		// let endTime = performance.now()
+		// if(endTime-startTime > 10000){
+		// 	//I don't know mannnnn
+		// 	//seeming sus lately
+		// 	console.log("f**k I'm out...")
+		// 	return
+		// }
 	}
+	console.log("returning from bfs")
 }
 
 function getPath() {
@@ -244,6 +250,12 @@ function swapMap() {
 			canvas.height
 		)
 	}
+	sourceSet = false
+	destSet = false
+	srcButtonOn = false
+	destButtonOn = false
+	srcButton.classList.remove("disabled")
+	destButton.classList.remove("disabled")
 }
 
 function show_path(event) {
@@ -253,27 +265,36 @@ function show_path(event) {
 
 destButton.onclick = (e) => {
 	destSet = false
+	destButtonOn = true
 	destButton.classList.add("disabled")
 	srcButton.classList.add("disabled")
 }
 
 srcButton.onclick = (e) => {
 	sourceSet = false
+	srcButtonOn = true
 	srcButton.classList.add("disabled")
 	destButton.classList.add("disabled")
 }
 
 canvas.addEventListener("click", (event) => {
 	pick(event)
-	srcButton.classList.remove("disabled")
-	if (destSet) {
-		destButton.classList.remove("disabled")
+
+	if(srcButtonOn || destButtonOn) {
+		srcButton.classList.add("disabled")
+		destButton.classList.add("disabled")
+	}	
+	else {
 		srcButton.classList.remove("disabled")
+		destButton.classList.remove("disabled")
 	}
 })
 
 showPathButton.onclick = (event) => {
-	show_path(event)
+	if(sourceSet && destSet)
+		show_path(event)
+	else
+		M.toast({ html: "Add source and destination first", classes: "rounded" })
 }
 
 resetButton.onclick = () => {
@@ -293,6 +314,12 @@ resetButton.onclick = () => {
 			canvas.height
 		)
 	}
+	sourceSet = false
+	destSet = false
+	srcButtonOn = false
+	destButtonOn = false
+	srcButton.classList.remove("disabled")
+	destButton.classList.remove("disabled")
 }
 
 downloadButton.onclick = () => {
