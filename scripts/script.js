@@ -10,6 +10,7 @@ $(document).ready(function () {
 	$(".modal").modal()
 	$("select").formSelect()
 	$(".tooltipped").tooltip()
+	$('.fixed-action-btn').floatingActionButton()
 })
 
 $(window).on("load", function () {

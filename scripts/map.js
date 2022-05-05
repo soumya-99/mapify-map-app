@@ -1,9 +1,12 @@
 // buttons
-let srcButton = document.getElementById("source")
-let destButton = document.getElementById("dest")
-let showPathButton = document.getElementById("sp")
-let resetButton = document.getElementById("reset")
-let downloadButton = document.getElementById("download")
+const srcButton = document.getElementById("source")
+const destButton = document.getElementById("dest")
+const showPathButton = document.getElementById("sp")
+const resetButton = document.getElementById("reset")
+const help = document.getElementById("help")
+const aboutUs = document.getElementById("aboutus")
+const fullScreenButton = document.getElementById("fullscreen")
+const downloadButton = document.getElementById("download")
 
 // image related
 let img = document.getElementById("map-image")
@@ -15,8 +18,10 @@ canvas.height = img.height
 let context = canvas.getContext("2d")
 
 // algo related
-let sourceSet = false, destSet = false
-let srcButtonOn = false, destButtonOn = false	//state of buttons
+let sourceSet = false,
+	destSet = false
+let srcButtonOn = false,
+	destButtonOn = false //state of buttons
 let source, destination
 
 const box_dimensions = 2
@@ -27,14 +32,8 @@ const cellSize = 6
 let pred = new Array(vertex).fill(-1) // predecessor
 let pathFound = false
 
-img.onload = async () => {
-	await context.drawImage(
-		img,
-		0,
-		0,
-		img.width,
-		img.height,
-	)
+img.onload = () => {
+	context.drawImage(img, 0, 0, img.width, img.height)
 }
 
 //this is called everytime mouse is clicked
@@ -53,14 +52,14 @@ function pick(event) {
 
 	if (destSet === false && destButtonOn === true) {
 		destination = hotCell
-		//colorImagePixels(mx, my, cellSize, 0, 255, 0)
+		// colorImagePixels(mx, my, cellSize, 0, 255, 0)
 		destSet = true
 		destButtonOn = false
 		return
 	}
 	if (sourceSet === false && srcButtonOn === true) {
 		source = hotCell
-		//colorImagePixels(mx, my, cellSize, 0, 0, 255)
+		// colorImagePixels(mx, my, cellSize, 0, 0, 255)
 		sourceSet = true
 		srcButtonOn = false
 		return
@@ -170,10 +169,10 @@ function bfs() {
 			}
 		}
 
-		//now all the adjacents of x are in queueTemp and can be used 
+		//now all the adjacents of x are in queueTemp and can be used
 		//as an alternative of any supporting data structure for bfs.
 		for (let k = 0; k < queueTemp.length; k++) {
-			let vNum = queueTemp[k];
+			let vNum = queueTemp[k]
 			if (visited[vNum] === false) {
 				visited[vNum] = true
 				queue.push(vNum)
@@ -183,7 +182,7 @@ function bfs() {
 		//console.log(queue.length)
 
 		let endTime = performance.now()
-		if(endTime-startTime > 10000){
+		if (endTime - startTime > 10000) {
 			//I don't know mannnnn
 			//seeming sus lately
 			console.log("Error..forcing return")
@@ -212,7 +211,6 @@ function highLightPath() {
 //////////////////////////////////
 
 function swapMap() {
-	// let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
 	canvas.width = img.width
@@ -220,14 +218,8 @@ function swapMap() {
 	maxX = canvas.width / box_dimensions
 	maxY = canvas.height / box_dimensions
 	vertex = maxX * maxY
-	img.onload = async () => {
-		await context.drawImage(
-			img,
-			0,
-			0,
-			img.width,
-			img.height,
-		)
+	img.onload = () => {
+		context.drawImage(img, 0, 0, img.width, img.height)
 	}
 	resetStates()
 }
@@ -236,14 +228,8 @@ resetButton.onclick = () => {
 	let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
-	img.onload = async () => {
-		await context.drawImage(
-			img,
-			0,
-			0,
-			img.width,
-			img.height,
-		)
+	img.onload = () => {
+		context.drawImage(img, 0, 0, img.width, img.height)
 	}
 	resetStates()
 }
@@ -261,8 +247,7 @@ function resetStates() {
 //methods for buttons
 function show_path(event) {
 	bfs()
-	if(pathFound)
-		highLightPath()
+	if (pathFound) highLightPath()
 }
 
 destButton.onclick = (e) => {
@@ -280,10 +265,12 @@ srcButton.onclick = (e) => {
 }
 
 showPathButton.onclick = (event) => {
-	if(sourceSet && destSet)
-		show_path(event)
-	else
-		M.toast({ html: "Add source and destination first", classes: "rounded" })
+	if (sourceSet && destSet) show_path(event)
+	else M.toast({ html: "Add source and destination first", classes: "rounded" })
+}
+
+fullScreenButton.onclick = (e) => {
+	canvas.requestFullscreen()
 }
 
 downloadButton.onclick = () => {
@@ -291,19 +278,21 @@ downloadButton.onclick = () => {
 	downloadButton.href = canvas.toDataURL()
 }
 
-canvas.addEventListener("click", (event) => {
-	pick(event)
+canvas.addEventListener(
+	"click",
+	(event) => {
+		pick(event)
 
-	if(srcButtonOn || destButtonOn) {
-		srcButton.classList.add("disabled")
-		destButton.classList.add("disabled")
-	}	
-	else {
-		srcButton.classList.remove("disabled")
-		destButton.classList.remove("disabled")
-	}
-})
-
+		if (srcButtonOn || destButtonOn) {
+			srcButton.classList.add("disabled")
+			destButton.classList.add("disabled")
+		} else {
+			srcButton.classList.remove("disabled")
+			destButton.classList.remove("disabled")
+		}
+	},
+	false
+)
 
 //utility functions
 //created a colored box to the given coordinate with given boxSize and rgb values
@@ -330,4 +319,281 @@ function compareColorValues(x, y) {
 	if (pixel.data[0] >= 250 && pixel.data[1] >= 250 && pixel.data[2] >= 250)
 		return true
 	else return false
+}
+
+// Complete themeing (Material You)
+
+// themed buttons
+const floatingButton = document.getElementById("floating-action")
+
+const materialBlue = document.getElementById("m-blue")
+const materialYellow = document.getElementById("m-yellow")
+const materialRed = document.getElementById("m-red")
+const materialGreen = document.getElementById("m-green")
+const materialColorful = document.getElementById("m-colorful")
+
+const COLORS_BUTTON = [
+	"red",
+	"green",
+	"blue",
+	"orange",
+	"purple",
+	"pink",
+	"cyan",
+	"indigo",
+]
+const NAV_BUTTONS = [
+	srcButton,
+	destButton,
+	showPathButton,
+	resetButton,
+	help,
+	fullScreenButton,
+	downloadButton,
+]
+
+const navBar = document.getElementsByTagName("nav")[0]
+const footer = document.getElementsByTagName("footer")[0]
+
+// const card1 = document.getElementById("card-1")
+// const card2 = document.getElementById("card-2")
+// const card3 = document.getElementById("card-3")
+
+const srcIcon = document.getElementById("src-icon")
+const destIcon = document.getElementById("dest-icon")
+const spIcon = document.getElementById("sp-icon")
+const resetIcon = document.getElementById("reset-icon")
+const helpIcon = document.getElementById("help-icon")
+const fullscreenIcon = document.getElementById("fullscreen-icon")
+const downloadIcon = document.getElementById("download-icon")
+
+const ICONS = [
+	srcIcon,
+	destIcon,
+	spIcon,
+	resetIcon,
+	helpIcon,
+	fullscreenIcon,
+	downloadIcon,
+]
+
+materialBlue.onclick = (e) => {
+	navBar.style.backgroundColor = "rgba(30, 136, 229, 0.6)"
+	navBar.style.backdropFilter = "blur(5px)"
+	document.body.style.backgroundImage =
+		"linear-gradient(to left, #e3f2fd, #90caf9)"
+
+	COLORS_BUTTON.forEach((color) => {
+		if (footer.classList.contains(color) || footer.classList.contains("blue")) {
+			footer.classList.remove("blue")
+			footer.classList.remove(color)
+		}
+		footer.classList.add("blue")
+
+		if (floatingButton.classList.contains(color)) {
+			floatingButton.classList.remove(color)
+		}
+		floatingButton.classList.add("blue")
+	})
+
+	NAV_BUTTONS.forEach((button) => {
+		COLORS_BUTTON.forEach((color) => {
+			if (button.classList.contains(color)) {
+				button.classList.remove(color)
+			}
+			button.classList.add("blue", "lighten-5")
+		})
+		ICONS.forEach((icon) => {
+			icon.style.color = "dodgerblue"
+		})
+	})
+}
+
+materialGreen.onclick = (e) => {
+	navBar.style.backgroundColor = "rgba(102, 187, 106, 0.6)"
+	navBar.style.backdropFilter = "blur(5px)"
+	document.body.style.backgroundImage =
+		"linear-gradient(to right, #81c784, #e8f5e9)"
+
+	COLORS_BUTTON.forEach((color) => {
+		if (footer.classList.contains(color)) {
+			footer.classList.remove(color)
+		}
+		footer.classList.add("green")
+
+		if (floatingButton.classList.contains(color)) {
+			floatingButton.classList.remove(color)
+		}
+		floatingButton.classList.add("green")
+	})
+
+	NAV_BUTTONS.forEach((button) => {
+		COLORS_BUTTON.forEach((color) => {
+			if (
+				button.classList.contains(color) ||
+				button.classList.contains("lighten-5")
+			) {
+				button.classList.remove(color)
+				button.classList.remove("lighten-5")
+			}
+			button.classList.add("green", "lighten-5")
+		})
+		ICONS.forEach((icon) => {
+			icon.style.color = "forestgreen"
+		})
+	})
+}
+
+materialRed.onclick = (e) => {
+	navBar.style.backgroundColor = "rgba(239, 83, 80, 0.6)"
+	navBar.style.backdropFilter = "blur(5px)"
+	document.body.style.backgroundImage =
+		"linear-gradient(to right, #e57373, #ffebee)"
+
+	COLORS_BUTTON.forEach((color) => {
+		if (footer.classList.contains(color)) {
+			footer.classList.remove(color)
+		}
+		footer.classList.add("red")
+
+		if (floatingButton.classList.contains(color)) {
+			floatingButton.classList.remove(color)
+		}
+		floatingButton.classList.add("red")
+	})
+
+	NAV_BUTTONS.forEach((button) => {
+		COLORS_BUTTON.forEach((color) => {
+			if (
+				button.classList.contains(color) ||
+				button.classList.contains("lighten-5")
+			) {
+				button.classList.remove(color)
+				button.classList.remove("lighten-5")
+			}
+			button.classList.add("red", "lighten-5")
+		})
+		ICONS.forEach((icon) => {
+			icon.style.color = "red"
+		})
+	})
+}
+
+materialYellow.onclick = (e) => {
+	navBar.style.backgroundColor = "rgba(255, 183, 77, 0.6)"
+	navBar.style.backdropFilter = "blur(5px)"
+	document.body.style.backgroundImage =
+		"linear-gradient(to right, #ffcc80, #fff3e0)"
+
+	COLORS_BUTTON.forEach((color) => {
+		if (footer.classList.contains(color)) {
+			footer.classList.remove(color)
+		}
+		footer.classList.add("orange")
+
+		if (floatingButton.classList.contains(color)) {
+			floatingButton.classList.remove(color)
+		}
+		floatingButton.classList.add("orange")
+	})
+
+	NAV_BUTTONS.forEach((button) => {
+		COLORS_BUTTON.forEach((color) => {
+			if (
+				button.classList.contains(color) ||
+				button.classList.contains("lighten-5")
+			) {
+				button.classList.remove(color)
+				button.classList.remove("lighten-5")
+			}
+			button.classList.add("orange", "lighten-5")
+		})
+		ICONS.forEach((icon) => {
+			icon.style.color = "orange"
+		})
+	})
+}
+
+materialColorful.onclick = () => {
+	navBar.style.backgroundColor = "rgba(55, 71, 79, 0.6)"
+	navBar.style.backdropFilter = "blur(5px)"
+	document.body.style.backgroundImage =
+		"linear-gradient(to left, rgb(216, 237, 255), #90a4ae)"
+
+	COLORS_BUTTON.forEach((color) => {
+		if (
+			srcButton.classList.contains(color) ||
+			srcButton.classList.contains("lighten-5")
+		) {
+			srcButton.classList.remove(color)
+			srcButton.classList.remove("lighten-5")
+		}
+		srcButton.classList.add("blue")
+		srcIcon.removeAttribute("style")
+
+		if (
+			destButton.classList.contains(color) ||
+			destButton.classList.contains("lighten-5")
+		) {
+			destButton.classList.remove(color)
+			destButton.classList.remove("lighten-5")
+		}
+		destButton.classList.add("green")
+		destIcon.removeAttribute("style")
+
+		if (
+			showPathButton.classList.contains(color) ||
+			showPathButton.classList.contains("lighten-5")
+		) {
+			showPathButton.classList.remove(color)
+			showPathButton.classList.remove("lighten-5")
+		}
+		showPathButton.classList.add("red")
+		spIcon.removeAttribute("style")
+
+		if (
+			resetButton.classList.contains(color) ||
+			resetButton.classList.contains("lighten-5")
+		) {
+			resetButton.classList.remove(color)
+			resetButton.classList.remove("lighten-5")
+		}
+		resetButton.classList.add("purple")
+		resetIcon.removeAttribute("style")
+
+		if (
+			help.classList.contains(color) ||
+			help.classList.contains("lighten-5")
+		) {
+			help.classList.remove(color)
+			help.classList.remove("lighten-5")
+		}
+		help.classList.add("indigo")
+		helpIcon.removeAttribute("style")
+
+		if (
+			fullScreenButton.classList.contains(color) ||
+			fullScreenButton.classList.contains("lighten-5")
+		) {
+			fullScreenButton.classList.remove(color)
+			fullScreenButton.classList.remove("lighten-5")
+		}
+		fullScreenButton.classList.add("orange")
+		fullscreenIcon.removeAttribute("style")
+
+		if (
+			downloadButton.classList.contains(color) ||
+			downloadButton.classList.contains("lighten-5")
+		) {
+			downloadButton.classList.remove(color)
+			downloadButton.classList.remove("lighten-5")
+		}
+		downloadButton.classList.add("pink")
+		downloadIcon.removeAttribute("style")
+
+		if (footer.classList.contains(color)) {
+			footer.classList.remove(color)
+		}
+		footer.classList.add("blue")
+	})
 }
