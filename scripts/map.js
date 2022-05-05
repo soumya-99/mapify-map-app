@@ -330,9 +330,11 @@ const materialBlue = document.getElementById("m-blue")
 const materialYellow = document.getElementById("m-yellow")
 const materialRed = document.getElementById("m-red")
 const materialGreen = document.getElementById("m-green")
+const materialPurple = document.getElementById("m-purple")
+const materialTeal = document.getElementById("m-teal")
 const materialColorful = document.getElementById("m-colorful")
 
-const COLORS_BUTTON = [
+const COLORS = [
 	"red",
 	"green",
 	"blue",
@@ -341,6 +343,7 @@ const COLORS_BUTTON = [
 	"pink",
 	"cyan",
 	"indigo",
+	"teal",
 ]
 const NAV_BUTTONS = [
 	srcButton,
@@ -354,6 +357,13 @@ const NAV_BUTTONS = [
 
 const navBar = document.getElementsByTagName("nav")[0]
 const footer = document.getElementsByTagName("footer")[0]
+
+const fbButton = document.getElementById("link-fb")
+const githubButton = document.getElementById("link-github")
+const twitterButton = document.getElementById("link-twitter")
+const instaButton = document.getElementById("link-insta")
+
+const SOCIAL_BUTTONS = [fbButton, githubButton, twitterButton, instaButton]
 
 // const card1 = document.getElementById("card-1")
 // const card2 = document.getElementById("card-2")
@@ -383,7 +393,7 @@ materialBlue.onclick = (e) => {
 	document.body.style.backgroundImage =
 		"linear-gradient(to left, #e3f2fd, #90caf9)"
 
-	COLORS_BUTTON.forEach((color) => {
+	COLORS.forEach((color) => {
 		if (footer.classList.contains(color) || footer.classList.contains("blue")) {
 			footer.classList.remove("blue")
 			footer.classList.remove(color)
@@ -394,17 +404,25 @@ materialBlue.onclick = (e) => {
 			floatingButton.classList.remove(color)
 		}
 		floatingButton.classList.add("blue")
-	})
 
-	NAV_BUTTONS.forEach((button) => {
-		COLORS_BUTTON.forEach((color) => {
+		NAV_BUTTONS.forEach((button) => {
 			if (button.classList.contains(color)) {
 				button.classList.remove(color)
 			}
 			button.classList.add("blue", "lighten-5")
+			ICONS.forEach((icon) => {
+				icon.style.color = "dodgerblue"
+			})
 		})
-		ICONS.forEach((icon) => {
-			icon.style.color = "dodgerblue"
+	})
+
+	SOCIAL_BUTTONS.forEach((button) => {
+		COLORS.forEach((color) => {
+			if (button.classList.contains(color)) {
+				button.classList.remove(color)
+			}
+			button.classList.add("blue", "lighten-5")
+			button.style.color = "dodgerblue"
 		})
 	})
 }
@@ -415,7 +433,7 @@ materialGreen.onclick = (e) => {
 	document.body.style.backgroundImage =
 		"linear-gradient(to right, #81c784, #e8f5e9)"
 
-	COLORS_BUTTON.forEach((color) => {
+	COLORS.forEach((color) => {
 		if (footer.classList.contains(color)) {
 			footer.classList.remove(color)
 		}
@@ -425,10 +443,8 @@ materialGreen.onclick = (e) => {
 			floatingButton.classList.remove(color)
 		}
 		floatingButton.classList.add("green")
-	})
 
-	NAV_BUTTONS.forEach((button) => {
-		COLORS_BUTTON.forEach((color) => {
+		NAV_BUTTONS.forEach((button) => {
 			if (
 				button.classList.contains(color) ||
 				button.classList.contains("lighten-5")
@@ -438,8 +454,19 @@ materialGreen.onclick = (e) => {
 			}
 			button.classList.add("green", "lighten-5")
 		})
+
 		ICONS.forEach((icon) => {
 			icon.style.color = "forestgreen"
+		})
+	})
+
+	SOCIAL_BUTTONS.forEach((button) => {
+		COLORS.forEach((color) => {
+			if (button.classList.contains(color)) {
+				button.classList.remove(color)
+			}
+			button.classList.add("green", "lighten-5")
+			button.style.color = "forestgreen"
 		})
 	})
 }
@@ -450,7 +477,7 @@ materialRed.onclick = (e) => {
 	document.body.style.backgroundImage =
 		"linear-gradient(to right, #e57373, #ffebee)"
 
-	COLORS_BUTTON.forEach((color) => {
+	COLORS.forEach((color) => {
 		if (footer.classList.contains(color)) {
 			footer.classList.remove(color)
 		}
@@ -460,10 +487,8 @@ materialRed.onclick = (e) => {
 			floatingButton.classList.remove(color)
 		}
 		floatingButton.classList.add("red")
-	})
 
-	NAV_BUTTONS.forEach((button) => {
-		COLORS_BUTTON.forEach((color) => {
+		NAV_BUTTONS.forEach((button) => {
 			if (
 				button.classList.contains(color) ||
 				button.classList.contains("lighten-5")
@@ -473,8 +498,19 @@ materialRed.onclick = (e) => {
 			}
 			button.classList.add("red", "lighten-5")
 		})
+
 		ICONS.forEach((icon) => {
-			icon.style.color = "red"
+			icon.style.color = "#f44336"
+		})
+	})
+
+	SOCIAL_BUTTONS.forEach((button) => {
+		COLORS.forEach((color) => {
+			if (button.classList.contains(color)) {
+				button.classList.remove(color)
+			}
+			button.classList.add("red", "lighten-5")
+			button.style.color = "#f44336"
 		})
 	})
 }
@@ -485,7 +521,7 @@ materialYellow.onclick = (e) => {
 	document.body.style.backgroundImage =
 		"linear-gradient(to right, #ffcc80, #fff3e0)"
 
-	COLORS_BUTTON.forEach((color) => {
+	COLORS.forEach((color) => {
 		if (footer.classList.contains(color)) {
 			footer.classList.remove(color)
 		}
@@ -495,10 +531,8 @@ materialYellow.onclick = (e) => {
 			floatingButton.classList.remove(color)
 		}
 		floatingButton.classList.add("orange")
-	})
 
-	NAV_BUTTONS.forEach((button) => {
-		COLORS_BUTTON.forEach((color) => {
+		NAV_BUTTONS.forEach((button) => {
 			if (
 				button.classList.contains(color) ||
 				button.classList.contains("lighten-5")
@@ -508,8 +542,107 @@ materialYellow.onclick = (e) => {
 			}
 			button.classList.add("orange", "lighten-5")
 		})
+
 		ICONS.forEach((icon) => {
 			icon.style.color = "orange"
+		})
+	})
+
+	SOCIAL_BUTTONS.forEach((button) => {
+		COLORS.forEach((color) => {
+			if (button.classList.contains(color)) {
+				button.classList.remove(color)
+			}
+			button.classList.add("orange", "lighten-5")
+			button.style.color = "orange"
+		})
+	})
+}
+
+materialPurple.onclick = (e) => {
+	navBar.style.backgroundColor = "rgba(186, 104, 200, 0.6)"
+	navBar.style.backdropFilter = "blur(5px)"
+	document.body.style.backgroundImage =
+		"linear-gradient(to right, #ba68c8, #f3e5f5)"
+
+	COLORS.forEach((color) => {
+		if (footer.classList.contains(color)) {
+			footer.classList.remove(color)
+		}
+		footer.classList.add("purple")
+
+		if (floatingButton.classList.contains(color)) {
+			floatingButton.classList.remove(color)
+		}
+		floatingButton.classList.add("purple")
+
+		NAV_BUTTONS.forEach((button) => {
+			if (
+				button.classList.contains(color) ||
+				button.classList.contains("lighten-5")
+			) {
+				button.classList.remove(color)
+				button.classList.remove("lighten-5")
+			}
+			button.classList.add("purple", "lighten-5")
+		})
+
+		ICONS.forEach((icon) => {
+			icon.style.color = "#ab47bc"
+		})
+	})
+
+	SOCIAL_BUTTONS.forEach((button) => {
+		COLORS.forEach((color) => {
+			if (button.classList.contains(color)) {
+				button.classList.remove(color)
+			}
+			button.classList.add("purple", "lighten-5")
+			button.style.color = "#ab47bc"
+		})
+	})
+}
+
+materialTeal.onclick = (e) => {
+	navBar.style.backgroundColor = "rgba(77, 182, 172, 0.6)"
+	navBar.style.backdropFilter = "blur(5px)"
+	document.body.style.backgroundImage =
+		"linear-gradient(to right, #4db6ac, #e0f2f1)"
+
+	COLORS.forEach((color) => {
+		if (footer.classList.contains(color)) {
+			footer.classList.remove(color)
+		}
+		footer.classList.add("teal")
+
+		if (floatingButton.classList.contains(color)) {
+			floatingButton.classList.remove(color)
+		}
+		floatingButton.classList.add("teal")
+
+		NAV_BUTTONS.forEach((button) => {
+			if (
+				button.classList.contains(color) ||
+				button.classList.contains("lighten-5")
+			) {
+				button.classList.remove(color)
+				button.classList.remove("lighten-5")
+			}
+			button.classList.add("teal", "lighten-5")
+		})
+
+		ICONS.forEach((icon) => {
+			icon.style.color = "#26a69a"
+		})
+	})
+
+	SOCIAL_BUTTONS.forEach((button) => {
+		COLORS.forEach((color) => {
+			if (button.classList.contains(color)) {
+				button.classList.remove(color)
+			}
+			button.classList.add("teal", "lighten-5")
+			button.style.color = "#26a69a"
 		})
 	})
 }
@@ -520,80 +653,46 @@ materialColorful.onclick = () => {
 	document.body.style.backgroundImage =
 		"linear-gradient(to left, rgb(216, 237, 255), #90a4ae)"
 
-	COLORS_BUTTON.forEach((color) => {
-		if (
-			srcButton.classList.contains(color) ||
-			srcButton.classList.contains("lighten-5")
-		) {
-			srcButton.classList.remove(color)
-			srcButton.classList.remove("lighten-5")
+	COLORS.forEach((color) => {
+		for (let i = 0; i < NAV_BUTTONS.length; i++) {
+			if (
+				NAV_BUTTONS[i].classList.contains(color) ||
+				NAV_BUTTONS[i].classList.contains("lighten-5")
+			) {
+				NAV_BUTTONS[i].classList.remove(color)
+				NAV_BUTTONS[i].classList.remove("lighten-5")
+			}
+			NAV_BUTTONS[0].classList.add("blue")
+			NAV_BUTTONS[1].classList.add("green")
+			NAV_BUTTONS[2].classList.add("red")
+			NAV_BUTTONS[3].classList.add("purple")
+			NAV_BUTTONS[4].classList.add("indigo")
+			NAV_BUTTONS[5].classList.add("orange")
+			NAV_BUTTONS[6].classList.add("pink")
 		}
-		srcButton.classList.add("blue")
-		srcIcon.removeAttribute("style")
 
-		if (
-			destButton.classList.contains(color) ||
-			destButton.classList.contains("lighten-5")
-		) {
-			destButton.classList.remove(color)
-			destButton.classList.remove("lighten-5")
-		}
-		destButton.classList.add("green")
-		destIcon.removeAttribute("style")
-
-		if (
-			showPathButton.classList.contains(color) ||
-			showPathButton.classList.contains("lighten-5")
-		) {
-			showPathButton.classList.remove(color)
-			showPathButton.classList.remove("lighten-5")
-		}
-		showPathButton.classList.add("red")
-		spIcon.removeAttribute("style")
-
-		if (
-			resetButton.classList.contains(color) ||
-			resetButton.classList.contains("lighten-5")
-		) {
-			resetButton.classList.remove(color)
-			resetButton.classList.remove("lighten-5")
-		}
-		resetButton.classList.add("purple")
-		resetIcon.removeAttribute("style")
-
-		if (
-			help.classList.contains(color) ||
-			help.classList.contains("lighten-5")
-		) {
-			help.classList.remove(color)
-			help.classList.remove("lighten-5")
-		}
-		help.classList.add("indigo")
-		helpIcon.removeAttribute("style")
-
-		if (
-			fullScreenButton.classList.contains(color) ||
-			fullScreenButton.classList.contains("lighten-5")
-		) {
-			fullScreenButton.classList.remove(color)
-			fullScreenButton.classList.remove("lighten-5")
-		}
-		fullScreenButton.classList.add("orange")
-		fullscreenIcon.removeAttribute("style")
-
-		if (
-			downloadButton.classList.contains(color) ||
-			downloadButton.classList.contains("lighten-5")
-		) {
-			downloadButton.classList.remove(color)
-			downloadButton.classList.remove("lighten-5")
-		}
-		downloadButton.classList.add("pink")
-		downloadIcon.removeAttribute("style")
+		ICONS.forEach((icon) => {
+			icon.removeAttribute("style")
+		})
 
 		if (footer.classList.contains(color)) {
 			footer.classList.remove(color)
 		}
 		footer.classList.add("blue")
+
+		for (let i = 0; i < SOCIAL_BUTTONS.length; i++) {
+			if (
+				SOCIAL_BUTTONS[i].classList.contains(color) ||
+				SOCIAL_BUTTONS[i].classList.contains("lighten-5")
+			) {
+				SOCIAL_BUTTONS[i].classList.remove(color)
+				SOCIAL_BUTTONS[i].classList.remove("lighten-5")
+				SOCIAL_BUTTONS[i].style.color = "white"
+			}
+			SOCIAL_BUTTONS[0].classList.add("blue")
+			SOCIAL_BUTTONS[1].classList.add("red")
+			SOCIAL_BUTTONS[2].classList.add("green")
+			SOCIAL_BUTTONS[3].classList.add("orange")
+		}
 	})
 }
