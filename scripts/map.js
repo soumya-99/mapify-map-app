@@ -365,9 +365,11 @@ const instaButton = document.getElementById("link-insta")
 
 const SOCIAL_BUTTONS = [fbButton, githubButton, twitterButton, instaButton]
 
-// const card1 = document.getElementById("card-1")
-// const card2 = document.getElementById("card-2")
-// const card3 = document.getElementById("card-3")
+const card1 = document.getElementById("card-1")
+const card2 = document.getElementById("card-2")
+const card3 = document.getElementById("card-3")
+
+const CARDS = [card1, card2, card3]
 
 const srcIcon = document.getElementById("src-icon")
 const destIcon = document.getElementById("dest-icon")
@@ -414,10 +416,19 @@ materialBlue.onclick = (e) => {
 				icon.style.color = "dodgerblue"
 			})
 		})
-	})
 
-	SOCIAL_BUTTONS.forEach((button) => {
-		COLORS.forEach((color) => {
+		CARDS.forEach((card) => {
+			if (
+				card.classList.contains(color) ||
+				card.classList.contains("darken-2")
+			) {
+				card.classList.remove(color)
+			}
+			card.style.backgroundColor = "#001946"
+			card.style.color = "#d8e2ff"
+		})
+
+		SOCIAL_BUTTONS.forEach((button) => {
 			if (button.classList.contains(color)) {
 				button.classList.remove(color)
 			}
@@ -458,10 +469,19 @@ materialGreen.onclick = (e) => {
 		ICONS.forEach((icon) => {
 			icon.style.color = "forestgreen"
 		})
-	})
 
-	SOCIAL_BUTTONS.forEach((button) => {
-		COLORS.forEach((color) => {
+		CARDS.forEach((card) => {
+			if (
+				card.classList.contains(color) ||
+				card.classList.contains("darken-2")
+			) {
+				card.classList.remove(color)
+			}
+			card.style.backgroundColor = "#00210c"
+			card.style.color = "#87faad"
+		})
+
+		SOCIAL_BUTTONS.forEach((button) => {
 			if (button.classList.contains(color)) {
 				button.classList.remove(color)
 			}
@@ -502,10 +522,19 @@ materialRed.onclick = (e) => {
 		ICONS.forEach((icon) => {
 			icon.style.color = "#f44336"
 		})
-	})
 
-	SOCIAL_BUTTONS.forEach((button) => {
-		COLORS.forEach((color) => {
+		CARDS.forEach((card) => {
+			if (
+				card.classList.contains(color) ||
+				card.classList.contains("darken-2")
+			) {
+				card.classList.remove(color)
+			}
+			card.style.backgroundColor = "#400010"
+			card.style.color = "#ffdade"
+		})
+
+		SOCIAL_BUTTONS.forEach((button) => {
 			if (button.classList.contains(color)) {
 				button.classList.remove(color)
 			}
@@ -546,10 +575,19 @@ materialYellow.onclick = (e) => {
 		ICONS.forEach((icon) => {
 			icon.style.color = "orange"
 		})
-	})
 
-	SOCIAL_BUTTONS.forEach((button) => {
-		COLORS.forEach((color) => {
+		CARDS.forEach((card) => {
+			if (
+				card.classList.contains(color) ||
+				card.classList.contains("darken-2")
+			) {
+				card.classList.remove(color)
+			}
+			card.style.backgroundColor = "#390c00"
+			card.style.color = "#ffdbce"
+		})
+
+		SOCIAL_BUTTONS.forEach((button) => {
 			if (button.classList.contains(color)) {
 				button.classList.remove(color)
 			}
@@ -590,10 +628,19 @@ materialPurple.onclick = (e) => {
 		ICONS.forEach((icon) => {
 			icon.style.color = "#ab47bc"
 		})
-	})
 
-	SOCIAL_BUTTONS.forEach((button) => {
-		COLORS.forEach((color) => {
+		CARDS.forEach((card) => {
+			if (
+				card.classList.contains(color) ||
+				card.classList.contains("darken-2")
+			) {
+				card.classList.remove(color)
+			}
+			card.style.backgroundColor = "#2f004c"
+			card.style.color = "#f6d9ff"
+		})
+
+		SOCIAL_BUTTONS.forEach((button) => {
 			if (button.classList.contains(color)) {
 				button.classList.remove(color)
 			}
@@ -634,10 +681,19 @@ materialTeal.onclick = (e) => {
 		ICONS.forEach((icon) => {
 			icon.style.color = "#26a69a"
 		})
-	})
 
-	SOCIAL_BUTTONS.forEach((button) => {
-		COLORS.forEach((color) => {
+		CARDS.forEach((card) => {
+			if (
+				card.classList.contains(color) ||
+				card.classList.contains("darken-2")
+			) {
+				card.classList.remove(color)
+			}
+			card.style.backgroundColor = "#011f22"
+			card.style.color = "#7cf4ff"
+		})
+
+		SOCIAL_BUTTONS.forEach((button) => {
 			if (button.classList.contains(color)) {
 				button.classList.remove(color)
 			}
@@ -693,6 +749,15 @@ materialColorful.onclick = () => {
 			SOCIAL_BUTTONS[1].classList.add("red")
 			SOCIAL_BUTTONS[2].classList.add("green")
 			SOCIAL_BUTTONS[3].classList.add("orange")
+		}
+
+		for (let i = 0; i < CARDS.length; i++) {
+			if (CARDS[i].classList.contains(color)) {
+				CARDS[i].classList.remove(color)
+			}
+			CARDS[0].classList.add("blue", "darken-2")
+			CARDS[1].classList.add("red", "darken-2")
+			CARDS[2].classList.add("green", "darken-2")
 		}
 	})
 }
