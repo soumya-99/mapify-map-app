@@ -24,12 +24,11 @@ let maxX = canvas.width / box_dimensions //image loading needs to be done before
 let maxY = canvas.height / box_dimensions //cause accessing the canvas element here
 let vertex = maxX * maxY //maximum possible number of veritces
 const cellSize = 6
-let pathFound = false
 
 //these all are required now
 //made them global to preseve states within function calls
-let predFromSource = new Array(vertex).fill(-1)
-let predFromDest = new Array(vertex).fill(-1)
+let predFromSource = new Map()
+let predFromDest = new Map()
 let sourceQueue = new Array()
 let destQueue = new Array()
 let sourceVisited = new Array(vertex).fill(false)
@@ -84,13 +83,13 @@ function bfsManager() {
 	destVisited[destination] = true
 	destQueue.push(destination)
 
-	let sb = -1, db = -1
-	while(sb === -1 && db === -1){
-		sb = sourceBfs()
-		db = destBfs()
+	let sourceBfsFlag = -1, destBfsFlag = -1
+	while(sourceBfsFlag === -1 && destBfsFlag === -1){
+		sourceBfsFlag = sourceBfs()
+		destBfsFlag = destBfs()
 	}
 
-	let path = getPath(sb, db)
+	let path = getPath(sourceBfsFlag, destBfsFlag)
 	if(path.length === 0)
 		M.toast({ html: "No path exists in between", classes: "rounded" })
 	else
@@ -119,8 +118,8 @@ function sourceBfs() {
 		if (sourceVisited[vNum] === false) {
 			sourceVisited[vNum] = true
 			sourceQueue.push(vNum)
-			predFromSource[vNum] = x
-			if (predFromDest[vNum] !== -1)
+			predFromSource.set(vNum, x)
+			if (predFromDest.has(vNum) === true)
 				return vNum
 		}
 	}
@@ -150,8 +149,8 @@ function destBfs() {
 		if (destVisited[vNum] === false) {
 			destVisited[vNum] = true
 			destQueue.push(vNum)
-			predFromDest[vNum] = x
-			if(predFromSource[vNum] !== -1)
+			predFromDest.set(vNum, x)
+			if(predFromSource.has(vNum) === true)
 				return vNum
 		}
 	}
@@ -166,8 +165,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
 	let upPixlY = boxPixlY - box_dimensions
 	if (upPixlY > 0) {
 		if (compareColorValues(upPixlX, upPixlY)) {
-			let item = currItem - maxX
-			queueTemp.push(item)
+			queueTemp.push(currItem - maxX)
 		}
 	}
 	//left
@@ -175,8 +173,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
 	let leftPixY = boxPixlY
 	if (leftPixX > 0) {
 		if (compareColorValues(leftPixX, leftPixY)) {
-			let item = currItem - 1
-			queueTemp.push(item)
+			queueTemp.push(currItem - 1)
 		}
 	}
 	//right
@@ -184,8 +181,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
 	let rightPixY = boxPixlY
 	if (rightPixX < canvas.width) {
 		if (compareColorValues(rightPixX, rightPixY)) {
-			let item = currItem + 1
-			queueTemp.push(item)
+			queueTemp.push(currItem + 1)
 		}
 	}
 	//bottom
@@ -193,8 +189,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
 	let bottomPixY = boxPixlY + box_dimensions
 	if (bottomPixY < canvas.height) {
 		if (compareColorValues(bottomPixX, bottomPixY)) {
-			let item = currItem + maxX
-			queueTemp.push(item)
+			queueTemp.push(currItem + maxX)
 		}
 	}
 
@@ -203,8 +198,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
 	let topleftPixY = boxPixlY - box_dimensions
 	if (topleftPixX > 0 && topleftPixY > 0) {
 		if (compareColorValues(topleftPixX, topleftPixY)) {
-			let item = currItem - maxX - 1
-			queueTemp.push(item)
+			queueTemp.push(currItem - maxX - 1)
 		}
 	}
 	//top right
@@ -212,8 +206,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
 	let toprightPixY = boxPixlY - box_dimensions
 	if (toprightPixX < canvas.width && toprightPixY > 0) {
 		if (compareColorValues(toprightPixX, toprightPixY)) {
-			let item = currItem - maxX + 1
-			queueTemp.push(item)
+			queueTemp.push(currItem - maxX + 1)
 		}
 	}
 	//bottom left
@@ -221,8 +214,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
 	let bottomleftPixY = boxPixlY + box_dimensions
 	if (bottomleftPixX > 0 && bottomleftPixY < canvas.height) {
 		if (compareColorValues(bottomleftPixX, bottomleftPixY)) {
-			let item = currItem + maxX - 1
-			queueTemp.push(item)
+			queueTemp.push(currItem + maxX - 1)
 		}
 	}
 	//bottom right
@@ -230,30 +222,30 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
 	let bottomrightPixY = boxPixlY + box_dimensions
 	if (bottomrightPixX < canvas.width && bottomrightPixY < canvas.height) {
 		if (compareColorValues(bottomrightPixX, bottomrightPixY)) {
-			let item = currItem + maxX + 1
-			queueTemp.push(item)
+			queueTemp.push(currItem + maxX + 1)
 		}
 	}
 
 	return queueTemp
 }
 
-function getPath(sb, db) {
+function getPath(sourceFlag, destFlag) {
 	let path = new Array()
 	
-	let index = (sb>db)?sb:db
-	while(predFromSource[index] !== -1){
-		let curr = predFromSource[index]
+	let index = (sourceFlag>destFlag)?sourceFlag:destFlag
+	while(predFromSource.has(index) === true) {
+		let curr = predFromSource.get(index)
 		path.push(curr)
 		index = curr
 	}
 
-	index = (sb>db)?sb:db
-	while(predFromDest[index] !== -1){
-		let curr = predFromDest[index]
+	index = (sourceFlag>destFlag)?sourceFlag:destFlag
+	while(predFromDest.has(index) === true) {
+		let curr = predFromDest.get(index)
 		path.push(curr)
 		index = curr
 	}
+
 	return path
 }
 
@@ -308,8 +300,8 @@ resetButton.onclick = () => {
 }
 
 function resetStates() {
-	predFromSource = new Array(vertex).fill(-1)
-	predFromDest = new Array(vertex).fill(-1)
+	predFromSource.clear()
+	predFromDest.clear()
 	sourceQueue = new Array()
 	destQueue = new Array()
 	sourceVisited = new Array(vertex).fill(false)
@@ -319,7 +311,6 @@ function resetStates() {
 	destSet = false
 	srcButtonOn = false
 	destButtonOn = false
-	pathFound = false
 	srcButton.classList.remove("disabled")
 	destButton.classList.remove("disabled")
 }
