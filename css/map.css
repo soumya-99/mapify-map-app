@@ -175,7 +175,11 @@ body > div > div.col.s7 {
 	justify-content: center;
 	align-items: center;
 }
-
+#zoom-range {
+	position:relative;
+	left:-20vw;
+	width: 51vw;
+  }
 footer {
 	border-radius: 60px;
 	margin-bottom: 50px !important;
