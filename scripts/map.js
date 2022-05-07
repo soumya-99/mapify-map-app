@@ -16,7 +16,12 @@ let canvas = document.getElementById("canvas")
 canvas.width = img.width
 canvas.height = img.height
 let context = canvas.getContext("2d")
-
+//to keep the actual size of the image
+const sx = img.width;
+const sy = img.height;
+//for input type=range
+let zoomRanger = document.getElementById("zoom-range");
+let zoomLevel = zoomRanger.value;
 // algo related
 let sourceSet = false,
 	destSet = false
@@ -206,6 +211,8 @@ function highLightPath() {
 		colorImagePixels(x, y, 1, 255, 0, 0)
 		temp = pred[temp]
 	}
+	//stores the modified image with path highlighted
+	img.src=canvas.toDataURL();
 }
 
 //////////////////////////////////
@@ -227,6 +234,7 @@ function swapMap() {
 resetButton.onclick = () => {
 	let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
+	//need to modify here to reset the zoom also
 	img.src = newImage.value
 	img.onload = () => {
 		context.drawImage(img, 0, 0, img.width, img.height)
@@ -319,6 +327,28 @@ function compareColorValues(x, y) {
 	if (pixel.data[0] >= 250 && pixel.data[1] >= 250 && pixel.data[2] >= 250)
 		return true
 	else return false
+}
+function zoom_in(event) {
+	// console.log("here");
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	sizeX = sx * zoomLevel;
+	sizeY = sy * zoomLevel;
+	img.width = sizeX;
+	img.height = sizeY;
+	canvas.width = sizeX;
+	canvas.height = sizeY;
+	// img.src=canvas.toDataURL();
+	context.drawImage(img, 0, 0, sizeX, sizeY);
+	// console.log("hello");
+	// console.log(canvas.width, canvas.height);
+}
+
+function zoominout(event) {
+	zoomLevel = zoomRanger.value;
+	zoom_in();
+}
+zoomRanger.onchange = function (event) {
+	zoominout(event);
 }
 
 // Complete themeing (Material You)
