@@ -16,12 +16,7 @@ let canvas = document.getElementById("canvas")
 canvas.width = img.width
 canvas.height = img.height
 let context = canvas.getContext("2d")
-//to keep the actual size of the image
-const sx = img.width
-const sy = img.height
-//for input type=range
-let zoomRanger = document.getElementById("zoom-range")
-let zoomLevel = zoomRanger.value
+
 // algo related
 let sourceSet = false,
 	destSet = false
@@ -211,8 +206,6 @@ function highLightPath() {
 		colorImagePixels(x, y, 1, 255, 0, 0)
 		temp = pred[temp]
 	}
-	//stores the modified image with path highlighted
-	img.src = canvas.toDataURL()
 }
 
 //////////////////////////////////
@@ -234,7 +227,6 @@ function swapMap() {
 resetButton.onclick = () => {
 	let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
-	//need to modify here to reset the zoom also
 	img.src = newImage.value
 	img.onload = () => {
 		context.drawImage(img, 0, 0, img.width, img.height)
@@ -327,32 +319,6 @@ function compareColorValues(x, y) {
 	if (pixel.data[0] >= 250 && pixel.data[1] >= 250 && pixel.data[2] >= 250)
 		return true
 	else return false
-}
-function zoom_in(event) {
-	// console.log("here");
-	context.clearRect(0, 0, canvas.width, canvas.height)
-	sizeX = sx * zoomLevel
-	sizeY = sy * zoomLevel
-	img.width = sizeX
-	img.height = sizeY
-	canvas.width = sizeX
-	canvas.height = sizeY
-	// img.src=canvas.toDataURL();
-	context.drawImage(img, 0, 0, sizeX, sizeY)
-	sourceSet = false
-	destSet = false
-	srcButtonOn = false
-	destButtonOn = false
-	// console.log("hello");
-	// console.log(canvas.width, canvas.height);
-}
-
-function zoominout(event) {
-	zoomLevel = zoomRanger.value
-	zoom_in()
-}
-zoomRanger.onchange = function (event) {
-	zoominout(event)
 }
 
 // Complete themeing (Material You)
@@ -459,7 +425,6 @@ materialBlue.onclick = (e) => {
 				card.classList.remove(color)
 			}
 			card.style.backgroundColor = "#001946"
-			card.style.color = "#d8e2ff"
 		})
 
 		SOCIAL_BUTTONS.forEach((button) => {
@@ -512,7 +477,6 @@ materialGreen.onclick = (e) => {
 				card.classList.remove(color)
 			}
 			card.style.backgroundColor = "#00210c"
-			card.style.color = "#87faad"
 		})
 
 		SOCIAL_BUTTONS.forEach((button) => {
@@ -565,7 +529,6 @@ materialRed.onclick = (e) => {
 				card.classList.remove(color)
 			}
 			card.style.backgroundColor = "#400010"
-			card.style.color = "#ffdade"
 		})
 
 		SOCIAL_BUTTONS.forEach((button) => {
@@ -618,7 +581,6 @@ materialYellow.onclick = (e) => {
 				card.classList.remove(color)
 			}
 			card.style.backgroundColor = "#390c00"
-			card.style.color = "#ffdbce"
 		})
 
 		SOCIAL_BUTTONS.forEach((button) => {
@@ -671,7 +633,6 @@ materialPurple.onclick = (e) => {
 				card.classList.remove(color)
 			}
 			card.style.backgroundColor = "#2f004c"
-			card.style.color = "#f6d9ff"
 		})
 
 		SOCIAL_BUTTONS.forEach((button) => {
@@ -724,7 +685,6 @@ materialTeal.onclick = (e) => {
 				card.classList.remove(color)
 			}
 			card.style.backgroundColor = "#011f22"
-			card.style.color = "#7cf4ff"
 		})
 
 		SOCIAL_BUTTONS.forEach((button) => {
@@ -788,6 +748,7 @@ materialColorful.onclick = () => {
 		for (let i = 0; i < CARDS.length; i++) {
 			if (CARDS[i].classList.contains(color)) {
 				CARDS[i].classList.remove(color)
+				CARDS[i].removeAttribute("style")
 			}
 			CARDS[0].classList.add("blue", "darken-2")
 			CARDS[1].classList.add("red", "darken-2")
@@ -807,7 +768,15 @@ const sideNav = document.querySelector(".sidenav")
 const carousel = document.querySelector(".carousel")
 
 // Don't change the order of the following elements
-const instanceActions = [dropdown, modal, formSelect, tooltip, floatingActionButton, sideNav, carousel]
+const instanceActions = [
+	dropdown,
+	modal,
+	formSelect,
+	tooltip,
+	floatingActionButton,
+	sideNav,
+	carousel,
+]
 
 for (let i = 0; i < instanceActions.length; i++) {
 	M.Dropdown.init(instanceActions[0])
@@ -820,7 +789,7 @@ for (let i = 0; i < instanceActions.length; i++) {
 	const carouselInstance = M.Carousel.init(instanceActions[6])
 	setInterval(() => {
 		carouselInstance.next()
-	}, 2500)
+	}, 1500)
 }
 
 // preloader done

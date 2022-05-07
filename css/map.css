@@ -59,7 +59,7 @@ a {
 
 a:hover {
 	border-radius: 10px !important;
-	transition: 0.2s ease-in-out;
+	transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
 }
 
 button {
@@ -68,7 +68,7 @@ button {
 
 button:hover {
 	border-radius: 10px !important;
-	transition: 0.2s ease-in-out;
+	transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
 }
 
 canvas {
@@ -78,7 +78,6 @@ canvas {
 
 canvas:active {
 	cursor: grab;
-	z-index: 3;
 }
 
 .divider {
@@ -175,15 +174,15 @@ body > div > div.col.s7 {
 	justify-content: center;
 	align-items: center;
 }
-#zoom-range {
-	position:relative;
-	left:-20vw;
-	width: 51vw;
-	margin-bottom: 2rem;
-  }
+
 footer {
 	border-radius: 60px;
 	margin-bottom: 50px !important;
+}
+
+footer:hover {
+	border-radius: 30px;
+	transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
 }
 
 #aboutus > div.footer-copyright {
@@ -201,7 +200,7 @@ footer {
 
 .card:hover {
 	border-radius: 10px;
-	transition: linear 0.2s;
+	transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
 }
 
 .dropdown-content.select-dropdown {
