@@ -179,6 +179,7 @@ body > div > div.col.s7 {
 	position:relative;
 	left:-20vw;
 	width: 51vw;
+	margin-bottom: 2rem;
   }
 footer {
 	border-radius: 60px;
