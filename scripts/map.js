@@ -339,10 +339,6 @@ function zoom_in(event) {
 	canvas.height = sizeY;
 	// img.src=canvas.toDataURL();
 	context.drawImage(img, 0, 0, sizeX, sizeY);
-	destButtonOn=false
-	srcButtonOn=false
-	sourceSet = false
-	destSet = false
 	// console.log("hello");
 	// console.log(canvas.width, canvas.height);
 }
