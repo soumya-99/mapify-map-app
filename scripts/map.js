@@ -90,7 +90,7 @@ function bfs() {
 			return //if reached the destination
 		}
 
-		x = Math.trunc(x)
+		x = Math.ceil(x)
 		let currItem = x
 		let i = Math.trunc(currItem / maxX)
 		let j = Math.trunc(currItem - i * maxX)
@@ -173,27 +173,37 @@ function bfs() {
 				queueTemp.push(item)
 			}
 		}
+		console.log(queueTemp)
 
 		//now all the adjacents of x are in queueTemp and can be used
 		//as an alternative of any supporting data structure for bfs.
 		for (let k = 0; k < queueTemp.length; k++) {
 			let vNum = queueTemp[k]
+			console.log("here",vNum)
+			vNum=Math.ceil(vNum)
+			console.log("ceiling",vNum)
 			if (visited[vNum] === false) {
 				visited[vNum] = true
 				queue.push(vNum)
+				console.log("pushing", vNum)
 				pred[vNum] = x
+				// let i = Math.trunc(x / maxX)
+				// let j = Math.trunc(x - i * maxX)
+				// let ax = j * box_dimensions + box_dimensions / 2
+				// let ay = i * box_dimensions + box_dimensions / 2
+				// colorImagePixels(ax, ay, 1, 255, 0, 0)
 			}
 		}
 		//console.log(queue.length)
 
 		let endTime = performance.now()
-		if (endTime - startTime > 10000) {
-			//I don't know mannnnn
-			//seeming sus lately
-			console.log("Error..forcing return")
-			M.toast({ html: "Error..forcing return", classes: "rounded" })
-			return
-		}
+		// if (endTime - startTime > 10000) {
+		// 	//I don't know mannnnn
+		// 	//seeming sus lately
+		// 	console.log("Error..forcing return")
+		// 	M.toast({ html: "Error..forcing return", classes: "rounded" })
+		// 	return
+		// }
 	}
 	pathFound = false
 	//console.log("returning from bfs")
@@ -343,6 +353,9 @@ function zoom_in(event) {
 	destSet = false
 	srcButtonOn = false
 	destButtonOn = false
+	maxX = canvas.width / box_dimensions //image loading needs to be done before this
+	maxY = canvas.height / box_dimensions //cause accessing the canvas element here
+	vertex = Math.ceil(maxX * maxY) //maximum possible number of veritces
 	// console.log("hello");
 	// console.log(canvas.width, canvas.height);
 }
