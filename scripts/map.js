@@ -17,11 +17,11 @@ canvas.width = img.width
 canvas.height = img.height
 let context = canvas.getContext("2d")
 //to keep the actual size of the image
-const sx = img.width;
-const sy = img.height;
+const sx = img.width
+const sy = img.height
 //for input type=range
-let zoomRanger = document.getElementById("zoom-range");
-let zoomLevel = zoomRanger.value;
+let zoomRanger = document.getElementById("zoom-range")
+let zoomLevel = zoomRanger.value
 // algo related
 let sourceSet = false,
 	destSet = false
@@ -212,7 +212,7 @@ function highLightPath() {
 		temp = pred[temp]
 	}
 	//stores the modified image with path highlighted
-	img.src=canvas.toDataURL();
+	img.src = canvas.toDataURL()
 }
 
 //////////////////////////////////
@@ -330,25 +330,25 @@ function compareColorValues(x, y) {
 }
 function zoom_in(event) {
 	// console.log("here");
-	context.clearRect(0, 0, canvas.width, canvas.height);
-	sizeX = sx * zoomLevel;
-	sizeY = sy * zoomLevel;
-	img.width = sizeX;
-	img.height = sizeY;
-	canvas.width = sizeX;
-	canvas.height = sizeY;
+	context.clearRect(0, 0, canvas.width, canvas.height)
+	sizeX = sx * zoomLevel
+	sizeY = sy * zoomLevel
+	img.width = sizeX
+	img.height = sizeY
+	canvas.width = sizeX
+	canvas.height = sizeY
 	// img.src=canvas.toDataURL();
-	context.drawImage(img, 0, 0, sizeX, sizeY);
+	context.drawImage(img, 0, 0, sizeX, sizeY)
 	// console.log("hello");
 	// console.log(canvas.width, canvas.height);
 }
 
 function zoominout(event) {
-	zoomLevel = zoomRanger.value;
-	zoom_in();
+	zoomLevel = zoomRanger.value
+	zoom_in()
 }
 zoomRanger.onchange = function (event) {
-	zoominout(event);
+	zoominout(event)
 }
 
 // Complete themeing (Material You)
@@ -791,3 +791,49 @@ materialColorful.onclick = () => {
 		}
 	})
 }
+
+// work for removing jquery
+
+const dropdown = document.querySelector(".dropdown-trigger")
+const modal = document.querySelectorAll(".modal")
+const formSelect = document.querySelectorAll("select")
+const tooltip = document.querySelectorAll(".tooltipped")
+const floatingActionButton = document.querySelector(".fixed-action-btn")
+const sideNav = document.querySelector(".sidenav")
+const carousel = document.querySelector(".carousel")
+
+// Don't change the order of the following elements
+const instanceActions = [dropdown, modal, formSelect, tooltip, floatingActionButton, sideNav, carousel]
+
+for (let i = 0; i < instanceActions.length; i++) {
+	M.Dropdown.init(instanceActions[0])
+	M.Modal.init(instanceActions[1])
+	M.FormSelect.init(instanceActions[2])
+	M.Tooltip.init(instanceActions[3])
+	M.FloatingActionButton.init(instanceActions[4])
+	M.Sidenav.init(instanceActions[5])
+
+	const carouselInstance = M.Carousel.init(instanceActions[6])
+	setInterval(() => {
+		carouselInstance.next()
+	}, 2500)
+}
+
+// preloader done
+const preloader = document.querySelector(".pre-loader")
+function fadeOut() {
+	const fadeEffect = setInterval(function () {
+		if (!preloader.style.opacity) {
+			preloader.style.opacity = 1
+		}
+		if (preloader.style.opacity > 0) {
+			preloader.style.opacity -= 0.1
+		} else {
+			clearInterval(fadeEffect)
+			preloader.style.display = "none"
+		}
+	}, 100)
+}
+setInterval(() => {
+	fadeOut()
+}, 2000)
