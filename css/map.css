@@ -29,7 +29,7 @@ body {
 	align-items: center;
 	flex-direction: column;
 	/* background: var(--material-white) !important; */
-	background-image: linear-gradient(to left, var(--material-white), #90a4ae) !important;
+	background-image: linear-gradient(to left, var(--material-white), #90a4ae);
 	font-family: "GoogleSans";
 }
 
@@ -38,7 +38,7 @@ body {
 }
 
 nav {
-	background-color: rgba(55, 71, 79, 0.6) !important;
+	background-color: rgba(55, 71, 79, 0.6);
 	width: 100%;
 	border-radius: 50px;
 	backdrop-filter: blur(5px);
@@ -49,7 +49,7 @@ nav {
 	margin-right: 11vw !important;
 }
 
-#nav-mobile > li:nth-child(8) > div > label {
+#nav-mobile > li:nth-child(9) > div > label {
 	color: white;
 }
 
@@ -59,7 +59,7 @@ a {
 
 a:hover {
 	border-radius: 10px !important;
-	transition: linear 0.2s;
+	transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
 }
 
 button {
@@ -68,7 +68,7 @@ button {
 
 button:hover {
 	border-radius: 10px !important;
-	transition: linear 0.2s;
+	transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
 }
 
 canvas {
@@ -146,13 +146,28 @@ canvas:active {
 .map-container {
 	border-radius: 30px;
 	width: 55vw; /* size of container */
-	height: 84vh; /* size of container */
+	height: 85vh; /* size of container */
 	overflow: scroll; /* Overflows the map */
 }
 
-/* ::-webkit-scrollbar {
+body::-webkit-scrollbar {
 	width: 0;
-} */
+	background: transparent;
+}
+
+.map-container::-webkit-scrollbar {
+	width: 10px;
+}
+
+.map-container::-webkit-scrollbar-corner {
+	width: 0;
+}
+
+.map-container::-webkit-scrollbar-thumb {
+	background-color: rgba(55, 71, 79, 0.6);
+	border-radius: 30px;
+	width: 10px;
+}
 
 body > div > div.col.s7 {
 	display: flex;
@@ -163,6 +178,11 @@ body > div > div.col.s7 {
 footer {
 	border-radius: 60px;
 	margin-bottom: 50px !important;
+}
+
+footer:hover {
+	border-radius: 30px;
+	transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
 }
 
 #aboutus > div.footer-copyright {
@@ -180,7 +200,7 @@ footer {
 
 .card:hover {
 	border-radius: 10px;
-	transition: linear 0.2s;
+	transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
 }
 
 .dropdown-content.select-dropdown {
@@ -195,7 +215,7 @@ footer {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 9999 !important;
+	z-index: 999;
 	background-color: rgba(0, 0, 0, 0.05);
 	backdrop-filter: blur(5px);
 }
