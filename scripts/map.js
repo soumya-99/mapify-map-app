@@ -7,6 +7,8 @@ const help = document.getElementById("help")
 const aboutUs = document.getElementById("aboutus")
 const fullScreenButton = document.getElementById("fullscreen")
 const downloadButton = document.getElementById("download")
+const zoomButton=document.getElementById("zoom-icon")
+let zoomOn=false
 
 // image related
 let img = document.getElementById("map-image")
@@ -276,6 +278,20 @@ fullScreenButton.onclick = (e) => {
 downloadButton.onclick = () => {
 	downloadButton.download = img.src
 	downloadButton.href = canvas.toDataURL()
+}
+zoomButton.onclick=()=>{
+	if(zoomOn==false){
+		srcButton.classList.add("disabled")
+		destButton.classList.add("disabled")
+		showPathButton.classList.add("disabled")
+		zoomOn=true
+	}
+	else if(zoomOn==true){
+		srcButton.classList.remove("disabled")
+		destButton.classList.remove("disabled")
+		showPathButton.classList.remove("disabled")
+		zoomOn=false
+	}
 }
 
 canvas.addEventListener(
