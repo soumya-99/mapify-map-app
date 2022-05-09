@@ -61,7 +61,7 @@
                             </label>
                         </div>
                     </li>
-                    <li><a id="download" class="waves-effect waves-light green btn tooltipped hoverable"
+                    <li><a id="zoom" class="waves-effect waves-light green btn tooltipped hoverable"
                         data-position="bottom" data-tooltip="Toggle Zoom Mode"><i class="material-icons"
                             id="zoom-icon">zoom_in</i></a>
                 </li>
@@ -132,15 +132,15 @@
     </div>
 
     <!-- Main Body section starts -->
-    <div class="row">
-        <div class="col s7">
-            <div class="map-container" id="map-container">
+    <div class="row" id="main-body">
+        <div class="col s7" id="cols7">
+            <div class="map-container map-container-default-view" id="map-container">
                 <canvas id="canvas">
                     <img id="map-image" src="./maps/Real_Maps/gMaps5.png" alt="Map Here">
                 </canvas>
             </div>
         </div>
-        <div class="col s5">
+        <div class="col s5" id="other-than-map">
             <div class="input-field col s5">
                 <select class="icons" id="mapSelect" onchange="swapMap()">
                     <option disabled>Choose Map</option>

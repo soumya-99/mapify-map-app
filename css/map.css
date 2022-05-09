@@ -141,13 +141,19 @@ canvas:active {
 	display: flex;
 	justify-content: center;
 	margin-top: 25px;
+	width: 100%;
 }
-
-.map-container {
+.map-container{
 	border-radius: 30px;
+	overflow: scroll;
+}
+.map-container-default-view {
 	width: 55vw; /* size of container */
 	height: 85vh; /* size of container */
-	overflow: scroll; /* Overflows the map */
+}
+.map-container-detailed-view{
+	width: 100%;
+	height: 100%;
 }
 
 body::-webkit-scrollbar {
@@ -168,12 +174,12 @@ body::-webkit-scrollbar {
 	border-radius: 30px;
 	width: 10px;
 }
-
-body > div > div.col.s7 {
+/* .col .s7 has only one element, no need of flex */
+/* body > div > div.col.s7 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
+} */
 
 footer {
 	border-radius: 60px;
