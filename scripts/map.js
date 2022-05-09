@@ -59,7 +59,6 @@ function pick(event) {
 	}
 }
 
-
 //////////////////////////////////
 
 function swapMap() {
@@ -104,7 +103,7 @@ function resetStates() {
 
 //methods for buttons
 function show_path(event) {
-	bfsManager(source, destination);	//all methods combined
+	bfsManager(source, destination) //all methods combined
 }
 
 destButton.onclick = (e) => {
@@ -219,372 +218,862 @@ const ICONS = [
 	downloadIcon,
 ]
 
+let currentTheme = 0
+
 materialBlue.onclick = (e) => {
-	navBar.style.backgroundColor = "rgba(30, 136, 229, 0.6)"
-	navBar.style.backdropFilter = "blur(5px)"
-	document.body.style.backgroundImage =
-		"linear-gradient(to left, #e3f2fd, #90caf9)"
+	currentTheme = 1
+	let isChecked = document.getElementById("switch-dark").checked
+	console.log(isChecked)
+	console.log(currentTheme)
+	if (isChecked) {
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #001946, #5d8ef3)"
+		navBar.style.backgroundColor = "rgba(30, 136, 229, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
 
-	COLORS.forEach((color) => {
-		if (footer.classList.contains(color) || footer.classList.contains("blue")) {
-			footer.classList.remove("blue")
-			footer.classList.remove(color)
-		}
-		footer.classList.add("blue")
-
-		if (floatingButton.classList.contains(color)) {
-			floatingButton.classList.remove(color)
-		}
-		floatingButton.classList.add("blue")
-
-		NAV_BUTTONS.forEach((button) => {
-			if (button.classList.contains(color)) {
-				button.classList.remove(color)
+		COLORS.forEach((color) => {
+			if (
+				footer.classList.contains(color) ||
+				footer.classList.contains("blue")
+			) {
+				footer.classList.remove("blue")
+				footer.classList.remove(color)
 			}
-			button.classList.add("blue", "lighten-5")
-			ICONS.forEach((icon) => {
-				icon.style.color = "dodgerblue"
+			footer.classList.add("blue")
+
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
+			}
+			floatingButton.classList.add("blue")
+
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("blue", "darken-4")
+				ICONS.forEach((icon) => {
+					icon.style.color = "#d8e2ff"
+				})
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+					card.classList.remove("darken-2")
+				}
+				card.style.backgroundColor = "#00429c"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("blue", "darken-4")
+				button.style.color = "#d8e2ff"
 			})
 		})
+	} else {
+		navBar.style.backgroundColor = "rgba(30, 136, 229, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
+		document.body.style.backgroundImage =
+			"linear-gradient(to left, #e3f2fd, #90caf9)"
 
-		CARDS.forEach((card) => {
+		COLORS.forEach((color) => {
 			if (
-				card.classList.contains(color) ||
-				card.classList.contains("darken-2")
+				footer.classList.contains(color) ||
+				footer.classList.contains("blue")
 			) {
-				card.classList.remove(color)
+				footer.classList.remove("blue")
+				footer.classList.remove(color)
 			}
-			card.style.backgroundColor = "#001946"
-		})
+			footer.classList.add("blue")
 
-		SOCIAL_BUTTONS.forEach((button) => {
-			if (button.classList.contains(color)) {
-				button.classList.remove(color)
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
 			}
-			button.classList.add("blue", "lighten-5")
-			button.style.color = "dodgerblue"
+			floatingButton.classList.add("blue")
+
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("blue", "lighten-5")
+				ICONS.forEach((icon) => {
+					icon.style.color = "dodgerblue"
+				})
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+				}
+				card.style.backgroundColor = "#1e5abc"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("blue", "lighten-5")
+				button.style.color = "dodgerblue"
+			})
 		})
-	})
+	}
 }
 
 materialGreen.onclick = (e) => {
-	navBar.style.backgroundColor = "rgba(102, 187, 106, 0.6)"
-	navBar.style.backdropFilter = "blur(5px)"
-	document.body.style.backgroundImage =
-		"linear-gradient(to right, #81c784, #e8f5e9)"
+	currentTheme = 2
+	let isChecked = document.getElementById("switch-dark").checked
+	console.log(isChecked)
+	console.log(currentTheme)
+	if (isChecked) {
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #00210C, #2ba561)"
+		navBar.style.backgroundColor = "rgba(102, 187, 106, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
 
-	COLORS.forEach((color) => {
-		if (footer.classList.contains(color)) {
-			footer.classList.remove(color)
-		}
-		footer.classList.add("green")
-
-		if (floatingButton.classList.contains(color)) {
-			floatingButton.classList.remove(color)
-		}
-		floatingButton.classList.add("green")
-
-		NAV_BUTTONS.forEach((button) => {
-			if (
-				button.classList.contains(color) ||
-				button.classList.contains("lighten-5")
-			) {
-				button.classList.remove(color)
-				button.classList.remove("lighten-5")
+		COLORS.forEach((color) => {
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
 			}
-			button.classList.add("green", "lighten-5")
-		})
+			footer.classList.add("green")
 
-		ICONS.forEach((icon) => {
-			icon.style.color = "forestgreen"
-		})
-
-		CARDS.forEach((card) => {
-			if (
-				card.classList.contains(color) ||
-				card.classList.contains("darken-2")
-			) {
-				card.classList.remove(color)
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
 			}
-			card.style.backgroundColor = "#00210c"
-		})
 
-		SOCIAL_BUTTONS.forEach((button) => {
-			if (button.classList.contains(color)) {
-				button.classList.remove(color)
-			}
-			button.classList.add("green", "lighten-5")
-			button.style.color = "forestgreen"
+			floatingButton.classList.add("green")
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("green", "darken-4")
+				ICONS.forEach((icon) => {
+					icon.style.color = "#d8ffe2"
+				})
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+					card.classList.remove("darken-2")
+				}
+				card.style.backgroundColor = "#005229"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("green", "darken-4")
+				button.style.color = "#d8ffe2"
+			})
 		})
-	})
+	} else {
+		navBar.style.backgroundColor = "rgba(102, 187, 106, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #81c784, #e8f5e9)"
+
+		COLORS.forEach((color) => {
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
+			}
+			footer.classList.add("green")
+
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
+			}
+			floatingButton.classList.add("green")
+
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("lighten-5") ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("lighten-5")
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("green", "lighten-5")
+			})
+
+			ICONS.forEach((icon) => {
+				icon.style.color = "forestgreen"
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+				}
+				card.style.backgroundColor = "#006d38"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("green", "lighten-5")
+				button.style.color = "forestgreen"
+			})
+		})
+	}
 }
 
 materialRed.onclick = (e) => {
-	navBar.style.backgroundColor = "rgba(239, 83, 80, 0.6)"
-	navBar.style.backdropFilter = "blur(5px)"
-	document.body.style.backgroundImage =
-		"linear-gradient(to right, #e57373, #ffebee)"
+	currentTheme = 3
+	let isChecked = document.getElementById("switch-dark").checked
+	if (isChecked) {
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #400010, #ff4f75)"
+		navBar.style.backgroundColor = "rgba(239, 83, 80, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
 
-	COLORS.forEach((color) => {
-		if (footer.classList.contains(color)) {
-			footer.classList.remove(color)
-		}
-		footer.classList.add("red")
-
-		if (floatingButton.classList.contains(color)) {
-			floatingButton.classList.remove(color)
-		}
-		floatingButton.classList.add("red")
-
-		NAV_BUTTONS.forEach((button) => {
-			if (
-				button.classList.contains(color) ||
-				button.classList.contains("lighten-5")
-			) {
-				button.classList.remove(color)
-				button.classList.remove("lighten-5")
+		COLORS.forEach((color) => {
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
 			}
-			button.classList.add("red", "lighten-5")
-		})
+			footer.classList.add("red")
 
-		ICONS.forEach((icon) => {
-			icon.style.color = "#f44336"
-		})
-
-		CARDS.forEach((card) => {
-			if (
-				card.classList.contains(color) ||
-				card.classList.contains("darken-2")
-			) {
-				card.classList.remove(color)
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
 			}
-			card.style.backgroundColor = "#400010"
-		})
+			floatingButton.classList.add("red")
 
-		SOCIAL_BUTTONS.forEach((button) => {
-			if (button.classList.contains(color)) {
-				button.classList.remove(color)
-			}
-			button.classList.add("red", "lighten-5")
-			button.style.color = "#f44336"
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("lighten-5") ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("lighten-5")
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("red", "darken-4")
+			})
+
+			ICONS.forEach((icon) => {
+				icon.style.color = "#ffdade"
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+					card.classList.remove("darken-2")
+				}
+				card.style.backgroundColor = "#910030"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("red", "darken-4")
+				button.style.color = "#ffdade"
+			})
 		})
-	})
+	} else {
+		navBar.style.backgroundColor = "rgba(239, 83, 80, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #e57373, #ffebee)"
+
+		COLORS.forEach((color) => {
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
+			}
+			footer.classList.add("red")
+
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
+			}
+			floatingButton.classList.add("red")
+
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("lighten-5") ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("lighten-5")
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("red", "lighten-5")
+			})
+
+			ICONS.forEach((icon) => {
+				icon.style.color = "#f44336"
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+				}
+				card.style.backgroundColor = "#ba0f44"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("red", "lighten-5")
+				button.style.color = "#f44336"
+			})
+		})
+	}
 }
 
 materialYellow.onclick = (e) => {
-	navBar.style.backgroundColor = "rgba(255, 183, 77, 0.6)"
-	navBar.style.backdropFilter = "blur(5px)"
-	document.body.style.backgroundImage =
-		"linear-gradient(to right, #ffcc80, #fff3e0)"
+	currentTheme = 4
+	let isChecked = document.getElementById("switch-dark").checked
+	if (isChecked) {
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #390c00, #ed6833)"
+		navBar.style.backgroundColor = "rgba(255, 183, 77, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
 
-	COLORS.forEach((color) => {
-		if (footer.classList.contains(color)) {
-			footer.classList.remove(color)
-		}
-		footer.classList.add("orange")
-
-		if (floatingButton.classList.contains(color)) {
-			floatingButton.classList.remove(color)
-		}
-		floatingButton.classList.add("orange")
-
-		NAV_BUTTONS.forEach((button) => {
-			if (
-				button.classList.contains(color) ||
-				button.classList.contains("lighten-5")
-			) {
-				button.classList.remove(color)
-				button.classList.remove("lighten-5")
+		COLORS.forEach((color) => {
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
 			}
-			button.classList.add("orange", "lighten-5")
-		})
+			footer.classList.add("orange")
 
-		ICONS.forEach((icon) => {
-			icon.style.color = "orange"
-		})
-
-		CARDS.forEach((card) => {
-			if (
-				card.classList.contains(color) ||
-				card.classList.contains("darken-2")
-			) {
-				card.classList.remove(color)
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
 			}
-			card.style.backgroundColor = "#390c00"
-		})
+			floatingButton.classList.add("orange")
 
-		SOCIAL_BUTTONS.forEach((button) => {
-			if (button.classList.contains(color)) {
-				button.classList.remove(color)
-			}
-			button.classList.add("orange", "lighten-5")
-			button.style.color = "orange"
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("lighten-5") ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("lighten-5")
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("orange", "darken-4")
+			})
+
+			ICONS.forEach((icon) => {
+				icon.style.color = "#ffdbce"
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+					card.classList.remove("darken-2")
+				}
+				card.style.backgroundColor = "#822700"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("orange", "darken-4")
+				button.style.color = "#ffdbce"
+			})
 		})
-	})
+	} else {
+		navBar.style.backgroundColor = "rgba(255, 183, 77, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #ffcc80, #fff3e0)"
+
+		COLORS.forEach((color) => {
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
+			}
+			footer.classList.add("orange")
+
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
+			}
+			floatingButton.classList.add("orange")
+
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("lighten-5") ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("lighten-5")
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("orange", "lighten-5")
+			})
+
+			ICONS.forEach((icon) => {
+				icon.style.color = "orange"
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+				}
+				card.style.backgroundColor = "#a93800"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("orange", "lighten-5")
+				button.style.color = "orange"
+			})
+		})
+	}
 }
 
 materialPurple.onclick = (e) => {
-	navBar.style.backgroundColor = "rgba(186, 104, 200, 0.6)"
-	navBar.style.backdropFilter = "blur(5px)"
-	document.body.style.backgroundImage =
-		"linear-gradient(to right, #ba68c8, #f3e5f5)"
+	currentTheme = 5
+	let isChecked = document.getElementById("switch-dark").checked
+	if (isChecked) {
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #2f004c, #be6df2)"
+		navBar.style.backgroundColor = "rgba(186, 104, 200, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
 
-	COLORS.forEach((color) => {
-		if (footer.classList.contains(color)) {
-			footer.classList.remove(color)
-		}
-		footer.classList.add("purple")
-
-		if (floatingButton.classList.contains(color)) {
-			floatingButton.classList.remove(color)
-		}
-		floatingButton.classList.add("purple")
-
-		NAV_BUTTONS.forEach((button) => {
-			if (
-				button.classList.contains(color) ||
-				button.classList.contains("lighten-5")
-			) {
-				button.classList.remove(color)
-				button.classList.remove("lighten-5")
+		COLORS.forEach((color) => {
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
 			}
-			button.classList.add("purple", "lighten-5")
-		})
+			footer.classList.add("purple")
 
-		ICONS.forEach((icon) => {
-			icon.style.color = "#ab47bc"
-		})
-
-		CARDS.forEach((card) => {
-			if (
-				card.classList.contains(color) ||
-				card.classList.contains("darken-2")
-			) {
-				card.classList.remove(color)
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
 			}
-			card.style.backgroundColor = "#2f004c"
-		})
+			floatingButton.classList.add("purple")
 
-		SOCIAL_BUTTONS.forEach((button) => {
-			if (button.classList.contains(color)) {
-				button.classList.remove(color)
-			}
-			button.classList.add("purple", "lighten-5")
-			button.style.color = "#ab47bc"
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("lighten-5") ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("lighten-5")
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("purple", "darken-4")
+			})
+
+			ICONS.forEach((icon) => {
+				icon.style.color = "#f6d9ff"
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+					card.classList.remove("darken-2")
+				}
+				card.style.backgroundColor = "#6d14a0"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("purple", "darken-4")
+				button.style.color = "#f6d9ff"
+			})
 		})
-	})
+	} else {
+		navBar.style.backgroundColor = "rgba(186, 104, 200, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #ba68c8, #f3e5f5)"
+
+		COLORS.forEach((color) => {
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
+			}
+			footer.classList.add("purple")
+
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
+			}
+			floatingButton.classList.add("purple")
+
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("lighten-5") ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("lighten-5")
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("purple", "lighten-5")
+			})
+
+			ICONS.forEach((icon) => {
+				icon.style.color = "#ab47bc"
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+				}
+				card.style.backgroundColor = "#8736ba"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("purple", "lighten-5")
+				button.style.color = "#ab47bc"
+			})
+		})
+	}
 }
 
 materialTeal.onclick = (e) => {
-	navBar.style.backgroundColor = "rgba(77, 182, 172, 0.6)"
-	navBar.style.backdropFilter = "blur(5px)"
-	document.body.style.backgroundImage =
-		"linear-gradient(to right, #4db6ac, #e0f2f1)"
+	currentTheme = 6
+	let isChecked = document.getElementById("switch-dark").checked
+	if (isChecked) {
+		document.body.style.background = "#011f22"
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #011f22, #00a0ac)"
+		navBar.style.backgroundColor = "rgba(77, 182, 172, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
 
-	COLORS.forEach((color) => {
-		if (footer.classList.contains(color)) {
-			footer.classList.remove(color)
-		}
-		footer.classList.add("teal")
-
-		if (floatingButton.classList.contains(color)) {
-			floatingButton.classList.remove(color)
-		}
-		floatingButton.classList.add("teal")
-
-		NAV_BUTTONS.forEach((button) => {
-			if (
-				button.classList.contains(color) ||
-				button.classList.contains("lighten-5")
-			) {
-				button.classList.remove(color)
-				button.classList.remove("lighten-5")
+		COLORS.forEach((color) => {
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
 			}
-			button.classList.add("teal", "lighten-5")
-		})
+			footer.classList.add("teal")
 
-		ICONS.forEach((icon) => {
-			icon.style.color = "#26a69a"
-		})
-
-		CARDS.forEach((card) => {
-			if (
-				card.classList.contains(color) ||
-				card.classList.contains("darken-2")
-			) {
-				card.classList.remove(color)
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
 			}
-			card.style.backgroundColor = "#011f22"
-		})
+			floatingButton.classList.add("teal")
 
-		SOCIAL_BUTTONS.forEach((button) => {
-			if (button.classList.contains(color)) {
-				button.classList.remove(color)
-			}
-			button.classList.add("teal", "lighten-5")
-			button.style.color = "#26a69a"
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("lighten-5") ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("lighten-5")
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("teal", "darken-4")
+			})
+
+			ICONS.forEach((icon) => {
+				icon.style.color = "#7cf4ff"
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+				}
+				card.style.backgroundColor = "#004f56"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("teal", "darken-4")
+				button.style.color = "#7cf4ff"
+			})
 		})
-	})
+	} else {
+		navBar.style.backgroundColor = "rgba(77, 182, 172, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
+		document.body.style.backgroundImage =
+			"linear-gradient(to right, #4db6ac, #e0f2f1)"
+
+		COLORS.forEach((color) => {
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
+			}
+			footer.classList.add("teal")
+
+			if (floatingButton.classList.contains(color)) {
+				floatingButton.classList.remove(color)
+			}
+			floatingButton.classList.add("teal")
+
+			NAV_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("lighten-5") ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("lighten-5")
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("teal", "lighten-5")
+			})
+
+			ICONS.forEach((icon) => {
+				icon.style.color = "#26a69a"
+			})
+
+			CARDS.forEach((card) => {
+				if (
+					card.classList.contains(color) ||
+					card.classList.contains("darken-2")
+				) {
+					card.classList.remove(color)
+				}
+				card.style.backgroundColor = "#006972"
+			})
+
+			SOCIAL_BUTTONS.forEach((button) => {
+				if (
+					button.classList.contains(color) ||
+					button.classList.contains("darken-4")
+				) {
+					button.classList.remove(color)
+					button.classList.remove("darken-4")
+				}
+				button.classList.add("teal", "lighten-5")
+				button.style.color = "#26a69a"
+			})
+		})
+	}
 }
 
 materialColorful.onclick = () => {
-	navBar.style.backgroundColor = "rgba(55, 71, 79, 0.6)"
-	navBar.style.backdropFilter = "blur(5px)"
-	document.body.style.backgroundImage =
-		"linear-gradient(to left, rgb(216, 237, 255), #90a4ae)"
+	currentTheme = 0
+	let isChecked = document.getElementById("switch-dark").checked
+	if (isChecked) {
+		navBar.style.backgroundColor = "rgba(55, 71, 79, 0.6)"
+		document.body.style.background = "rgb(51, 68, 85)"
+		document.body.style.color = "rgb(216, 237, 255)"
 
-	COLORS.forEach((color) => {
-		for (let i = 0; i < NAV_BUTTONS.length; i++) {
-			if (
-				NAV_BUTTONS[i].classList.contains(color) ||
-				NAV_BUTTONS[i].classList.contains("lighten-5")
-			) {
-				NAV_BUTTONS[i].classList.remove(color)
-				NAV_BUTTONS[i].classList.remove("lighten-5")
+		COLORS.forEach((color) => {
+			for (let i = 0; i < NAV_BUTTONS.length; i++) {
+				if (
+					NAV_BUTTONS[i].classList.contains(color) ||
+					NAV_BUTTONS[i].classList.contains("lighten-5") ||
+					NAV_BUTTONS[i].classList.contains("darken-4")
+				) {
+					NAV_BUTTONS[i].classList.remove(color)
+					NAV_BUTTONS[i].classList.remove("lighten-5")
+					NAV_BUTTONS[i].classList.remove("darken-4")
+				}
+				NAV_BUTTONS[0].classList.add("blue")
+				NAV_BUTTONS[1].classList.add("green")
+				NAV_BUTTONS[2].classList.add("red")
+				NAV_BUTTONS[3].classList.add("purple")
+				NAV_BUTTONS[4].classList.add("indigo")
+				NAV_BUTTONS[5].classList.add("orange")
+				NAV_BUTTONS[6].classList.add("pink")
 			}
-			NAV_BUTTONS[0].classList.add("blue")
-			NAV_BUTTONS[1].classList.add("green")
-			NAV_BUTTONS[2].classList.add("red")
-			NAV_BUTTONS[3].classList.add("purple")
-			NAV_BUTTONS[4].classList.add("indigo")
-			NAV_BUTTONS[5].classList.add("orange")
-			NAV_BUTTONS[6].classList.add("pink")
-		}
 
-		ICONS.forEach((icon) => {
-			icon.removeAttribute("style")
+			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
+			})
+
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
+			}
+			footer.classList.add("blue")
+
+			for (let i = 0; i < SOCIAL_BUTTONS.length; i++) {
+				if (
+					SOCIAL_BUTTONS[i].classList.contains(color) ||
+					SOCIAL_BUTTONS[i].classList.contains("lighten-5")
+				) {
+					SOCIAL_BUTTONS[i].classList.remove(color)
+					SOCIAL_BUTTONS[i].classList.remove("lighten-5")
+					SOCIAL_BUTTONS[i].style.color = "white"
+				}
+				SOCIAL_BUTTONS[0].classList.add("blue")
+				SOCIAL_BUTTONS[1].classList.add("red")
+				SOCIAL_BUTTONS[2].classList.add("green")
+				SOCIAL_BUTTONS[3].classList.add("orange")
+			}
+
+			for (let i = 0; i < CARDS.length; i++) {
+				if (CARDS[i].classList.contains(color)) {
+					CARDS[i].classList.remove(color)
+					CARDS[i].removeAttribute("style")
+				}
+				CARDS[0].classList.add("blue", "darken-2")
+				CARDS[1].classList.add("red", "darken-2")
+				CARDS[2].classList.add("green", "darken-2")
+			}
 		})
+	} else {
+		navBar.style.backgroundColor = "rgba(55, 71, 79, 0.6)"
+		navBar.style.backdropFilter = "blur(5px)"
+		document.body.style.backgroundImage =
+			"linear-gradient(to left, rgb(216, 237, 255), #90a4ae)"
 
-		if (footer.classList.contains(color)) {
-			footer.classList.remove(color)
-		}
-		footer.classList.add("blue")
-
-		for (let i = 0; i < SOCIAL_BUTTONS.length; i++) {
-			if (
-				SOCIAL_BUTTONS[i].classList.contains(color) ||
-				SOCIAL_BUTTONS[i].classList.contains("lighten-5")
-			) {
-				SOCIAL_BUTTONS[i].classList.remove(color)
-				SOCIAL_BUTTONS[i].classList.remove("lighten-5")
-				SOCIAL_BUTTONS[i].style.color = "white"
+		COLORS.forEach((color) => {
+			for (let i = 0; i < NAV_BUTTONS.length; i++) {
+				if (
+					NAV_BUTTONS[i].classList.contains(color) ||
+					NAV_BUTTONS[i].classList.contains("lighten-5") ||
+					NAV_BUTTONS[i].classList.contains("darken-4")
+				) {
+					NAV_BUTTONS[i].classList.remove(color)
+					NAV_BUTTONS[i].classList.remove("lighten-5")
+					NAV_BUTTONS[i].classList.remove("darken-4")
+				}
+				NAV_BUTTONS[0].classList.add("blue")
+				NAV_BUTTONS[1].classList.add("green")
+				NAV_BUTTONS[2].classList.add("red")
+				NAV_BUTTONS[3].classList.add("purple")
+				NAV_BUTTONS[4].classList.add("indigo")
+				NAV_BUTTONS[5].classList.add("orange")
+				NAV_BUTTONS[6].classList.add("pink")
 			}
-			SOCIAL_BUTTONS[0].classList.add("blue")
-			SOCIAL_BUTTONS[1].classList.add("red")
-			SOCIAL_BUTTONS[2].classList.add("green")
-			SOCIAL_BUTTONS[3].classList.add("orange")
-		}
 
-		for (let i = 0; i < CARDS.length; i++) {
-			if (CARDS[i].classList.contains(color)) {
-				CARDS[i].classList.remove(color)
-				CARDS[i].removeAttribute("style")
+			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
+			})
+
+			if (footer.classList.contains(color)) {
+				footer.classList.remove(color)
 			}
-			CARDS[0].classList.add("blue", "darken-2")
-			CARDS[1].classList.add("red", "darken-2")
-			CARDS[2].classList.add("green", "darken-2")
-		}
-	})
+			footer.classList.add("blue")
+
+			for (let i = 0; i < SOCIAL_BUTTONS.length; i++) {
+				if (
+					SOCIAL_BUTTONS[i].classList.contains(color) ||
+					SOCIAL_BUTTONS[i].classList.contains("lighten-5") ||
+					SOCIAL_BUTTONS[i].classList.contains("darken-4")
+				) {
+					SOCIAL_BUTTONS[i].classList.remove(color)
+					SOCIAL_BUTTONS[i].classList.remove("lighten-5")
+					SOCIAL_BUTTONS[i].classList.remove("darken-4")
+					SOCIAL_BUTTONS[i].style.color = "white"
+				}
+				SOCIAL_BUTTONS[0].classList.add("blue")
+				SOCIAL_BUTTONS[1].classList.add("red")
+				SOCIAL_BUTTONS[2].classList.add("green")
+				SOCIAL_BUTTONS[3].classList.add("orange")
+			}
+
+			for (let i = 0; i < CARDS.length; i++) {
+				if (CARDS[i].classList.contains(color)) {
+					CARDS[i].classList.remove(color)
+					CARDS[i].removeAttribute("style")
+				}
+				CARDS[0].classList.add("blue", "darken-2")
+				CARDS[1].classList.add("red", "darken-2")
+				CARDS[2].classList.add("green", "darken-2")
+			}
+		})
+	}
+}
+
+// dark mode
+
+const switchDark = () => {
+	if (currentTheme === 0) materialColorful.click()
+	if (currentTheme === 1) materialBlue.click()
+	if (currentTheme === 2) materialGreen.click()
+	if (currentTheme === 3) materialRed.click()
+	if (currentTheme === 4) materialYellow.click()
+	if (currentTheme === 5) materialPurple.click()
+	if (currentTheme === 6) materialTeal.click()
 }
 
 // work for removing jquery
