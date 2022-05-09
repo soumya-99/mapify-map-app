@@ -7,12 +7,13 @@ const help = document.getElementById("help")
 const aboutUs = document.getElementById("aboutus")
 const fullScreenButton = document.getElementById("fullscreen")
 const downloadButton = document.getElementById("download")
-const mainBody=document.getElementById("main-body")
-const zoomButton=document.getElementById("zoom-icon")
-const rightOfMap=document.getElementById("other-than-map")
-const mapContainer=document.getElementById("map-container")
-const cols7=document.getElementById("cols7")
-let zoomOn=false
+const mainBody = document.getElementById("main-body")
+const zoomButton = document.getElementById("zoom-icon")
+const rightOfMap = document.getElementById("other-than-map")
+const mapContainer = document.getElementById("map-container")
+const cols7 = document.getElementById("cols7")
+const zoomRange = document.getElementById("zoom-range")
+let zoomOn = false
 
 // image related
 let img = document.getElementById("map-image")
@@ -283,26 +284,32 @@ downloadButton.onclick = () => {
 	downloadButton.download = img.src
 	downloadButton.href = canvas.toDataURL()
 }
-zoomButton.onclick=()=>{
-	if(zoomOn==false){
+zoomButton.onclick = () => {
+	if (zoomOn == false) {
 		srcButton.classList.add("disabled")
 		destButton.classList.add("disabled")
 		showPathButton.classList.add("disabled")
 		rightOfMap.remove()
 		mapContainer.classList.remove("map-container-default-view")
 		mapContainer.classList.add("map-container-detailed-view")
-		cols7.style.width="100%"
-		zoomOn=true
+		cols7.style.width = "100%"
+		mainBody.classList.add("row-width")
+		zoomRange.classList.remove("zoom-range-default")
+		zoomRange.classList.add("zoom-range")
+		zoomOn = true
 	}
-	else if(zoomOn==true){
+	else if (zoomOn == true) {
 		srcButton.classList.remove("disabled")
 		destButton.classList.remove("disabled")
 		showPathButton.classList.remove("disabled")
 		mainBody.appendChild(rightOfMap)
 		mapContainer.classList.remove("map-container-detailed-view")
 		mapContainer.classList.add("map-container-default-view")
-		cols7.style.width="fit-content"
-		zoomOn=false
+		cols7.style.width = "fit-content"
+		mainBody.classList.remove("row-width")
+		zoomRange.classList.remove("zoom-range")
+		zoomRange.classList.add("zoom-range-default")
+		zoomOn = false
 	}
 }
 
@@ -311,7 +318,7 @@ canvas.addEventListener(
 	(event) => {
 		pick(event)
 
-		if (srcButtonOn || destButtonOn) {
+		if (srcButtonOn || destButtonOn || zoomOn) {
 			srcButton.classList.add("disabled")
 			destButton.classList.add("disabled")
 		} else {
