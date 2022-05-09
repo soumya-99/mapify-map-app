@@ -14,9 +14,12 @@ const mapContainer = document.getElementById("map-container")
 const cols7 = document.getElementById("cols7")
 const zoomRange = document.getElementById("zoom-range")
 let zoomOn = false
+let zoomValue
 
 // image related
 let img = document.getElementById("map-image")
+let actualImageWidth = img.width
+let actualImageHeight = img.height
 
 // set up the canvas
 let canvas = document.getElementById("canvas")
@@ -41,6 +44,7 @@ let pathFound = false
 
 img.onload = () => {
 	context.drawImage(img, 0, 0, img.width, img.height)
+	// console.log(img.width, img.height)
 }
 
 //this is called everytime mouse is clicked
@@ -220,6 +224,7 @@ function highLightPath() {
 function swapMap() {
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
+	console.log(img.width, img.height)
 	canvas.width = img.width
 	canvas.height = img.height
 	maxX = canvas.width / box_dimensions
@@ -247,8 +252,11 @@ function resetStates() {
 	srcButtonOn = false
 	destButtonOn = false
 	pathFound = false
-	srcButton.classList.remove("disabled")
-	destButton.classList.remove("disabled")
+	zoomRange.value=1
+	if (zoomOn == false) {
+		srcButton.classList.remove("disabled")
+		destButton.classList.remove("disabled")
+	}
 }
 
 //methods for buttons
@@ -289,7 +297,8 @@ zoomButton.onclick = () => {
 		srcButton.classList.add("disabled")
 		destButton.classList.add("disabled")
 		showPathButton.classList.add("disabled")
-		rightOfMap.remove()
+		// resetButton.classList.add("disabled")
+		rightOfMap.classList.add("display-none")
 		mapContainer.classList.remove("map-container-default-view")
 		mapContainer.classList.add("map-container-detailed-view")
 		cols7.style.width = "100%"
@@ -302,15 +311,32 @@ zoomButton.onclick = () => {
 		srcButton.classList.remove("disabled")
 		destButton.classList.remove("disabled")
 		showPathButton.classList.remove("disabled")
-		mainBody.appendChild(rightOfMap)
+		// resetButton.classList.remove("disabled")
+		rightOfMap.classList.remove("display-none")
 		mapContainer.classList.remove("map-container-detailed-view")
 		mapContainer.classList.add("map-container-default-view")
 		cols7.style.width = "fit-content"
 		mainBody.classList.remove("row-width")
 		zoomRange.classList.remove("zoom-range")
 		zoomRange.classList.add("zoom-range-default")
+		swapMap()
 		zoomOn = false
 	}
+}
+function zoom_in(value) {
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	// img.width = actualImageWidth * value
+	// img.height = actualImageHeight * value
+	canvas.width = actualImageWidth * value
+	canvas.height = actualImageHeight * value
+	// context.drawImage(img, 0, 0, img.width, img.height)
+	context.drawImage(img, 0, 0, canvas.width, canvas.height)
+	console.log(img.width, img.height)
+}
+zoomRange.onchange = () => {
+	zoomValue = zoomRange.value
+	zoom_in(zoomValue)
+	// console.log(zoomValue)
 }
 
 canvas.addEventListener(

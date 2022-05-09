@@ -147,6 +147,7 @@ canvas:active {
 }
 
 .map-container {
+	height: 85vh;
 	border-radius: 30px;
 	overflow: scroll;
 	padding: 0px;
@@ -155,13 +156,11 @@ canvas:active {
 .map-container-default-view {
 	width: 55vw;
 	/* size of container */
-	height: 85vh;
 	/* size of container */
 }
 
 .map-container-detailed-view {
 	width: 100%;
-	height: 100%;
 }
 
 body::-webkit-scrollbar {
@@ -182,6 +181,9 @@ body::-webkit-scrollbar {
 	border-radius: 30px;
 	width: 10px;
 }
+.display-none{
+	display: none;
+}
 
 /* .col .s7 has only one element, no need of flex */
 /* body > div > div.col.s7 {
@@ -194,11 +196,11 @@ body::-webkit-scrollbar {
 }
 
 .zoom-range {
-	z-index: 2;
-	position: absolute !important;
-	right: 2rem;
-	top: 75rem;
-	width:20vw !important;
+    z-index: 2;
+    position: absolute !important;
+    right: 3rem;
+    top: 37rem;
+    width: 20vw !important;
 }
 
 footer {
