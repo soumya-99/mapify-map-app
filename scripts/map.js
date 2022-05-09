@@ -236,9 +236,15 @@ function swapMap() {
 }
 
 resetButton.onclick = () => {
+	context.clearRect(0, 0, canvas.width, canvas.height);
 	let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
+	canvas.width = img.width
+	canvas.height = img.height
+	maxX = canvas.width / box_dimensions
+	maxY = canvas.height / box_dimensions
+	vertex = maxX * maxY
 	img.onload = () => {
 		context.drawImage(img, 0, 0, img.width, img.height)
 	}
