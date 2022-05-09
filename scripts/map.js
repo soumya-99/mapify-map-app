@@ -44,7 +44,6 @@ let pathFound = false
 
 img.onload = () => {
 	context.drawImage(img, 0, 0, img.width, img.height)
-	// console.log(img.width, img.height)
 }
 
 //this is called everytime mouse is clicked
@@ -224,7 +223,7 @@ function highLightPath() {
 function swapMap() {
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
-	console.log(img.width, img.height)
+	// console.log(img.width, img.height)
 	canvas.width = img.width
 	canvas.height = img.height
 	maxX = canvas.width / box_dimensions
@@ -331,7 +330,7 @@ function zoom_in(value) {
 	canvas.height = actualImageHeight * value
 	// context.drawImage(img, 0, 0, img.width, img.height)
 	context.drawImage(img, 0, 0, canvas.width, canvas.height)
-	console.log(img.width, img.height)
+	// console.log(img.width, img.height)
 }
 zoomRange.onchange = () => {
 	zoomValue = zoomRange.value
