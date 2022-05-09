@@ -22,7 +22,7 @@ let sourceSet = false,
 	destSet = false
 let srcButtonOn = false,
 	destButtonOn = false //state of buttons
-let source, destination
+let source, destination, middle
 
 const box_dimensions = 2
 let maxX = canvas.width / box_dimensions //image loading needs to be done before this
@@ -71,6 +71,11 @@ function pick(event) {
 		sourceSet = true
 		srcButtonOn = false
 		return
+	}
+
+	if(sourceSet && destSet){
+		console.log(hotCell)
+		middle = hotCell
 	}
 }
 
@@ -271,6 +276,7 @@ function swapMap() {
 		context.drawImage(img, 0, 0, img.width, img.height)
 	}
 	resetStates()
+	resetTriStates()
 }
 
 resetButton.onclick = () => {
@@ -281,6 +287,7 @@ resetButton.onclick = () => {
 		context.drawImage(img, 0, 0, img.width, img.height)
 	}
 	resetStates()
+	resetTriStates()
 }
 
 function resetStates() {
@@ -301,7 +308,8 @@ function resetStates() {
 
 //methods for buttons
 function show_path(event) {
-	bfsManager();	//all methods combined
+	//bfsManager();	//all methods combined
+	triBfs();
 }
 
 destButton.onclick = (e) => {
