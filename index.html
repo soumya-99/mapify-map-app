@@ -51,6 +51,11 @@
                                 id="aboutus-icon">accessibility</i></a>
                     </li>
                     <li>
+                        <a id="zoom" class="waves-effect waves-light green btn tooltipped hoverable"
+                            data-position="bottom" data-tooltip="Toggle Zoom Mode"><i class="material-icons"
+                                id="zoom-icon">zoom_in</i></a>
+                    </li>
+                    <li>
                         <div class="switch">
                             <label>
                                 Light Mode
@@ -127,15 +132,16 @@
     </div>
 
     <!-- Main Body section starts -->
-    <div class="row">
-        <div class="col s7">
-            <div class="map-container" id="map-container">
+    <div class="row" id="main-body">
+        <div class="col s7" id="cols7">
+            <div class="map-container map-container-default-view" id="map-container">
                 <canvas id="canvas">
                     <img id="map-image" src="./maps/Real_Maps/gMaps5.png" alt="Map Here">
                 </canvas>
             </div>
+            <input type="range" step="any" min="1" max="5" value="1" id="zoom-range" class="zoom-range-default">
         </div>
-        <div class="col s5">
+        <div class="col s5" id="other-than-map">
             <div class="input-field col s5">
                 <select class="icons" id="mapSelect" onchange="swapMap()">
                     <option disabled>Choose Map</option>
@@ -208,11 +214,6 @@
                         only
                         for Project Purpose. Use of this website's source code without any permission will be marked as
                         an illegal step. Find Us on Google Maps.</p>
-                    <!-- <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14723.466620256018!2d88.33379029999999!3d22.69600735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1590397038411!5m2!1sen!2sin"
-                        width="800" height="800" frameborder="0" style="height: 240px; width: 290px;" allowfullscreen=""
-                        aria-hidden="false" tabindex="0">
-                    </iframe> -->
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Links</h5>

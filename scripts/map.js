@@ -7,9 +7,20 @@ const help = document.getElementById("help")
 const aboutUs = document.getElementById("aboutus")
 const fullScreenButton = document.getElementById("fullscreen")
 const downloadButton = document.getElementById("download")
+const mainBody = document.getElementById("main-body")
+const zoomButton = document.getElementById("zoom-icon")
+const rightOfMap = document.getElementById("other-than-map")
+const mapContainer = document.getElementById("map-container")
+const cols7 = document.getElementById("cols7")
+const zoomRange = document.getElementById("zoom-range")
+let zoomOn = false
+let zoomValue
 
 // image related
 let img = document.getElementById("map-image")
+let actualImageWidth = img.width
+let actualImageHeight = img.height
+
 // set up the canvas
 let canvas = document.getElementById("canvas")
 canvas.width = img.width
@@ -64,6 +75,7 @@ function pick(event) {
 function swapMap() {
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
+	// console.log(img.width, img.height)
 	canvas.width = img.width
 	canvas.height = img.height
 	maxX = canvas.width / box_dimensions
@@ -76,9 +88,15 @@ function swapMap() {
 }
 
 resetButton.onclick = () => {
+	context.clearRect(0, 0, canvas.width, canvas.height);
 	let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
+	canvas.width = img.width
+	canvas.height = img.height
+	maxX = canvas.width / box_dimensions
+	maxY = canvas.height / box_dimensions
+	vertex = maxX * maxY
 	img.onload = () => {
 		context.drawImage(img, 0, 0, img.width, img.height)
 	}
@@ -97,13 +115,19 @@ function resetStates() {
 	destSet = false
 	srcButtonOn = false
 	destButtonOn = false
-	srcButton.classList.remove("disabled")
-	destButton.classList.remove("disabled")
+	pathFound = false
+	zoomRange.value=1
+	if (zoomOn == false) {
+		srcButton.classList.remove("disabled")
+		destButton.classList.remove("disabled")
+	}
 }
 
 //methods for buttons
 function show_path(event) {
 	bfsManager(source, destination) //all methods combined
+	if (pathFound) highLightPath()
+	img.src = canvas.toDataURL();
 }
 
 destButton.onclick = (e) => {
@@ -133,13 +157,63 @@ downloadButton.onclick = () => {
 	downloadButton.download = img.src
 	downloadButton.href = canvas.toDataURL()
 }
+zoomButton.onclick = () => {
+	if (zoomOn == false) {
+		srcButton.classList.add("disabled")
+		destButton.classList.add("disabled")
+		showPathButton.classList.add("disabled")
+		// resetButton.classList.add("disabled")
+		rightOfMap.classList.add("display-none")
+		mapContainer.classList.remove("map-container-default-view")
+		mapContainer.classList.add("map-container-detailed-view")
+		cols7.style.width = "100%"
+		mainBody.classList.add("row-width")
+		zoomRange.classList.remove("zoom-range-default")
+		zoomRange.classList.add("zoom-range")
+		zoomOn = true
+	}
+	else if (zoomOn == true) {
+		srcButton.classList.remove("disabled")
+		destButton.classList.remove("disabled")
+		showPathButton.classList.remove("disabled")
+		// resetButton.classList.remove("disabled")
+		rightOfMap.classList.remove("display-none")
+		mapContainer.classList.remove("map-container-detailed-view")
+		mapContainer.classList.add("map-container-default-view")
+		cols7.style.width = "fit-content"
+		mainBody.classList.remove("row-width")
+		zoomRange.classList.remove("zoom-range")
+		zoomRange.classList.add("zoom-range-default")
+		// swapMap()
+		zoom_in(1)
+		zoomOn = false
+	}
+}
+function zoom_in(value) {
+	// img.src = canvas.toDataURL();
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	// img.width = actualImageWidth * value
+	// img.height = actualImageHeight * value
+	canvas.width = actualImageWidth * value
+	canvas.height = actualImageHeight * value
+	zoomRange.value=value
+	// context.drawImage(img, 0, 0, img.width, img.height)
+	context.drawImage(img, 0, 0, canvas.width, canvas.height)
+	// console.log("here")
+	// console.log(img.width, img.height)
+}
+zoomRange.onchange = () => {
+	zoomValue = zoomRange.value
+	zoom_in(zoomValue)
+	// console.log(zoomValue)
+}
 
 canvas.addEventListener(
 	"click",
 	(event) => {
 		pick(event)
 
-		if (srcButtonOn || destButtonOn) {
+		if (srcButtonOn || destButtonOn || zoomOn) {
 			srcButton.classList.add("disabled")
 			destButton.classList.add("disabled")
 		} else {
