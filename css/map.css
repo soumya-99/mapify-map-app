@@ -45,10 +45,11 @@ nav {
 }
 
 .nav-wrapper {
-	margin: 0vw 6vw !important;
+	margin-left: 10vw !important;
+	margin-right: 10vw !important;
 }
 
-#nav-mobile>li:nth-child(10)>div>label {
+#nav-mobile > li:nth-child(9) > div > label {
 	color: white;
 }
 
@@ -81,19 +82,6 @@ canvas:active {
 
 .divider {
 	background-color: var(--divider-color);
-}
-
-.dark {
-	background: var(--material-grey) !important;
-	color: var(--material-white);
-}
-
-.modal__dark {
-	background-color: var(--material-grey);
-}
-
-.modal-footer__dark {
-	background-color: var(--material-grey) !important;
 }
 
 .modal-footer a {
@@ -141,25 +129,12 @@ canvas:active {
 	justify-content: center;
 	margin-top: 25px;
 }
-.row-width{
-	width: 100%;
-}
 
 .map-container {
-	height: 85vh;
 	border-radius: 30px;
-	overflow: scroll;
-	padding: 0px;
-}
-
-.map-container-default-view {
-	width: 55vw;
-	/* size of container */
-	/* size of container */
-}
-
-.map-container-detailed-view {
-	width: 100%;
+	width: 55vw; /* size of container */
+	height: 85vh; /* size of container */
+	overflow: scroll; /* Overflows the map */
 }
 
 body::-webkit-scrollbar {
@@ -180,26 +155,11 @@ body::-webkit-scrollbar {
 	border-radius: 30px;
 	width: 10px;
 }
-.display-none{
-	display: none;
-}
 
-/* .col .s7 has only one element, no need of flex */
 body > div > div.col.s7 {
 	display: flex;
-	justify-content:center;
-	align-items:center;
-}
-.zoom-range-default {
-	display: none;
-}
-
-.zoom-range {
-    z-index: 2;
-    position: absolute !important;
-    left: 41%;
-    top: 88%;
-    width: 20vw !important;
+	justify-content: center;
+	align-items: center;
 }
 
 footer {
@@ -212,7 +172,7 @@ footer:hover {
 	transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
 }
 
-#aboutus>div.footer-copyright {
+#aboutus > div.footer-copyright {
 	border-bottom-left-radius: 60px !important;
 	border-bottom-right-radius: 60px !important;
 }
