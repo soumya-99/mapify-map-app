@@ -268,6 +268,7 @@ function resetStates() {
 function show_path(event) {
 	bfs()
 	if (pathFound) highLightPath()
+	img.src = canvas.toDataURL();
 }
 
 destButton.onclick = (e) => {
@@ -329,6 +330,7 @@ zoomButton.onclick = () => {
 	}
 }
 function zoom_in(value) {
+	// img.src = canvas.toDataURL();
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	// img.width = actualImageWidth * value
 	// img.height = actualImageHeight * value
@@ -336,6 +338,7 @@ function zoom_in(value) {
 	canvas.height = actualImageHeight * value
 	// context.drawImage(img, 0, 0, img.width, img.height)
 	context.drawImage(img, 0, 0, canvas.width, canvas.height)
+	// console.log("here")
 	// console.log(img.width, img.height)
 }
 zoomRange.onchange = () => {
