@@ -185,11 +185,11 @@ body::-webkit-scrollbar {
 }
 
 /* .col .s7 has only one element, no need of flex */
-/* body > div > div.col.s7 {
+body > div > div.col.s7 {
 	display: flex;
-	justify-content: center;
-	align-items: center;
-} */
+	justify-content:center;
+	align-items:center;
+}
 .zoom-range-default {
 	display: none;
 }
