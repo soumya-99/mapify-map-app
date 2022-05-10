@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="./css/map.css">
     <script src="./libs/materialize/js/materialize.min.js"></script>
     <script src="./utils/lottie-player.js"></script>
-    <script src="./scripts/script.js"></script>
 </head>
 
 <body>
@@ -60,7 +59,7 @@
                         <div class="switch">
                             <label>
                                 Light Mode
-                                <input type="checkbox" onclick="switchDarkForMap()">
+                                <input id="switch-dark" type="checkbox" onclick="switchDark()">
                                 <span class="lever"></span>
                                 Dark Mode
                             </label>
@@ -245,6 +244,7 @@
         </div>
     </footer>
     <script src="./scripts/map.js"></script>
+    <script src="./scripts/algorithm.js"></script>
 
 </body>
 
