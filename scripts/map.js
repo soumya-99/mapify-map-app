@@ -126,7 +126,10 @@ function resetStates() {
 //methods for buttons
 function show_path(event) {
 	bfsManager(source, destination) //all methods combined
-	if (pathFound) highLightPath()
+	if (pathFound) 
+		highLightPath()
+	resetStates()	//need to reset after every bfs call
+
 	img.src = canvas.toDataURL();
 }
 
