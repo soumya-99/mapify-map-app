@@ -325,7 +325,8 @@ zoomButton.onclick = () => {
 		mainBody.classList.remove("row-width")
 		zoomRange.classList.remove("zoom-range")
 		zoomRange.classList.add("zoom-range-default")
-		swapMap()
+		// swapMap()
+		zoom_in(1)
 		zoomOn = false
 	}
 }
@@ -336,6 +337,7 @@ function zoom_in(value) {
 	// img.height = actualImageHeight * value
 	canvas.width = actualImageWidth * value
 	canvas.height = actualImageHeight * value
+	zoomRange.value=value
 	// context.drawImage(img, 0, 0, img.width, img.height)
 	context.drawImage(img, 0, 0, canvas.width, canvas.height)
 	// console.log("here")
