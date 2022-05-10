@@ -7,9 +7,11 @@ let sourceQueue = new Array()
 let destQueue = new Array()
 let sourceVisited = new Array(vertex).fill(false)
 let destVisited = new Array(vertex).fill(false)
+let universalPaths = new Array()    //universal path 
+                                    //not resets until reset button or swap map pressed
 
 let BfsSource, BfsDestination
-
+let pathColor
 
 function bfsManager(source, destination) {
     BfsSource = source
@@ -27,11 +29,14 @@ function bfsManager(source, destination) {
         destBfsFlag = destBfs()
     }
 
-    let path = getPath(sourceBfsFlag, destBfsFlag)
-    if (path.length === 0)
+    let currentPath = getPath(sourceBfsFlag, destBfsFlag)
+    if (currentPath.length === 0)
         M.toast({ html: "No path exists in between", classes: "rounded" })
-    else
-        highLightPath(path)
+    else {
+        universalPaths.push(...currentPath)
+        highLightPath()
+    }
+
 }
 
 function sourceBfs() {
@@ -159,28 +164,29 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
 }
 
 function getPath(sourceFlag, destFlag) {
-    let path = new Array()
+    let temp = new Array()
 
     let index = (sourceFlag > destFlag) ? sourceFlag : destFlag
     while (predFromSource.has(index) === true) {
         let curr = predFromSource.get(index)
-        path.push(curr)
+        temp.push(curr)
         index = curr
     }
 
     index = (sourceFlag > destFlag) ? sourceFlag : destFlag
     while (predFromDest.has(index) === true) {
         let curr = predFromDest.get(index)
-        path.push(curr)
+        temp.push(curr)
         index = curr
     }
-    return path
+    return temp
 }
 
-function highLightPath(path) {
-    for (let p = 0; p < path.length; p++) {
-        let coords = findCoordinateOfVertex(path[p])
-        colorImagePixels(coords[0], coords[1], 1, 255, 0, 0)
+function highLightPath() {
+    pathColor = materialYouPathColor
+    for (let p = 0; p < universalPaths.length; p++) {
+        let coords = findCoordinateOfVertex(universalPaths[p])
+        colorImagePixels(coords[0], coords[1], 1, hexToRgb(pathColor).r, hexToRgb(pathColor).g, hexToRgb(pathColor).b)
     }
 }
 
@@ -209,7 +215,7 @@ function compareColorValues(x, y) {
     if (pixel.data[0] >= 250 && pixel.data[1] >= 250 && pixel.data[2] >= 250)
         return true
     //support for pure blue and pure green for source and dest markers
-    else if (pixel.data[0] == 0  && pixel.data[1] >= 250 && pixel.data[2] == 0)
+    else if (pixel.data[0] == 0 && pixel.data[1] >= 250 && pixel.data[2] == 0)
         return true
     else if (pixel.data[0] == 0 && pixel.data[1] == 0 && pixel.data[2] >= 250)
         return true
@@ -219,7 +225,7 @@ function compareColorValues(x, y) {
 //find the logical vertex number from the coordinates
 function findVertexAtCoordinate(x, y) {
     let boxJ = Math.trunc(x / box_dimensions)
-	let boxI = Math.trunc(y / box_dimensions)
+    let boxI = Math.trunc(y / box_dimensions)
     let hotCell = Math.trunc(boxI * maxX + boxJ)
     return hotCell
 }
@@ -231,5 +237,14 @@ function findCoordinateOfVertex(vertexNumber) {
     let j = Math.trunc(currCell - i * maxX)
     let x = j * box_dimensions + box_dimensions / 2
     let y = i * box_dimensions + box_dimensions / 2
-    return [x,y]
+    return [x, y]
+}
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
 }

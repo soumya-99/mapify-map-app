@@ -33,6 +33,7 @@ let sourceSet = false,
 let srcButtonOn = false,
 	destButtonOn = false //state of buttons
 let source, destination
+let materialYouPathColor = "ff0000"
 
 const box_dimensions = 2
 let maxX = canvas.width / box_dimensions //image loading needs to be done before this
@@ -85,6 +86,7 @@ function swapMap() {
 		context.drawImage(img, 0, 0, img.width, img.height)
 	}
 	resetStates()
+	universalPaths = new Array()	//universalPaths is to be cleared separately for swap map button
 }
 
 resetButton.onclick = () => {
@@ -101,6 +103,7 @@ resetButton.onclick = () => {
 		context.drawImage(img, 0, 0, img.width, img.height)
 	}
 	resetStates()
+	universalPaths = new Array()	//universalPaths is to be cleared separately for reset button
 }
 
 function resetStates() {
@@ -129,6 +132,8 @@ function show_path(event) {
 	if (pathFound) 
 		highLightPath()
 	resetStates()	//need to reset after every bfs call
+					//we can't reset universalPath here as it will clear previous paths 
+					//inturn removing the feature of multiple path and theming of multiple paths
 
 	img.src = canvas.toDataURL();
 }
@@ -391,7 +396,7 @@ materialBlue.onclick = (e) => {
 				}
 				button.classList.add("blue", "lighten-5")
 				ICONS.forEach((icon) => {
-					icon.style.color = "dodgerblue"
+					icon.style.color = "#1e90ff"
 				})
 			})
 
@@ -414,10 +419,13 @@ materialBlue.onclick = (e) => {
 					button.classList.remove("darken-4")
 				}
 				button.classList.add("blue", "lighten-5")
-				button.style.color = "dodgerblue"
+				button.style.color = "#1e90ff"
 			})
 		})
 	}
+	//manually set the color for path
+	materialYouPathColor = "#1e90ff"
+	highLightPath()
 }
 
 materialGreen.onclick = (e) => {
@@ -510,7 +518,7 @@ materialGreen.onclick = (e) => {
 			})
 
 			ICONS.forEach((icon) => {
-				icon.style.color = "forestgreen"
+				icon.style.color = "#228B22"
 			})
 
 			CARDS.forEach((card) => {
@@ -532,10 +540,14 @@ materialGreen.onclick = (e) => {
 					button.classList.remove("darken-4")
 				}
 				button.classList.add("green", "lighten-5")
-				button.style.color = "forestgreen"
+				button.style.color = "#228B22"
 			})
 		})
 	}
+
+	//manually set the color for path
+	materialYouPathColor = "#228B22"
+	highLightPath()
 }
 
 materialRed.onclick = (e) => {
@@ -655,6 +667,10 @@ materialRed.onclick = (e) => {
 			})
 		})
 	}
+
+	//manually set the color for path
+	materialYouPathColor = "#f44336"
+	highLightPath()
 }
 
 materialYellow.onclick = (e) => {
@@ -774,6 +790,9 @@ materialYellow.onclick = (e) => {
 			})
 		})
 	}
+	//manually set the color for path
+	materialYouPathColor = "#ffa500"	//for orange
+	highLightPath()
 }
 
 materialPurple.onclick = (e) => {
@@ -893,6 +912,10 @@ materialPurple.onclick = (e) => {
 			})
 		})
 	}
+
+	//manually set the color for path
+	materialYouPathColor = "#ab47bc"
+	highLightPath()
 }
 
 materialTeal.onclick = (e) => {
@@ -1012,6 +1035,10 @@ materialTeal.onclick = (e) => {
 			})
 		})
 	}
+
+	//manually set the color for path
+	materialYouPathColor = "#26a69a"
+	highLightPath()
 }
 
 materialColorful.onclick = () => {
@@ -1139,6 +1166,9 @@ materialColorful.onclick = () => {
 			}
 		})
 	}
+	//manually set path color
+	materialYouPathColor = "ff0000"
+	highLightPath()
 }
 
 // dark mode
