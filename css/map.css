@@ -49,7 +49,7 @@ nav {
 	margin-right: 10vw !important;
 }
 
-#nav-mobile > li:nth-child(9) > div > label {
+#nav-mobile > li:nth-child(10) > div > label {
 	color: white;
 }
 
@@ -126,7 +126,7 @@ canvas:active {
 /* MapBody Style Starts */
 .row {
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
 	margin-top: 25px;
 }
 

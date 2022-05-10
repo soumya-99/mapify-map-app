@@ -143,6 +143,28 @@ downloadButton.onclick = () => {
 	downloadButton.href = canvas.toDataURL()
 }
 
+// for theatre mode
+const zoomButton = document.getElementById("zoom")
+const bodyRight = document.getElementById("body-right")
+const bodyLeft = document.getElementById("body-left")
+const mapContainer = document.getElementById("map-container")
+
+let isZoomOn = true
+zoomButton.onclick = () => {
+	if (isZoomOn === true) {
+		bodyLeft.style.flexGrow = 1
+		bodyLeft.style.transition = "0.8s ease-in-out"
+		mapContainer.style.width = "90vw"
+		bodyRight.style.display = "none"
+		isZoomOn = false
+	} else {
+		bodyLeft.removeAttribute("style")
+		bodyRight.removeAttribute("style")
+		mapContainer.removeAttribute("style")
+		isZoomOn = true
+	}
+}
+
 canvas.addEventListener(
 	"click",
 	(event) => {
