@@ -145,6 +145,7 @@ downloadButton.onclick = () => {
 
 // for theatre mode
 const zoomButton = document.getElementById("zoom")
+const zoomIcon = document.getElementById("zoom-icon")
 const bodyRight = document.getElementById("body-right")
 const bodyLeft = document.getElementById("body-left")
 const mapContainer = document.getElementById("map-container")
@@ -156,11 +157,13 @@ zoomButton.onclick = () => {
 		bodyLeft.style.transition = "0.8s ease-in-out"
 		mapContainer.style.width = "90vw"
 		bodyRight.style.display = "none"
+		zoomIcon.innerText = "zoom_out"
 		isZoomOn = false
 	} else {
 		bodyLeft.removeAttribute("style")
 		bodyRight.removeAttribute("style")
 		mapContainer.removeAttribute("style")
+		zoomIcon.innerText = "zoom_in"
 		isZoomOn = true
 	}
 }
@@ -204,6 +207,7 @@ const COLORS = [
 	"cyan",
 	"indigo",
 	"teal",
+	"amber",
 ]
 const NAV_BUTTONS = [
 	srcButton,
@@ -212,6 +216,7 @@ const NAV_BUTTONS = [
 	resetButton,
 	help,
 	fullScreenButton,
+	zoomButton,
 	downloadButton,
 ]
 
@@ -246,6 +251,7 @@ const ICONS = [
 	resetIcon,
 	helpIcon,
 	fullscreenIcon,
+	zoomIcon,
 	downloadIcon,
 ]
 
@@ -254,8 +260,6 @@ let currentTheme = 0
 materialBlue.onclick = (e) => {
 	currentTheme = 1
 	let isChecked = document.getElementById("switch-dark").checked
-	console.log(isChecked)
-	console.log(currentTheme)
 	if (isChecked) {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #001946, #5d8ef3)"
@@ -380,8 +384,6 @@ materialBlue.onclick = (e) => {
 materialGreen.onclick = (e) => {
 	currentTheme = 2
 	let isChecked = document.getElementById("switch-dark").checked
-	console.log(isChecked)
-	console.log(currentTheme)
 	if (isChecked) {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #00210C, #2ba561)"
@@ -1012,10 +1014,11 @@ materialColorful.onclick = () => {
 				NAV_BUTTONS[0].classList.add("blue")
 				NAV_BUTTONS[1].classList.add("green")
 				NAV_BUTTONS[2].classList.add("red")
-				NAV_BUTTONS[3].classList.add("purple")
-				NAV_BUTTONS[4].classList.add("indigo")
-				NAV_BUTTONS[5].classList.add("orange")
-				NAV_BUTTONS[6].classList.add("pink")
+				NAV_BUTTONS[3].classList.add("orange")
+				NAV_BUTTONS[4].classList.add("pink")
+				NAV_BUTTONS[5].classList.add("amber")
+				NAV_BUTTONS[6].classList.add("purple")
+				NAV_BUTTONS[7].classList.add("indigo")
 			}
 
 			ICONS.forEach((icon) => {
@@ -1075,7 +1078,8 @@ materialColorful.onclick = () => {
 				NAV_BUTTONS[3].classList.add("purple")
 				NAV_BUTTONS[4].classList.add("indigo")
 				NAV_BUTTONS[5].classList.add("orange")
-				NAV_BUTTONS[6].classList.add("pink")
+				NAV_BUTTONS[6].classList.add("amber")
+				NAV_BUTTONS[7].classList.add("pink")
 			}
 
 			ICONS.forEach((icon) => {
