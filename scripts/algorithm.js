@@ -8,20 +8,50 @@ let destQueue = new Array()
 let sourceVisited = new Array(vertex).fill(false)
 let destVisited = new Array(vertex).fill(false)
 let universalPaths = new Array()    //universal path 
-                                    //not resets until reset button or swap map pressed
+//not resets until reset button or swap map pressed
 
-let BfsSource, BfsDestination
+// let BfsSource, BfsDestination, originalDestination
+// let interMediatePoints = new Array()
 let pathColor
+let f = 0
 
-function bfsManager(source, destination) {
-    BfsSource = source
-    BfsDestination = destination
+function bfsManager(source, destination, waypoints) {
+    let BfsSource = source
+    let BfsDestination = destination
+    let interMediatePoints = new Array()
+    interMediatePoints.push(...waypoints)
 
-    sourceVisited[BfsSource] = true
-    sourceQueue.push(BfsSource)
+    if (interMediatePoints.length === 0) {  //if there's no intermediate points 
+        BfsSingleState(BfsSource, BfsDestination)
+        return
+    }
 
-    destVisited[BfsDestination] = true
-    destQueue.push(BfsDestination)
+    //for the first iteration
+    let currentSource = BfsSource
+    let currDestination = interMediatePoints[0]
+    BfsSingleState(currentSource, currDestination)
+    //for all way points
+    for (let i = 1; i < interMediatePoints.length; i++) {    //run bfs until all waypoints are visited
+        console.log("fdsdfsdfs")
+        //manage source and dest for each way points
+        currentSource = currDestination
+        currDestination = interMediatePoints[i]
+        resetBfsManagerStates()
+        BfsSingleState(currentSource, currDestination)
+    }
+    //for last iteration
+    currentSource = currDestination
+    currDestination = BfsDestination
+    resetBfsManagerStates()
+    BfsSingleState(currentSource, currDestination)
+}
+
+function BfsSingleState(currentSource, currDestination) {
+    sourceVisited[currentSource] = true
+    sourceQueue.push(currentSource)
+
+    destVisited[currDestination] = true
+    destQueue.push(currDestination)
 
     let sourceBfsFlag = -1, destBfsFlag = -1
     while (sourceBfsFlag === -1 && destBfsFlag === -1) {
@@ -36,8 +66,8 @@ function bfsManager(source, destination) {
         universalPaths.push(...currentPath)
         highLightPath()
     }
-
 }
+
 
 function sourceBfs() {
     if (sourceQueue.length === 0)
@@ -219,6 +249,9 @@ function compareColorValues(x, y) {
         return true
     else if (pixel.data[0] == 0 && pixel.data[1] == 0 && pixel.data[2] >= 250)
         return true
+    //support for pure black for stop markers
+    else if (pixel.data[0] == 0 && pixel.data[1] == 0 && pixel.data[2] >= 0)
+        return true
     else return false
 }
 
@@ -247,4 +280,13 @@ function hexToRgb(hex) {
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16)
     } : null;
+}
+
+function resetBfsManagerStates() {
+    predFromSource.clear()
+    predFromDest.clear()
+    sourceQueue = new Array()
+    destQueue = new Array()
+    sourceVisited = new Array(vertex).fill(false)
+    destVisited = new Array(vertex).fill(false)
 }

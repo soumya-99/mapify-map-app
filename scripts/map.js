@@ -23,6 +23,8 @@ let sourceSet = false,
 let srcButtonOn = false,
 	destButtonOn = false //state of buttons
 let source, destination
+let waypoints = new Array()	//array for multiple stops or way points
+
 let materialYouPathColor = "ff0000"
 
 const box_dimensions = 2
@@ -58,6 +60,11 @@ function pick(event) {
 		sourceSet = true
 		srcButtonOn = false
 		return
+	}
+
+	if(sourceSet && destSet) {
+		colorImagePixels(mx, my, 6, 0, 0, 0)
+		waypoints.push(hotCell)
 	}
 }
 
@@ -96,6 +103,7 @@ function resetStates() {
 	destQueue = new Array()
 	sourceVisited = new Array(vertex).fill(false)
 	destVisited = new Array(vertex).fill(false)
+	waypoints = new Array()
 
 	sourceSet = false
 	destSet = false
@@ -108,7 +116,7 @@ function resetStates() {
 
 //methods for buttons
 function show_path(event) {
-	bfsManager(source, destination) //all methods combined
+	bfsManager(source, destination, waypoints) //all methods combined
 	if (pathFound) highLightPath()
 	resetStates() //need to reset after every bfs call
 	//we can't reset universalPath here as it will clear previous paths
