@@ -63,7 +63,7 @@ function pick(event) {
 	}
 
 	if(sourceSet && destSet) {
-		colorImagePixels(mx, my, 6, 0, 0, 0)
+		colorImagePixels(mx, my, 6, 255, 0, 0)
 		waypoints.push(hotCell)
 	}
 }

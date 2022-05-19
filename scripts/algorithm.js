@@ -8,12 +8,8 @@ let destQueue = new Array()
 let sourceVisited = new Array(vertex).fill(false)
 let destVisited = new Array(vertex).fill(false)
 let universalPaths = new Array()    //universal path 
-//not resets until reset button or swap map pressed
+                                    //not resets until reset button or swap map pressed
 
-// let BfsSource, BfsDestination, originalDestination
-// let interMediatePoints = new Array()
-let pathColor
-let f = 0
 
 function bfsManager(source, destination, waypoints) {
     let BfsSource = source
@@ -22,31 +18,30 @@ function bfsManager(source, destination, waypoints) {
     interMediatePoints.push(...waypoints)
 
     if (interMediatePoints.length === 0) {  //if there's no intermediate points 
-        BfsSingleState(BfsSource, BfsDestination)
+        BfsSingleRun(BfsSource, BfsDestination)
         return
     }
 
     //for the first iteration
     let currentSource = BfsSource
     let currDestination = interMediatePoints[0]
-    BfsSingleState(currentSource, currDestination)
+    BfsSingleRun(currentSource, currDestination)
     //for all way points
     for (let i = 1; i < interMediatePoints.length; i++) {    //run bfs until all waypoints are visited
-        console.log("fdsdfsdfs")
         //manage source and dest for each way points
         currentSource = currDestination
         currDestination = interMediatePoints[i]
         resetBfsManagerStates()
-        BfsSingleState(currentSource, currDestination)
+        BfsSingleRun(currentSource, currDestination)
     }
     //for last iteration
     currentSource = currDestination
     currDestination = BfsDestination
     resetBfsManagerStates()
-    BfsSingleState(currentSource, currDestination)
+    BfsSingleRun(currentSource, currDestination)
 }
 
-function BfsSingleState(currentSource, currDestination) {
+function BfsSingleRun(currentSource, currDestination) {
     sourceVisited[currentSource] = true
     sourceQueue.push(currentSource)
 
@@ -213,7 +208,7 @@ function getPath(sourceFlag, destFlag) {
 }
 
 function highLightPath() {
-    pathColor = materialYouPathColor
+    let pathColor = materialYouPathColor
     for (let p = 0; p < universalPaths.length; p++) {
         let coords = findCoordinateOfVertex(universalPaths[p])
         colorImagePixels(coords[0], coords[1], 1, hexToRgb(pathColor).r, hexToRgb(pathColor).g, hexToRgb(pathColor).b)
@@ -249,8 +244,8 @@ function compareColorValues(x, y) {
         return true
     else if (pixel.data[0] == 0 && pixel.data[1] == 0 && pixel.data[2] >= 250)
         return true
-    //support for pure black for stop markers
-    else if (pixel.data[0] == 0 && pixel.data[1] == 0 && pixel.data[2] >= 0)
+    //support for pure red for stop markers
+    else if (pixel.data[0] >= 255 && pixel.data[1] == 0 && pixel.data[2] == 0)
         return true
     else return false
 }
