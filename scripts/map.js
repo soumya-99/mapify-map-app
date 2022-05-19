@@ -41,7 +41,7 @@ function pick(event) {
 	var rect = canvas.getBoundingClientRect() // get the canvas' bounding rectangle
 	let mx = event.clientX - rect.left // get the mouse's x coordinate
 	let my = event.clientY - rect.top // get the mouse's y coordinate
-	if (compareColorValues(mx, my) === false) {
+	if (compareColorValues(mx, my, materialYouPathColor) === false) {
 		return //don't let add src or dest outside paths
 	}
 

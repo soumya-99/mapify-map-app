@@ -9,6 +9,7 @@ let sourceVisited = new Array(vertex).fill(false)
 let destVisited = new Array(vertex).fill(false)
 let universalPaths = new Array()    //universal path 
                                     //not resets until reset button or swap map pressed
+let pathColor
 
 
 function bfsManager(source, destination, waypoints) {
@@ -16,6 +17,7 @@ function bfsManager(source, destination, waypoints) {
     let BfsDestination = destination
     let interMediatePoints = new Array()
     interMediatePoints.push(...waypoints)
+    pathColor = materialYouPathColor
 
     if (interMediatePoints.length === 0) {  //if there's no intermediate points 
         BfsSingleRun(BfsSource, BfsDestination)
@@ -124,7 +126,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
     let upPixlX = boxPixlX
     let upPixlY = boxPixlY - box_dimensions
     if (upPixlY > 0) {
-        if (compareColorValues(upPixlX, upPixlY)) {
+        if (compareColorValues(upPixlX, upPixlY, pathColor)) {
             queueTemp.push(currItem - maxX)
         }
     }
@@ -132,7 +134,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
     let leftPixX = boxPixlX - box_dimensions
     let leftPixY = boxPixlY
     if (leftPixX > 0) {
-        if (compareColorValues(leftPixX, leftPixY)) {
+        if (compareColorValues(leftPixX, leftPixY, pathColor)) {
             queueTemp.push(currItem - 1)
         }
     }
@@ -140,7 +142,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
     let rightPixX = boxPixlX + box_dimensions
     let rightPixY = boxPixlY
     if (rightPixX < canvas.width) {
-        if (compareColorValues(rightPixX, rightPixY)) {
+        if (compareColorValues(rightPixX, rightPixY, pathColor)) {
             queueTemp.push(currItem + 1)
         }
     }
@@ -148,7 +150,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
     let bottomPixX = boxPixlX
     let bottomPixY = boxPixlY + box_dimensions
     if (bottomPixY < canvas.height) {
-        if (compareColorValues(bottomPixX, bottomPixY)) {
+        if (compareColorValues(bottomPixX, bottomPixY, pathColor)) {
             queueTemp.push(currItem + maxX)
         }
     }
@@ -157,7 +159,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
     let topleftPixX = boxPixlX - box_dimensions
     let topleftPixY = boxPixlY - box_dimensions
     if (topleftPixX > 0 && topleftPixY > 0) {
-        if (compareColorValues(topleftPixX, topleftPixY)) {
+        if (compareColorValues(topleftPixX, topleftPixY, pathColor)) {
             queueTemp.push(currItem - maxX - 1)
         }
     }
@@ -165,7 +167,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
     let toprightPixX = boxPixlX + box_dimensions
     let toprightPixY = boxPixlY - box_dimensions
     if (toprightPixX < canvas.width && toprightPixY > 0) {
-        if (compareColorValues(toprightPixX, toprightPixY)) {
+        if (compareColorValues(toprightPixX, toprightPixY, pathColor)) {
             queueTemp.push(currItem - maxX + 1)
         }
     }
@@ -173,7 +175,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
     let bottomleftPixX = boxPixlX - box_dimensions
     let bottomleftPixY = boxPixlY + box_dimensions
     if (bottomleftPixX > 0 && bottomleftPixY < canvas.height) {
-        if (compareColorValues(bottomleftPixX, bottomleftPixY)) {
+        if (compareColorValues(bottomleftPixX, bottomleftPixY, pathColor)) {
             queueTemp.push(currItem + maxX - 1)
         }
     }
@@ -181,7 +183,7 @@ function getN8Adjacents(currItem, boxPixlX, boxPixlY) {
     let bottomrightPixX = boxPixlX + box_dimensions
     let bottomrightPixY = boxPixlY + box_dimensions
     if (bottomrightPixX < canvas.width && bottomrightPixY < canvas.height) {
-        if (compareColorValues(bottomrightPixX, bottomrightPixY)) {
+        if (compareColorValues(bottomrightPixX, bottomrightPixY, pathColor)) {
             queueTemp.push(currItem + maxX + 1)
         }
     }
@@ -235,10 +237,15 @@ function colorImagePixels(x, y, size, colorR, colorG, colorB) {
 }
 
 //to compare two color values
-function compareColorValues(x, y) {
+function compareColorValues(x, y, currentPathColor) {
     pixel = context.getImageData(x, y, 1, 1)
     if (pixel.data[0] >= 250 && pixel.data[1] >= 250 && pixel.data[2] >= 250)
         return true
+    //support to ignore previously drawn paths
+    else if(pixel.data[0] === hexToRgb(currentPathColor).r && pixel.data[1] === hexToRgb(currentPathColor).g 
+            && pixel.data[2] === hexToRgb(currentPathColor).b)
+        return true
+        
     //support for pure blue and pure green for source and dest markers
     else if (pixel.data[0] == 0 && pixel.data[1] >= 250 && pixel.data[2] == 0)
         return true
