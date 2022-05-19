@@ -10,18 +10,43 @@ let destVisited = new Array(vertex).fill(false)
 let universalPaths = new Array()    //universal path 
                                     //not resets until reset button or swap map pressed
 
-let BfsSource, BfsDestination
-let pathColor
 
-function bfsManager(source, destination) {
-    BfsSource = source
-    BfsDestination = destination
+function bfsManager(source, destination, waypoints) {
+    let BfsSource = source
+    let BfsDestination = destination
+    let interMediatePoints = new Array()
+    interMediatePoints.push(...waypoints)
 
-    sourceVisited[BfsSource] = true
-    sourceQueue.push(BfsSource)
+    if (interMediatePoints.length === 0) {  //if there's no intermediate points 
+        BfsSingleRun(BfsSource, BfsDestination)
+        return
+    }
 
-    destVisited[BfsDestination] = true
-    destQueue.push(BfsDestination)
+    //for the first iteration
+    let currentSource = BfsSource
+    let currDestination = interMediatePoints[0]
+    BfsSingleRun(currentSource, currDestination)
+    //for all way points
+    for (let i = 1; i < interMediatePoints.length; i++) {    //run bfs until all waypoints are visited
+        //manage source and dest for each way points
+        currentSource = currDestination
+        currDestination = interMediatePoints[i]
+        resetBfsManagerStates()
+        BfsSingleRun(currentSource, currDestination)
+    }
+    //for last iteration
+    currentSource = currDestination
+    currDestination = BfsDestination
+    resetBfsManagerStates()
+    BfsSingleRun(currentSource, currDestination)
+}
+
+function BfsSingleRun(currentSource, currDestination) {
+    sourceVisited[currentSource] = true
+    sourceQueue.push(currentSource)
+
+    destVisited[currDestination] = true
+    destQueue.push(currDestination)
 
     let sourceBfsFlag = -1, destBfsFlag = -1
     while (sourceBfsFlag === -1 && destBfsFlag === -1) {
@@ -36,8 +61,8 @@ function bfsManager(source, destination) {
         universalPaths.push(...currentPath)
         highLightPath()
     }
-
 }
+
 
 function sourceBfs() {
     if (sourceQueue.length === 0)
@@ -183,7 +208,7 @@ function getPath(sourceFlag, destFlag) {
 }
 
 function highLightPath() {
-    pathColor = materialYouPathColor
+    let pathColor = materialYouPathColor
     for (let p = 0; p < universalPaths.length; p++) {
         let coords = findCoordinateOfVertex(universalPaths[p])
         colorImagePixels(coords[0], coords[1], 1, hexToRgb(pathColor).r, hexToRgb(pathColor).g, hexToRgb(pathColor).b)
@@ -219,6 +244,9 @@ function compareColorValues(x, y) {
         return true
     else if (pixel.data[0] == 0 && pixel.data[1] == 0 && pixel.data[2] >= 250)
         return true
+    //support for pure red for stop markers
+    else if (pixel.data[0] >= 255 && pixel.data[1] == 0 && pixel.data[2] == 0)
+        return true
     else return false
 }
 
@@ -247,4 +275,13 @@ function hexToRgb(hex) {
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16)
     } : null;
+}
+
+function resetBfsManagerStates() {
+    predFromSource.clear()
+    predFromDest.clear()
+    sourceQueue = new Array()
+    destQueue = new Array()
+    sourceVisited = new Array(vertex).fill(false)
+    destVisited = new Array(vertex).fill(false)
 }
