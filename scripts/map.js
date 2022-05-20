@@ -276,6 +276,10 @@ materialBlue.onclick = (e) => {
 		navBar.style.backgroundColor = "rgba(30, 136, 229, 0.6)"
 		navBar.style.backdropFilter = "blur(5px)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (
 				footer.classList.contains(color) ||
@@ -284,11 +288,13 @@ materialBlue.onclick = (e) => {
 				footer.classList.remove("blue")
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("blue")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("blue")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -299,8 +305,11 @@ materialBlue.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("blue", "darken-4")
+
 				ICONS.forEach((icon) => {
+					icon.removeAttribute("style")
 					icon.style.color = "#d8e2ff"
 				})
 			})
@@ -313,6 +322,8 @@ materialBlue.onclick = (e) => {
 					card.classList.remove(color)
 					card.classList.remove("darken-2")
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#00429c"
 			})
 
@@ -324,6 +335,7 @@ materialBlue.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("blue", "darken-4")
 				button.style.color = "#d8e2ff"
 			})
@@ -334,6 +346,10 @@ materialBlue.onclick = (e) => {
 		document.body.style.backgroundImage =
 			"linear-gradient(to left, #e3f2fd, #90caf9)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (
 				footer.classList.contains(color) ||
@@ -342,11 +358,13 @@ materialBlue.onclick = (e) => {
 				footer.classList.remove("blue")
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("blue")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("blue")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -357,8 +375,11 @@ materialBlue.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("blue", "lighten-5")
+
 				ICONS.forEach((icon) => {
+					icon.removeAttribute("style")
 					icon.style.color = "#1e90ff"
 				})
 			})
@@ -370,6 +391,8 @@ materialBlue.onclick = (e) => {
 				) {
 					card.classList.remove(color)
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#1e5abc"
 			})
 
@@ -381,6 +404,7 @@ materialBlue.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("blue", "lighten-5")
 				button.style.color = "#1e90ff"
 			})
@@ -401,17 +425,23 @@ materialGreen.onclick = (e) => {
 		navBar.style.backgroundColor = "rgba(102, 187, 106, 0.6)"
 		navBar.style.backdropFilter = "blur(5px)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("green")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
-
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("green")
+
 			NAV_BUTTONS.forEach((button) => {
 				if (
 					button.classList.contains(color) ||
@@ -420,8 +450,11 @@ materialGreen.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("green", "darken-4")
+
 				ICONS.forEach((icon) => {
+					icon.removeAttribute("style")
 					icon.style.color = "#d8ffe2"
 				})
 			})
@@ -434,6 +467,8 @@ materialGreen.onclick = (e) => {
 					card.classList.remove(color)
 					card.classList.remove("darken-2")
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#005229"
 			})
 
@@ -445,6 +480,7 @@ materialGreen.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("green", "darken-4")
 				button.style.color = "#d8ffe2"
 			})
@@ -455,15 +491,21 @@ materialGreen.onclick = (e) => {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #81c784, #e8f5e9)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("green")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("green")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -476,10 +518,12 @@ materialGreen.onclick = (e) => {
 					button.classList.remove("lighten-5")
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("green", "lighten-5")
 			})
 
 			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
 				icon.style.color = "#228B22"
 			})
 
@@ -490,6 +534,8 @@ materialGreen.onclick = (e) => {
 				) {
 					card.classList.remove(color)
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#006d38"
 			})
 
@@ -501,6 +547,7 @@ materialGreen.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("green", "lighten-5")
 				button.style.color = "#228B22"
 			})
@@ -522,15 +569,21 @@ materialRed.onclick = (e) => {
 		navBar.style.backgroundColor = "rgba(239, 83, 80, 0.6)"
 		navBar.style.backdropFilter = "blur(5px)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("red")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("red")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -543,10 +596,12 @@ materialRed.onclick = (e) => {
 					button.classList.remove("lighten-5")
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("red", "darken-4")
 			})
 
 			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
 				icon.style.color = "#ffdade"
 			})
 
@@ -558,6 +613,8 @@ materialRed.onclick = (e) => {
 					card.classList.remove(color)
 					card.classList.remove("darken-2")
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#910030"
 			})
 
@@ -569,6 +626,7 @@ materialRed.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("red", "darken-4")
 				button.style.color = "#ffdade"
 			})
@@ -579,15 +637,21 @@ materialRed.onclick = (e) => {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #e57373, #ffebee)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("red")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("red")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -600,10 +664,12 @@ materialRed.onclick = (e) => {
 					button.classList.remove("lighten-5")
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("red", "lighten-5")
 			})
 
 			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
 				icon.style.color = "#f44336"
 			})
 
@@ -614,6 +680,8 @@ materialRed.onclick = (e) => {
 				) {
 					card.classList.remove(color)
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#ba0f44"
 			})
 
@@ -625,6 +693,7 @@ materialRed.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("red", "lighten-5")
 				button.style.color = "#f44336"
 			})
@@ -646,15 +715,21 @@ materialYellow.onclick = (e) => {
 		navBar.style.backgroundColor = "rgba(255, 183, 77, 0.6)"
 		navBar.style.backdropFilter = "blur(5px)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("orange")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("orange")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -667,10 +742,12 @@ materialYellow.onclick = (e) => {
 					button.classList.remove("lighten-5")
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("orange", "darken-4")
 			})
 
 			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
 				icon.style.color = "#ffdbce"
 			})
 
@@ -682,6 +759,8 @@ materialYellow.onclick = (e) => {
 					card.classList.remove(color)
 					card.classList.remove("darken-2")
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#822700"
 			})
 
@@ -693,6 +772,7 @@ materialYellow.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("orange", "darken-4")
 				button.style.color = "#ffdbce"
 			})
@@ -703,15 +783,21 @@ materialYellow.onclick = (e) => {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #ffcc80, #fff3e0)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("orange")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("orange")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -724,10 +810,12 @@ materialYellow.onclick = (e) => {
 					button.classList.remove("lighten-5")
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("orange", "lighten-5")
 			})
 
 			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
 				icon.style.color = "orange"
 			})
 
@@ -738,6 +826,8 @@ materialYellow.onclick = (e) => {
 				) {
 					card.classList.remove(color)
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#a93800"
 			})
 
@@ -749,6 +839,7 @@ materialYellow.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("orange", "lighten-5")
 				button.style.color = "orange"
 			})
@@ -769,15 +860,21 @@ materialPurple.onclick = (e) => {
 		navBar.style.backgroundColor = "rgba(186, 104, 200, 0.6)"
 		navBar.style.backdropFilter = "blur(5px)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("purple")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("purple")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -790,10 +887,12 @@ materialPurple.onclick = (e) => {
 					button.classList.remove("lighten-5")
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("purple", "darken-4")
 			})
 
 			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
 				icon.style.color = "#f6d9ff"
 			})
 
@@ -805,6 +904,8 @@ materialPurple.onclick = (e) => {
 					card.classList.remove(color)
 					card.classList.remove("darken-2")
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#6d14a0"
 			})
 
@@ -816,6 +917,7 @@ materialPurple.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("purple", "darken-4")
 				button.style.color = "#f6d9ff"
 			})
@@ -826,15 +928,21 @@ materialPurple.onclick = (e) => {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #ba68c8, #f3e5f5)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("purple")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("purple")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -847,10 +955,12 @@ materialPurple.onclick = (e) => {
 					button.classList.remove("lighten-5")
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("purple", "lighten-5")
 			})
 
 			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
 				icon.style.color = "#ab47bc"
 			})
 
@@ -861,6 +971,8 @@ materialPurple.onclick = (e) => {
 				) {
 					card.classList.remove(color)
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#8736ba"
 			})
 
@@ -872,6 +984,7 @@ materialPurple.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("purple", "lighten-5")
 				button.style.color = "#ab47bc"
 			})
@@ -894,15 +1007,21 @@ materialTeal.onclick = (e) => {
 		navBar.style.backgroundColor = "rgba(77, 182, 172, 0.6)"
 		navBar.style.backdropFilter = "blur(5px)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("teal")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("teal")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -915,10 +1034,12 @@ materialTeal.onclick = (e) => {
 					button.classList.remove("lighten-5")
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("teal", "darken-4")
 			})
 
 			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
 				icon.style.color = "#7cf4ff"
 			})
 
@@ -928,7 +1049,9 @@ materialTeal.onclick = (e) => {
 					card.classList.contains("darken-2")
 				) {
 					card.classList.remove(color)
+					card.classList.add("white-text")
 				}
+				card.removeAttribute("style")
 				card.style.backgroundColor = "#004f56"
 			})
 
@@ -950,15 +1073,21 @@ materialTeal.onclick = (e) => {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #4db6ac, #e0f2f1)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("teal")
 
 			if (floatingButton.classList.contains(color)) {
 				floatingButton.classList.remove(color)
 			}
+			floatingActionButton.removeAttribute("style")
 			floatingButton.classList.add("teal")
 
 			NAV_BUTTONS.forEach((button) => {
@@ -971,10 +1100,12 @@ materialTeal.onclick = (e) => {
 					button.classList.remove("lighten-5")
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("teal", "lighten-5")
 			})
 
 			ICONS.forEach((icon) => {
+				icon.removeAttribute("style")
 				icon.style.color = "#26a69a"
 			})
 
@@ -985,6 +1116,8 @@ materialTeal.onclick = (e) => {
 				) {
 					card.classList.remove(color)
 				}
+				card.removeAttribute("style")
+				card.classList.add("white-text")
 				card.style.backgroundColor = "#006972"
 			})
 
@@ -996,6 +1129,7 @@ materialTeal.onclick = (e) => {
 					button.classList.remove(color)
 					button.classList.remove("darken-4")
 				}
+				button.removeAttribute("style")
 				button.classList.add("teal", "lighten-5")
 				button.style.color = "#26a69a"
 			})
@@ -1016,6 +1150,10 @@ materialColorful.onclick = () => {
 		document.body.style.background = "rgb(51, 68, 85)"
 		document.body.style.color = "rgb(216, 237, 255)"
 
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
+
 		COLORS.forEach((color) => {
 			for (let i = 0; i < NAV_BUTTONS.length; i++) {
 				if (
@@ -1027,6 +1165,7 @@ materialColorful.onclick = () => {
 					NAV_BUTTONS[i].classList.remove("lighten-5")
 					NAV_BUTTONS[i].classList.remove("darken-4")
 				}
+				NAV_BUTTONS[i].removeAttribute("style")
 				NAV_BUTTONS[0].classList.add("blue")
 				NAV_BUTTONS[1].classList.add("green")
 				NAV_BUTTONS[2].classList.add("red")
@@ -1044,6 +1183,7 @@ materialColorful.onclick = () => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("blue")
 
 			for (let i = 0; i < SOCIAL_BUTTONS.length; i++) {
@@ -1053,6 +1193,7 @@ materialColorful.onclick = () => {
 				) {
 					SOCIAL_BUTTONS[i].classList.remove(color)
 					SOCIAL_BUTTONS[i].classList.remove("lighten-5")
+					SOCIAL_BUTTONS[i].removeAttribute("style")
 					SOCIAL_BUTTONS[i].style.color = "white"
 				}
 				SOCIAL_BUTTONS[0].classList.add("blue")
@@ -1066,6 +1207,7 @@ materialColorful.onclick = () => {
 					CARDS[i].classList.remove(color)
 					CARDS[i].removeAttribute("style")
 				}
+				CARDS[i].classList.add("white-text")
 				CARDS[0].classList.add("blue", "darken-2")
 				CARDS[1].classList.add("red", "darken-2")
 				CARDS[2].classList.add("green", "darken-2")
@@ -1076,6 +1218,10 @@ materialColorful.onclick = () => {
 		navBar.style.backdropFilter = "blur(5px)"
 		document.body.style.backgroundImage =
 			"linear-gradient(to left, rgb(216, 237, 255), #90a4ae)"
+
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+		})
 
 		COLORS.forEach((color) => {
 			for (let i = 0; i < NAV_BUTTONS.length; i++) {
@@ -1088,6 +1234,7 @@ materialColorful.onclick = () => {
 					NAV_BUTTONS[i].classList.remove("lighten-5")
 					NAV_BUTTONS[i].classList.remove("darken-4")
 				}
+				NAV_BUTTONS[i].removeAttribute("style")
 				NAV_BUTTONS[0].classList.add("blue")
 				NAV_BUTTONS[1].classList.add("green")
 				NAV_BUTTONS[2].classList.add("red")
@@ -1105,6 +1252,7 @@ materialColorful.onclick = () => {
 			if (footer.classList.contains(color)) {
 				footer.classList.remove(color)
 			}
+			footer.removeAttribute("style")
 			footer.classList.add("blue")
 
 			for (let i = 0; i < SOCIAL_BUTTONS.length; i++) {
@@ -1118,6 +1266,7 @@ materialColorful.onclick = () => {
 					SOCIAL_BUTTONS[i].classList.remove("darken-4")
 					SOCIAL_BUTTONS[i].style.color = "white"
 				}
+				SOCIAL_BUTTONS[i].removeAttribute("style")
 				SOCIAL_BUTTONS[0].classList.add("blue")
 				SOCIAL_BUTTONS[1].classList.add("red")
 				SOCIAL_BUTTONS[2].classList.add("green")
@@ -1129,10 +1278,13 @@ materialColorful.onclick = () => {
 					CARDS[i].classList.remove(color)
 					CARDS[i].removeAttribute("style")
 				}
+				CARDS[i].classList.add("white-text")
 				CARDS[0].classList.add("blue", "darken-2")
 				CARDS[1].classList.add("red", "darken-2")
 				CARDS[2].classList.add("green", "darken-2")
 			}
+
+			floatingActionButton.removeAttribute("style")
 		})
 	}
 	//manually set path color
@@ -1150,6 +1302,107 @@ const switchTheme = () => {
 	localStorage.theme === "4" && materialYellow.click()
 	localStorage.theme === "5" && materialPurple.click()
 	localStorage.theme === "6" && materialTeal.click()
+}
+
+// Easter Egg
+
+const easter = document.getElementById("easter")
+const easterEgg = () => {
+	if (easter.value === "")
+		M.toast({ html: "Write Something First!", classes: "rounded" })
+	else if (easter.value === "Mapify") {
+		easterEggMaterialYou()
+		easter.value = ""
+	} else {
+		M.toast({ html: "Better luck next time!", classes: "rounded" })
+		easter.value = ""
+	}
+}
+
+const materialThemeController = document.getElementsByTagName(
+	"material-theme-control"
+)[0]
+const materialUActionButton = document.getElementById("m-u")
+const whiteTexts = document.querySelectorAll(".white-text")
+
+const easterEggMaterialYou = () => {
+	materialThemeController.removeAttribute("style")
+	materialUActionButton.removeAttribute("style")
+	M.toast({
+		html: "Material You Limitless Unlocked! Check Theme Now.",
+		classes: "rounded",
+	})
+}
+
+materialUActionButton.onclick = () => {
+	navBar.style.backgroundColor = `var(--md-sys-color-primary)`
+	navBar.style.opacity = 0.8
+	document.body.style.background = `var(--md-sys-color-primary-container)`
+	document.body.style.color = `var(--md-sys-color-on-primary-container)`
+
+	COLORS.forEach((color) => {
+		for (let i = 0; i < NAV_BUTTONS.length; i++) {
+			if (
+				NAV_BUTTONS[i].classList.contains(color) ||
+				NAV_BUTTONS[i].classList.contains("lighten-5") ||
+				NAV_BUTTONS[i].classList.contains("darken-4")
+			) {
+				NAV_BUTTONS[i].classList.remove(color)
+				NAV_BUTTONS[i].classList.remove("lighten-5")
+				NAV_BUTTONS[i].classList.remove("darken-4")
+				NAV_BUTTONS[i].removeAttribute("style")
+				NAV_BUTTONS[
+					i
+				].style.backgroundColor = `var(--md-sys-color-primary-container)`
+			}
+		}
+
+		ICONS.forEach((icon) => {
+			icon.removeAttribute("style")
+			icon.style.color = `var(--md-sys-color-on-primary-container)`
+		})
+
+		for (let i = 0; i < CARDS.length; i++) {
+			if (CARDS[i].classList.contains(color)) {
+				CARDS[i].classList.remove(color)
+				CARDS[i].removeAttribute("style")
+			}
+			CARDS[i].style.backgroundColor = `var(--md-sys-color-tertiary)`
+		}
+
+		if (footer.classList.contains(color)) {
+			footer.classList.remove(color)
+		}
+		footer.style.backgroundColor = `var(--md-sys-color-on-primary-container)`
+		whiteTexts.forEach((text) => {
+			text.removeAttribute("style")
+			text.classList.remove("white-text")
+			text.style.color = `var(--md-sys-color-primary-container)`
+		})
+
+		for (let i = 0; i < SOCIAL_BUTTONS.length; i++) {
+			if (
+				SOCIAL_BUTTONS[i].classList.contains(color) ||
+				SOCIAL_BUTTONS[i].classList.contains("lighten-5")
+			) {
+				SOCIAL_BUTTONS[i].classList.remove(color)
+				SOCIAL_BUTTONS[i].classList.remove("lighten-5")
+				SOCIAL_BUTTONS[i].removeAttribute("style")
+				SOCIAL_BUTTONS[
+					i
+				].style.backgroundColor = `var(--md-sys-color-tertiary-container)`
+				SOCIAL_BUTTONS[
+					i
+				].style.color = `var(--md-sys-color-on-tertiary-container)`
+			}
+		}
+
+		if (floatingButton.classList.contains(color)) {
+			floatingButton.classList.remove(color)
+			floatingActionButton.removeAttribute("style")
+		}
+		floatingActionButton.style.backgroundColor = `var(--md-sys-color-primary-container)`
+	})
 }
 
 // work for removing jquery

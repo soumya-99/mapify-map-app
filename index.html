@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map</title>
+    <title>Mapify</title>
+    <script src="./utils/material-theme-control.js"></script>
     <link rel="stylesheet" href="./libs/materialize/css/materialize.min.css">
     <link href="./css/material-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/map.css">
@@ -105,9 +106,15 @@
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large red tooltipped hoverable" data-position="left"
             data-tooltip="Theme (Material You)" id="floating-action">
-            <i class="large material-icons">mode_edit</i>
+            <i class="large material-icons">palette</i>
         </a>
         <ul>
+            <li id="m-u" style="display: none;"><a
+                    class="waves-effect waves-light blue lighten-2 btn-floating tooltipped hoverable"
+                    data-position="left" data-tooltip="Love You Infinity!">
+                    <material-theme-control></material-theme-control>
+                </a>
+            </li>
             <li><a class="waves-effect waves-light pink lighten-2 btn-floating tooltipped hoverable" id="m-colorful"
                     data-position="left" data-tooltip="Reset Colorful"><i class="material-icons">refresh</i></a>
             </li>
@@ -160,9 +167,11 @@
                 <label>Maps in select</label>
             </div>
             <div class="input-field col s7">
-                <input type="text" id="search" class="validate"></input>
-                <label for="search">Search your place</label>
-                <a class="btn waves-effect blue accent-2 hoverable right"><i class="material-icons">search</i></a>
+                <input pattern="[a-zA-Z_ &-]+" type="text" id="easter" class="validate" />
+                <label for="easter">Quest for INFINITY!</label>
+                <span class="helper-text" data-error="wrong" data-success="right">Easter Egg</span>
+                <button type="button" class="btn waves-effect blue accent-2 hoverable right" onclick="easterEgg()"><i
+                        class="material-icons">search</i></button>
             </div>
 
             <div class="carousel">
@@ -210,7 +219,7 @@
                 <div class="col l6 s12">
                     <h5 class="white-text">About Us</h5>
                     <div class="divider"></div>
-                    <p class="grey-text text-lighten-4">All rights reserved by <a href="#"
+                    <p class="white-text text-lighten-4">All rights reserved by <a href="#"
                             style="color: rgb(255, 255, 255);">Soumyadeep Arka Souvik.</a> We've created this website
                         only
                         for Project Purpose. Use of this website's source code without any permission will be marked as
@@ -246,7 +255,6 @@
     </footer>
     <script src="./scripts/map.js"></script>
     <script src="./scripts/algorithm.js"></script>
-
 </body>
 
 </html>
