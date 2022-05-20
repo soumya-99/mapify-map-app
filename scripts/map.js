@@ -1319,14 +1319,10 @@ const easterEgg = () => {
 	}
 }
 
-const materialThemeController = document.getElementsByTagName(
-	"material-theme-control"
-)[0]
 const materialUActionButton = document.getElementById("m-u")
 const whiteTexts = document.querySelectorAll(".white-text")
 
 const easterEggMaterialYou = () => {
-	materialThemeController.removeAttribute("style")
 	materialUActionButton.removeAttribute("style")
 	M.toast({
 		html: "Material You Limitless Unlocked! Check Theme Now.",
