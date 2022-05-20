@@ -1392,12 +1392,6 @@ materialUActionButton.onclick = () => {
 				].style.color = `var(--md-sys-color-on-tertiary-container)`
 			}
 		}
-
-		if (floatingButton.classList.contains(color)) {
-			floatingButton.classList.remove(color)
-			floatingActionButton.removeAttribute("style")
-		}
-		floatingActionButton.style.backgroundColor = `var(--md-sys-color-primary-container)`
 	})
 }
 
