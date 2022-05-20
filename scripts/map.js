@@ -23,7 +23,7 @@ let sourceSet = false,
 let srcButtonOn = false,
 	destButtonOn = false //state of buttons
 let source, destination
-let waypoints = new Array()	//array for multiple stops or way points
+let waypoints = new Array() //array for multiple stops or way points
 
 let materialYouPathColor = "ff0000"
 
@@ -32,8 +32,11 @@ let maxX = canvas.width / box_dimensions //image loading needs to be done before
 let maxY = canvas.height / box_dimensions //cause accessing the canvas element here
 let vertex = maxX * maxY //maximum possible number of veritces
 
-img.onload = () => {
+window.onload = () => {
 	context.drawImage(img, 0, 0, img.width, img.height)
+	localStorage.dark === "true"
+		? document.getElementById("switch-dark").click()
+		: switchTheme()
 }
 
 //this is called everytime mouse is clicked
@@ -62,7 +65,7 @@ function pick(event) {
 		return
 	}
 
-	if(sourceSet && destSet) {
+	if (sourceSet && destSet) {
 		colorImagePixels(mx, my, 6, 255, 0, 0)
 		waypoints.push(hotCell)
 	}
@@ -263,11 +266,10 @@ const ICONS = [
 	downloadIcon,
 ]
 
-let currentTheme = 0
-
 materialBlue.onclick = (e) => {
-	currentTheme = 1
+	localStorage.setItem("theme", 1)
 	let isChecked = document.getElementById("switch-dark").checked
+	localStorage.setItem("dark", isChecked)
 	if (isChecked) {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #001946, #5d8ef3)"
@@ -390,8 +392,9 @@ materialBlue.onclick = (e) => {
 }
 
 materialGreen.onclick = (e) => {
-	currentTheme = 2
+	localStorage.setItem("theme", 2)
 	let isChecked = document.getElementById("switch-dark").checked
+	localStorage.setItem("dark", isChecked)
 	if (isChecked) {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #00210C, #2ba561)"
@@ -510,8 +513,9 @@ materialGreen.onclick = (e) => {
 }
 
 materialRed.onclick = (e) => {
-	currentTheme = 3
+	localStorage.setItem("theme", 3)
 	let isChecked = document.getElementById("switch-dark").checked
+	localStorage.setItem("dark", isChecked)
 	if (isChecked) {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #400010, #ff4f75)"
@@ -633,8 +637,9 @@ materialRed.onclick = (e) => {
 }
 
 materialYellow.onclick = (e) => {
-	currentTheme = 4
+	localStorage.setItem("theme", 4)
 	let isChecked = document.getElementById("switch-dark").checked
+	localStorage.setItem("dark", isChecked)
 	if (isChecked) {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #390c00, #ed6833)"
@@ -755,8 +760,9 @@ materialYellow.onclick = (e) => {
 }
 
 materialPurple.onclick = (e) => {
-	currentTheme = 5
+	localStorage.setItem("theme", 5)
 	let isChecked = document.getElementById("switch-dark").checked
+	localStorage.setItem("dark", isChecked)
 	if (isChecked) {
 		document.body.style.backgroundImage =
 			"linear-gradient(to right, #2f004c, #be6df2)"
@@ -878,8 +884,9 @@ materialPurple.onclick = (e) => {
 }
 
 materialTeal.onclick = (e) => {
-	currentTheme = 6
+	localStorage.setItem("theme", 6)
 	let isChecked = document.getElementById("switch-dark").checked
+	localStorage.setItem("dark", isChecked)
 	if (isChecked) {
 		document.body.style.background = "#011f22"
 		document.body.style.backgroundImage =
@@ -1001,8 +1008,9 @@ materialTeal.onclick = (e) => {
 }
 
 materialColorful.onclick = () => {
-	currentTheme = 0
+	localStorage.setItem("theme", 0)
 	let isChecked = document.getElementById("switch-dark").checked
+	localStorage.setItem("dark", isChecked)
 	if (isChecked) {
 		navBar.style.backgroundColor = "rgba(55, 71, 79, 0.6)"
 		document.body.style.background = "rgb(51, 68, 85)"
@@ -1134,14 +1142,14 @@ materialColorful.onclick = () => {
 
 // dark mode
 
-const switchDark = () => {
-	if (currentTheme === 0) materialColorful.click()
-	if (currentTheme === 1) materialBlue.click()
-	if (currentTheme === 2) materialGreen.click()
-	if (currentTheme === 3) materialRed.click()
-	if (currentTheme === 4) materialYellow.click()
-	if (currentTheme === 5) materialPurple.click()
-	if (currentTheme === 6) materialTeal.click()
+const switchTheme = () => {
+	localStorage.theme === "0" && materialColorful.click()
+	localStorage.theme === "1" && materialBlue.click()
+	localStorage.theme === "2" && materialGreen.click()
+	localStorage.theme === "3" && materialRed.click()
+	localStorage.theme === "4" && materialYellow.click()
+	localStorage.theme === "5" && materialPurple.click()
+	localStorage.theme === "6" && materialTeal.click()
 }
 
 // work for removing jquery
@@ -1194,6 +1202,6 @@ function fadeOut() {
 		}
 	}, 100)
 }
-setInterval(() => {
+setTimeout(() => {
 	fadeOut()
 }, 2000)
