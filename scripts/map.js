@@ -1331,8 +1331,9 @@ const easterEggMaterialYou = () => {
 }
 
 materialUActionButton.onclick = () => {
+	navBar.removeAttribute("style")
 	navBar.style.backgroundColor = `var(--md-sys-color-primary)`
-	navBar.style.opacity = 0.8
+	navBar.style.opacity = `0.9`
 	document.body.style.background = `var(--md-sys-color-primary-container)`
 	document.body.style.color = `var(--md-sys-color-on-primary-container)`
 

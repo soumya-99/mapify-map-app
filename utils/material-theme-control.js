@@ -2425,36 +2425,16 @@ function ariaProperty(protoOrDescriptor, name, descriptor) {
  */
 class RippleHandlers {
 	constructor(rippleFn) {
-		this.startPress = (ev) => {
-			rippleFn().then((r2) => {
-				r2 && r2.startPress(ev)
-			})
-		}
-		this.endPress = () => {
-			rippleFn().then((r2) => {
-				r2 && r2.endPress()
-			})
-		}
-		this.startFocus = () => {
-			rippleFn().then((r2) => {
-				r2 && r2.startFocus()
-			})
-		}
-		this.endFocus = () => {
-			rippleFn().then((r2) => {
-				r2 && r2.endFocus()
-			})
-		}
-		this.startHover = () => {
-			rippleFn().then((r2) => {
-				r2 && r2.startHover()
-			})
-		}
-		this.endHover = () => {
-			rippleFn().then((r2) => {
-				r2 && r2.endHover()
-			})
-		}
+		// this.startPress = (ev) => {
+		// 	rippleFn().then((r2) => {
+		// 		r2 && r2.startPress(ev)
+		// 	})
+		// }
+		// this.endPress = () => {
+		// 	rippleFn().then((r2) => {
+		// 		r2 && r2.endPress()
+		// 	})
+		// }
 	}
 }
 /**
@@ -2529,25 +2509,25 @@ class IconButtonBase extends s {
 			this.handleRippleDeactivate()
 		}
 		window.addEventListener("mouseup", onUp)
-		this.rippleHandlers.startPress(event)
+		// this.rippleHandlers.startPress(event)
 	}
 	handleRippleTouchStart(event) {
-		this.rippleHandlers.startPress(event)
+		// this.rippleHandlers.startPress(event)
 	}
 	handleRippleDeactivate() {
-		this.rippleHandlers.endPress()
+		// this.rippleHandlers.endPress()
 	}
 	handleRippleMouseEnter() {
-		this.rippleHandlers.startHover()
+		// this.rippleHandlers.startHover()
 	}
 	handleRippleMouseLeave() {
-		this.rippleHandlers.endHover()
+		// this.rippleHandlers.endHover()
 	}
 	handleRippleFocus() {
-		this.rippleHandlers.startFocus()
+		// this.rippleHandlers.startFocus()
 	}
 	handleRippleBlur() {
-		this.rippleHandlers.endFocus()
+		// this.rippleHandlers.endFocus()
 	}
 }
 __decorate(
