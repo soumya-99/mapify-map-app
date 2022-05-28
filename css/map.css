@@ -177,8 +177,13 @@ footer:hover {
 	border-bottom-right-radius: 60px !important;
 }
 
-.carousel {
-	margin-left: 5%;
+#body-right {
+	margin-right: 15px;
+}
+
+#body-right > div.carousel.s12 {
+	width: 100%;
+	top: -50px;
 }
 
 .card {

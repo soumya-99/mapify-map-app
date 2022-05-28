@@ -10,6 +10,7 @@ const downloadButton = document.getElementById("download")
 
 // image related
 let img = document.getElementById("map-image")
+let inputImage = document.getElementById("input-map")
 
 // set up the canvas
 let canvas = document.getElementById("canvas")
@@ -31,6 +32,25 @@ const box_dimensions = 2
 let maxX = canvas.width / box_dimensions //image loading needs to be done before this
 let maxY = canvas.height / box_dimensions //cause accessing the canvas element here
 let vertex = maxX * maxY //maximum possible number of veritces
+
+inputImage.addEventListener("change", function (e) {
+	var reader = new FileReader()
+	reader.onload = function (event) {
+		var image = new Image()
+		image.onload = function () {
+			canvas.width = image.width
+			canvas.height = image.height
+			maxX = canvas.width / box_dimensions
+			maxY = canvas.height / box_dimensions
+			vertex = maxX * maxY
+			context.drawImage(image, 0, 0, image.width, image.height)
+		}
+		resetStates()
+		universalPaths = new Array() //universalPaths is to be cleared separately for swap map button
+		image.src = event.target.result
+	}
+	reader.readAsDataURL(e.target.files[0])
+})
 
 window.onload = () => {
 	context.drawImage(img, 0, 0, img.width, img.height)
@@ -89,9 +109,12 @@ function swapMap() {
 }
 
 resetButton.onclick = () => {
+	context.clearRect(0, 0, canvas.width, canvas.height)
 	let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
+	canvas.width = img.width
+	canvas.height = img.height
 	img.onload = () => {
 		context.drawImage(img, 0, 0, img.width, img.height)
 	}
@@ -239,7 +262,16 @@ const githubButton = document.getElementById("link-github")
 const twitterButton = document.getElementById("link-twitter")
 const instaButton = document.getElementById("link-insta")
 
-const SOCIAL_BUTTONS = [fbButton, githubButton, twitterButton, instaButton]
+// added in Social Icons for ease of access
+const mapUploadButton = document.getElementById("map-upload-button")
+
+const SOCIAL_BUTTONS = [
+	fbButton,
+	githubButton,
+	twitterButton,
+	instaButton,
+	mapUploadButton,
+]
 
 const card1 = document.getElementById("card-1")
 const card2 = document.getElementById("card-2")

@@ -167,14 +167,26 @@
                 <label>Maps in select</label>
             </div>
             <div class="input-field col s7">
-                <input pattern="[a-zA-Z_ &-]+" type="text" id="easter" class="validate" />
+                <input pattern="[a-zA-Z ]+" type="text" id="easter" class="validate" />
                 <label for="easter">Quest for INFINITY!</label>
                 <span class="helper-text" data-error="wrong" data-success="right">Easter Egg</span>
                 <button type="button" class="btn waves-effect blue accent-2 hoverable right" onclick="easterEgg()"><i
-                        class="material-icons">search</i></button>
+                        class="material-icons">all_inclusive</i></button>
             </div>
 
-            <div class="carousel">
+            <div class="col s10">
+                <div class="file-field input-field">
+                    <a id="map-upload-button" class="btn waves-effect blue">
+                        <i class="material-icons left">cloud_upload</i>Add Your Map
+                        <input id="input-map" type="file" accept="image/jpeg, image/png, image/jpg, image/webp">
+                    </a>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel s12">
                 <a class="carousel-item" href="#one!">
                     <div class="card red darken-2" id="card-1">
                         <div class="card-content white-text">
