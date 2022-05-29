@@ -1342,10 +1342,12 @@ const switchTheme = () => {
 // Easter Egg
 
 const easter = document.getElementById("easter")
+const audio = new Audio("sounds/party-trumpet.wav")
 const easterEgg = () => {
 	if (easter.value === "")
 		M.toast({ html: "Write Something First!", classes: "rounded" })
 	else if (easter.value === "Mapify") {
+		audio.play()
 		easterEggMaterialYou()
 		easter.value = ""
 	} else {
