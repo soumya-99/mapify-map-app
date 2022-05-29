@@ -109,6 +109,7 @@ function swapMap() {
 }
 
 resetButton.onclick = () => {
+	inputImage.value = ""
 	context.clearRect(0, 0, canvas.width, canvas.height)
 	let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
@@ -1221,10 +1222,12 @@ materialColorful.onclick = () => {
 			for (let i = 0; i < SOCIAL_BUTTONS.length; i++) {
 				if (
 					SOCIAL_BUTTONS[i].classList.contains(color) ||
-					SOCIAL_BUTTONS[i].classList.contains("lighten-5")
+					SOCIAL_BUTTONS[i].classList.contains("lighten-5") ||
+					SOCIAL_BUTTONS[i].classList.contains("darken-4")
 				) {
 					SOCIAL_BUTTONS[i].classList.remove(color)
 					SOCIAL_BUTTONS[i].classList.remove("lighten-5")
+					SOCIAL_BUTTONS[i].classList.remove("darken-4")
 					SOCIAL_BUTTONS[i].removeAttribute("style")
 					SOCIAL_BUTTONS[i].style.color = "white"
 				}
@@ -1412,10 +1415,12 @@ materialUActionButton.onclick = () => {
 		for (let i = 0; i < SOCIAL_BUTTONS.length; i++) {
 			if (
 				SOCIAL_BUTTONS[i].classList.contains(color) ||
-				SOCIAL_BUTTONS[i].classList.contains("lighten-5")
+				SOCIAL_BUTTONS[i].classList.contains("lighten-5") ||
+				SOCIAL_BUTTONS[i].classList.contains("darken-4")
 			) {
 				SOCIAL_BUTTONS[i].classList.remove(color)
 				SOCIAL_BUTTONS[i].classList.remove("lighten-5")
+				SOCIAL_BUTTONS[i].classList.remove("darken-4")
 				SOCIAL_BUTTONS[i].removeAttribute("style")
 				SOCIAL_BUTTONS[
 					i
@@ -1424,6 +1429,12 @@ materialUActionButton.onclick = () => {
 					i
 				].style.color = `var(--md-sys-color-on-tertiary-container)`
 			}
+			SOCIAL_BUTTONS[
+				i
+			].style.backgroundColor = `var(--md-sys-color-tertiary-container)`
+			SOCIAL_BUTTONS[
+				i
+			].style.color = `var(--md-sys-color-on-tertiary-container)`
 		}
 	})
 }
