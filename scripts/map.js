@@ -66,6 +66,9 @@ window.onload = () => {
 	localStorage.dark === "true"
 		? document.getElementById("switch-dark").click()
 		: switchTheme()
+	if (localStorage.length === 0) {
+		materialColorful.click()
+	}
 }
 
 //this is called everytime mouse is clicked
