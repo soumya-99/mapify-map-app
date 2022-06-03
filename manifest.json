@@ -3,7 +3,7 @@
 	"name": "Mapify Map App",
 	"icons": [
 		{
-			"src": "/mapify-map-app/ico/tab-ico.png",
+			"src": "/ico/tab-ico.png",
 			"type": "image/png",
 			"sizes": "512x512"
 		}
