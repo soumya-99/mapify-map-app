@@ -33,6 +33,15 @@ let maxX = canvas.width / box_dimensions //image loading needs to be done before
 let maxY = canvas.height / box_dimensions //cause accessing the canvas element here
 let vertex = maxX * maxY //maximum possible number of veritces
 
+if ("serviceWorker" in navigator) {
+	window.addEventListener("load", function() {
+	  navigator.serviceWorker
+		.register("/serviceWorker.js")
+		.then(res => console.log("service worker registered"))
+		.catch(err => console.log("service worker not registered", err))
+	})
+}
+
 inputImage.addEventListener("change", function (e) {
 	var reader = new FileReader()
 	reader.onload = function (event) {
@@ -1231,6 +1240,7 @@ materialColorful.onclick = () => {
 					SOCIAL_BUTTONS[i].removeAttribute("style")
 					SOCIAL_BUTTONS[i].style.color = "white"
 				}
+				SOCIAL_BUTTONS[i].removeAttribute("style")
 				SOCIAL_BUTTONS[0].classList.add("blue")
 				SOCIAL_BUTTONS[1].classList.add("red")
 				SOCIAL_BUTTONS[2].classList.add("green")

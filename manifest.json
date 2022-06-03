@@ -1,0 +1,17 @@
+{
+	"short_name": "Mapify",
+	"name": "Mapify Map App",
+	"icons": [
+		{
+			"src": "/ico/tab-ico.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": "/?home=true",
+	"background_color": "#3367D6",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#3367D6",
+	"description": "Mapify Map App"
+}
