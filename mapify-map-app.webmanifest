@@ -9,7 +9,7 @@
 			"purpose": "any maskable"
 		}
 	],
-	"start_url": "./mapify-map-app/index.html",
+	"start_url": "/mapify-map-app/index.html",
 	"background_color": "#3367D6",
 	"display": "fullscreen",
 	"theme_color": "#3367D6",
