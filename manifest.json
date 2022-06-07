@@ -3,15 +3,16 @@
 	"name": "Mapify Map App",
 	"icons": [
 		{
-			"src": "ico/tab-ico.png",
+			"src": "/mapify-map-app/ico/tab-ico.png",
 			"type": "image/png",
 			"sizes": "512x512",
 			"purpose": "any maskable"
 		}
 	],
-	"start_url": "./index.html",
+	"start_url": "/mapify-map-app/",
 	"background_color": "#3367D6",
-	"display": "fullscreen",
+	"scope": "/mapify-map-app/",
+	"display": "standalone",
 	"theme_color": "#3367D6",
 	"description": "Mapify Map App"
 }

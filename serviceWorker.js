@@ -1,35 +1,38 @@
-const mapifyMapApp = "mapify-map-app"
+var GHPATH = "/mapify-map-app"
+var APP_PREFIX = "mapify_"
+var VERSION = "version_001"
+var CACHE_NAME = APP_PREFIX + VERSION
 const assets = [
-	"/",
-	"/index.html",
-	"/disclaimer.html",
-	"/css/map.css",
-	"/css/material-icons.css",
-	"/css/disclaimer.css",
-	"/scripts/map.js",
-	"/scripts/algorithm.js",
-	"/fonts/GoogleSans-Medium.ttf",
-	"/ico/tab-ico.png",
-	"/libs/materialize/css/materialize.min.css",
-	"/libs/materialize/js/materialize.min.js",
-	"/utils/lottie-player.js",
-	"/utils/material-theme-control.js",
-	"/utils/animations/86746-loading-blash.json",
-	"/maps/Abstract_Maps/absMap3.png",
-	"/maps/Real_Maps/gMaps5.png",
-	"/maps/Real_Maps/gMaps6.png",
-	"/maps/Real_Maps/gMaps7.png",
-	"/maps/Real_Maps/gMaps8.png",
-	"/maps/Real_Maps/gMaps9.png",
-	"/maps/Industries/indMap1.jpg",
-	"/maps/Industries/indMap2.jpg",
-	"/maps/Industries/indMap3.png",
-	"/sounds/party-trumpet.wav",
+	`${GHPATH}/`,
+	`${GHPATH}/index.html`,
+	`${GHPATH}/disclaimer.html`,
+	`${GHPATH}/css/map.css`,
+	`${GHPATH}/css/material-icons.css`,
+	`${GHPATH}/css/disclaimer.css`,
+	`${GHPATH}/scripts/map.js`,
+	`${GHPATH}/scripts/algorithm.js`,
+	`${GHPATH}/fonts/GoogleSans-Medium.ttf`,
+	`${GHPATH}/ico/tab-ico.png`,
+	`${GHPATH}/libs/materialize/css/materialize.min.css`,
+	`${GHPATH}/libs/materialize/js/materialize.min.js`,
+	`${GHPATH}/utils/lottie-player.js`,
+	`${GHPATH}/utils/material-theme-control.js`,
+	`${GHPATH}/utils/animations/86746-loading-blash.json`,
+	`${GHPATH}/maps/Abstract_Maps/absMap3.png`,
+	`${GHPATH}/maps/Real_Maps/gMaps5.png`,
+	`${GHPATH}/maps/Real_Maps/gMaps6.png`,
+	`${GHPATH}/maps/Real_Maps/gMaps7.png`,
+	`${GHPATH}/maps/Real_Maps/gMaps8.png`,
+	`${GHPATH}/maps/Real_Maps/gMaps9.png`,
+	`${GHPATH}/maps/Industries/indMap1.jpg`,
+	`${GHPATH}/maps/Industries/indMap2.jpg`,
+	`${GHPATH}/maps/Industries/indMap3.png`,
+	`${GHPATH}/sounds/party-trumpet.wav`,
 ]
 
 self.addEventListener("install", (e) => {
 	e.waitUntil(async () => {
-		const cache = await caches.open(mapifyMapApp)
+		const cache = await caches.open(CACHE_NAME)
 		await cache.addAll(assets)
 	})
 })
@@ -38,6 +41,25 @@ self.addEventListener("fetch", (fetchEvent) => {
 	fetchEvent.respondWith(
 		caches.match(fetchEvent.request).then((res) => {
 			return res || fetch(fetchEvent.request)
+		})
+	)
+})
+
+self.addEventListener("activate", function (e) {
+	e.waitUntil(
+		caches.keys().then(function (keyList) {
+			var cacheWhitelist = keyList.filter(function (key) {
+				return key.indexOf(APP_PREFIX)
+			})
+			cacheWhitelist.push(CACHE_NAME)
+			return Promise.all(
+				keyList.map(function (key, i) {
+					if (cacheWhitelist.indexOf(key) === -1) {
+						console.log("Deleting cache : " + keyList[i])
+						return caches.delete(keyList[i])
+					}
+				})
+			)
 		})
 	)
 })
