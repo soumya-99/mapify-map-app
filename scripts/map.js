@@ -34,9 +34,10 @@ let maxY = canvas.height / box_dimensions //cause accessing the canvas element h
 let vertex = maxX * maxY //maximum possible number of veritces
 
 if ("serviceWorker" in navigator) {
-	window.addEventListener("load", function() {
-	  navigator.serviceWorker
-		.register("/serviceWorker.js")
+	window.addEventListener("load", function () {
+		navigator.serviceWorker.register("/mapify-map-app/serviceWorker.js", {
+			scope: "/mapify-map-app/",
+		})
 	})
 }
 
