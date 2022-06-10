@@ -34,18 +34,18 @@ let maxY = canvas.height / box_dimensions //cause accessing the canvas element h
 let vertex = maxX * maxY //maximum possible number of veritces
 
 if ("serviceWorker" in navigator) {
-	window.addEventListener("load", function () {
+	window.addEventListener("load", () => {
 		navigator.serviceWorker.register("/mapify-map-app/serviceWorker.js", {
 			scope: "/mapify-map-app/",
 		})
 	})
 }
 
-inputImage.addEventListener("change", function (e) {
+inputImage.addEventListener("change", (e) => {
 	var reader = new FileReader()
-	reader.onload = function (event) {
+	reader.onload = (event) => {
 		var image = new Image()
-		image.onload = function () {
+		image.onload = () => {
 			canvas.width = image.width
 			canvas.height = image.height
 			maxX = canvas.width / box_dimensions
@@ -60,8 +60,13 @@ inputImage.addEventListener("change", function (e) {
 	reader.readAsDataURL(e.target.files[0])
 })
 
-window.onload = () => {
+const drawMap = () => {
+	context.clearRect(0, 0, canvas.width, canvas.height)
 	context.drawImage(img, 0, 0, img.width, img.height)
+}
+
+window.onload = () => {
+	drawMap()
 	localStorage.dark === "true"
 		? document.getElementById("switch-dark").click()
 		: switchTheme()
@@ -1491,7 +1496,7 @@ for (let i = 0; i < instanceActions.length; i++) {
 // preloader done
 const preloader = document.querySelector(".pre-loader")
 function fadeOut() {
-	const fadeEffect = setInterval(function () {
+	const fadeEffect = setInterval(() => {
 		if (!preloader.style.opacity) {
 			preloader.style.opacity = 1
 		}

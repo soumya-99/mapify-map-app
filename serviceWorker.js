@@ -45,15 +45,15 @@ self.addEventListener("fetch", (fetchEvent) => {
 	)
 })
 
-self.addEventListener("activate", function (e) {
+self.addEventListener("activate", (e) => {
 	e.waitUntil(
 		caches.keys().then(function (keyList) {
-			var cacheWhitelist = keyList.filter(function (key) {
+			var cacheWhitelist = keyList.filter((key) => {
 				return key.indexOf(APP_PREFIX)
 			})
 			cacheWhitelist.push(CACHE_NAME)
 			return Promise.all(
-				keyList.map(function (key, i) {
+				keyList.map((key, i) => {
 					if (cacheWhitelist.indexOf(key) === -1) {
 						console.log("Deleting cache : " + keyList[i])
 						return caches.delete(keyList[i])
