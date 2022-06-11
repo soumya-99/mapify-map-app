@@ -4,7 +4,6 @@ const destButton = document.getElementById("dest")
 const showPathButton = document.getElementById("sp")
 const resetButton = document.getElementById("reset")
 const help = document.getElementById("help")
-const aboutUs = document.getElementById("aboutus")
 const fullScreenButton = document.getElementById("fullscreen")
 const downloadButton = document.getElementById("download")
 

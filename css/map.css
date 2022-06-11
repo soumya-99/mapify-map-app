@@ -28,8 +28,6 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	/* background: var(--material-white) !important; */
-	background-image: linear-gradient(to left, var(--material-white), #90a4ae);
 	font-family: "GoogleSans";
 }
 
@@ -38,7 +36,6 @@ body {
 }
 
 nav {
-	background-color: rgba(55, 71, 79, 0.6);
 	width: 100%;
 	border-radius: 50px;
 	backdrop-filter: blur(5px);
@@ -82,10 +79,6 @@ canvas:active {
 
 .divider {
 	background-color: var(--divider-color);
-}
-
-.modal-footer a {
-	color: var(--divider-color) !important;
 }
 
 .heading {
@@ -197,7 +190,7 @@ footer:hover {
 
 .dropdown-content.select-dropdown {
 	border-radius: 30px;
-	background-color: rgba(181, 197, 211, 0.6) !important;
+	background-color: rgba(248, 248, 248, 0.589) !important;
 	backdrop-filter: blur(6px) !important;
 }
 
@@ -217,8 +210,30 @@ lottie-player {
 	height: 100%;
 }
 
-#modal1 {
+#modal1,
+#modal2 {
 	border-radius: 40px !important;
-	background-color: rgba(255, 255, 255, 0.35) !important;
+	background-color: rgba(248, 248, 248, 0.589) !important;
 	backdrop-filter: blur(6px) !important;
+}
+
+body > div.modal-overlay {
+	opacity: 0 !important;
+}
+
+#settings-icon:hover {
+	animation: circle 0.7s linear infinite;
+	/* color: black; */
+}
+
+@keyframes circle {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

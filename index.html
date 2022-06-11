@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mapify Inc. converts any image into map. It supports Material You theming! 6 different custom preset Material You theme. Easter Egg available.">
+    <meta name="description"
+        content="Mapify Inc. converts any image into map. It supports Material You theming! 6 different custom preset Material You theme. Easter Egg available.">
     <meta name="theme-color" content="#3367D6">
     <title>Mapify</title>
     <script src="./utils/material-theme-control.js"></script>
@@ -56,9 +57,9 @@
                             data-position="bottom" data-tooltip="Download Map"><i class="material-icons"
                                 id="download-icon">download</i></a>
                     </li>
-                    <li><a class="waves-effect waves-light cyan btn tooltipped hoverable" href="#aboutus"
-                            data-position="bottom" data-tooltip="About Us"><i class="material-icons"
-                                id="aboutus-icon">accessibility</i></a>
+                    <li><a class="waves-effect waves-light cyan accent-3 btn modal-trigger tooltipped hoverable"
+                            href="#modal2" data-position="bottom" data-tooltip="Settings"><i class="material-icons"
+                                id="settings-icon">settings</i></a>
                     </li>
                     <li>
                         <div class="switch">
@@ -99,6 +100,30 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Good to go</a>
+        </div>
+    </div>
+
+    <!-- Modal for settings -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h4>Settings</h4>
+            <div class="divider"></div>
+            <h6>More customizations on the way!</h6>
+            <div class="row">
+                <div class="col s7">
+                    <ul class="helpText">
+                        <li class="src">Choose Map Path Color</li>
+                        <li><input id="custom-color" type="color"></li>
+                    </ul>
+                </div>
+                <div class="col s5">
+                    <lottie-player style="width: 100%; height: 100%;" src="./utils/animations/92803-loading.json"
+                        autoplay loop></lottie-player>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a onclick="saveSettings()" class="modal-close waves-effect waves-green btn-flat">Save All</a>
         </div>
     </div>
 
