@@ -49,7 +49,6 @@ inputImage.addEventListener("change", (e) => {
 		image.onload = () => {
 			canvas.width = image.width
 			canvas.height = image.height
-			console.log(image.width, image.height)
 			maxX = Math.trunc(canvas.width / box_dimensions)
 			maxY = Math.trunc(canvas.height / box_dimensions)
 			vertex = maxX * maxY
@@ -118,9 +117,10 @@ function swapMap() {
 	img.src = newImage.value
 	canvas.width = img.width
 	canvas.height = img.height
-	maxX = canvas.width / box_dimensions
-	maxY = canvas.height / box_dimensions
+	maxX = Math.trunc(canvas.width / box_dimensions)
+	maxY = Math.trunc(canvas.height / box_dimensions)
 	vertex = maxX * maxY
+
 	img.onload = () => {
 		context.drawImage(img, 0, 0, img.width, img.height)
 	}
@@ -130,24 +130,27 @@ function swapMap() {
 }
 
 resetButton.onclick = () => {
-	inputImage.value = ""
-	context.clearRect(0, 0, canvas.width, canvas.height)
 	let img = document.getElementById("map-image")
+	let tempCustomImage = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
 
-	if (customInputEnabled == true) {
-		img.src = customImageInput.src
-		img.width = customImageInput.width
-		img.height = customImageInput.height
-	} else {
+	if (customInputEnabled === true) {
+		tempCustomImage.src = customImageInput.src
+		canvas.width = customImageInput.width
+		canvas.height = customImageInput.height
+		tempCustomImage.onload = () => {
+			context.drawImage(tempCustomImage, 0, 0, customImageInput.width, customImageInput.height)
+		}
+	}
+	else {
 		img.src = newImage.value
+		canvas.width = img.width
+		canvas.height = img.height
+		img.onload = () => {
+			context.drawImage(img, 0, 0, img.width, img.height)
+		}
 	}
 
-	canvas.width = img.width
-	canvas.height = img.height
-	img.onload = () => {
-		context.drawImage(img, 0, 0, img.width, img.height)
-	}
 	resetStates()
 	universalPaths = new Array() //universalPaths is to be cleared separately for reset button
 }
