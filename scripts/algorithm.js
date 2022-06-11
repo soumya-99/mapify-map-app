@@ -204,14 +204,28 @@ function getPath(sourceFlag, destFlag) {
 	return temp
 }
 
+// path size
+const pathSizeElement = document.getElementById("path-size")
+const badgePathSize = document.getElementById("badge-pathSize")
+
+let pathSize = 1
+pathSizeElement.value = pathSize
+badgePathSize.innerHTML = pathSize
+
+pathSizeElement.addEventListener("input", function (e) {
+	pathSize = e.target.value
+	badgePathSize.innerHTML = pathSize
+})
+
 function highLightPath() {
 	let pathColor = materialYouPathColor
+	const pathWidth = parseInt(pathSize)
 	for (let p = 0; p < universalPaths.length; p++) {
 		let coords = findCoordinateOfVertex(universalPaths[p])
 		colorImagePixels(
 			coords[0],
 			coords[1],
-			1,
+			pathWidth,
 			hexToRgb(pathColor).r,
 			hexToRgb(pathColor).g,
 			hexToRgb(pathColor).b
@@ -238,35 +252,45 @@ function colorImagePixels(x, y, size, colorR, colorG, colorB) {
 	}
 }
 
+// custom color
 const newColor = document.getElementById("custom-color")
-let red = 250
-let green = 250
-let blue = 250
+let red = hexToRgb(newColor.value).r
+let green = hexToRgb(newColor.value).g
+let blue = hexToRgb(newColor.value).b
 const settingsIcon = document.getElementById("settings-icon")
 
-newColor.addEventListener("input", function () {
-	red = hexToRgb(newColor.value).r
-	green = hexToRgb(newColor.value).g
-	blue = hexToRgb(newColor.value).b
-	settingsIcon.style.color = newColor.value
+newColor.addEventListener("input", function (e) {
+	red = hexToRgb(e.target.value).r
+	green = hexToRgb(e.target.value).g
+	blue = hexToRgb(e.target.value).b
+	settingsIcon.style.color = e.target.value
 })
-
-console.log("after event", red, green, blue)
 
 function saveSettings() {
 	console.log("save", red, green, blue)
 }
 
+// sensitivity
+let sensitivity = 6
+const sensitivityRange = document.getElementById("sensitivity")
+const badgeSensitivity = document.getElementById("badge-sensitivity")
+badgeSensitivity.innerText = sensitivity
+
+sensitivityRange.addEventListener("input", function (e) {
+	sensitivity = e.target.value
+	badgeSensitivity.innerText = sensitivity
+})
+
 //to compare two color values
 function compareColorValues(x, y, currentPathColor) {
 	pixel = context.getImageData(x, y, 1, 1)
 	if (
-		pixel.data[0] >= red - 15 &&
-		pixel.data[0] <= red + 15 &&
-		pixel.data[1] >= green - 15 &&
-		pixel.data[1] <= green + 15 &&
-		pixel.data[2] >= blue - 15 &&
-		pixel.data[2] <= blue + 15
+		pixel.data[0] >= red - sensitivity &&
+		pixel.data[0] <= red + sensitivity &&
+		pixel.data[1] >= green - sensitivity &&
+		pixel.data[1] <= green + sensitivity &&
+		pixel.data[2] >= blue - sensitivity &&
+		pixel.data[2] <= blue + sensitivity
 	)
 		return true
 	//support to ignore previously drawn paths

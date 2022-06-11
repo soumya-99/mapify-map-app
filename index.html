@@ -112,8 +112,22 @@
             <div class="row">
                 <div class="col s7">
                     <ul class="helpText">
-                        <li class="src">Choose Map Path Color</li>
-                        <li><input id="custom-color" type="color"></li>
+                        <li>
+                            <span class="src">Choose Map Path Color</span>
+                            <input id="custom-color" type="color" value="#fafafa">
+                        </li>
+                        <br>
+                        <li>
+                            <span class="dest">Sensitivity</span>
+                            <input type="range" id="sensitivity" min="1" max="20" />
+                            <span id="badge-sensitivity" class="badge blue white-text"></span>
+                        </li>
+                        <br>
+                        <li>
+                            <span class="return">Path Size</span>
+                            <input type="range" id="path-size" min="1" max="4" />
+                            <span id="badge-pathSize" class="badge blue white-text"></span>
+                        </li>
                     </ul>
                 </div>
                 <div class="col s5">

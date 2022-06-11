@@ -139,8 +139,7 @@ resetButton.onclick = () => {
 		img.src = customImageInput.src
 		img.width = customImageInput.width
 		img.height = customImageInput.height
-	}
-	else {
+	} else {
 		img.src = newImage.value
 	}
 
