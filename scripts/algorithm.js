@@ -274,6 +274,7 @@ function saveSettings() {
 let sensitivity = 6
 const sensitivityRange = document.getElementById("sensitivity")
 const badgeSensitivity = document.getElementById("badge-sensitivity")
+sensitivityRange.value = sensitivity
 badgeSensitivity.innerText = sensitivity
 
 sensitivityRange.addEventListener("input", function (e) {
