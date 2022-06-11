@@ -11,6 +11,8 @@ const downloadButton = document.getElementById("download")
 // image related
 let img = document.getElementById("map-image")
 let inputImage = document.getElementById("input-map")
+let customImageInput
+let customInputEnabled = false
 
 // set up the canvas
 let canvas = document.getElementById("canvas")
@@ -48,14 +50,17 @@ inputImage.addEventListener("change", (e) => {
 		image.onload = () => {
 			canvas.width = image.width
 			canvas.height = image.height
-			maxX = canvas.width / box_dimensions
-			maxY = canvas.height / box_dimensions
+			console.log(image.width, image.height)
+			maxX = Math.trunc(canvas.width / box_dimensions)
+			maxY = Math.trunc(canvas.height / box_dimensions)
 			vertex = maxX * maxY
 			context.drawImage(image, 0, 0, image.width, image.height)
 		}
 		resetStates()
 		universalPaths = new Array() //universalPaths is to be cleared separately for swap map button
 		image.src = event.target.result
+		customImageInput = image
+		customInputEnabled = true
 	}
 	reader.readAsDataURL(e.target.files[0])
 })
@@ -120,6 +125,7 @@ function swapMap() {
 	img.onload = () => {
 		context.drawImage(img, 0, 0, img.width, img.height)
 	}
+	customInputEnabled = false
 	resetStates()
 	universalPaths = new Array() //universalPaths is to be cleared separately for swap map button
 }
@@ -129,7 +135,16 @@ resetButton.onclick = () => {
 	context.clearRect(0, 0, canvas.width, canvas.height)
 	let img = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
-	img.src = newImage.value
+
+	if (customInputEnabled == true) {
+		img.src = customImageInput.src
+		img.width = customImageInput.width
+		img.height = customImageInput.height
+	}
+	else {
+		img.src = newImage.value
+	}
+
 	canvas.width = img.width
 	canvas.height = img.height
 	img.onload = () => {
@@ -152,7 +167,6 @@ function resetStates() {
 	destSet = false
 	srcButtonOn = false
 	destButtonOn = false
-	pathFound = false
 	srcButton.classList.remove("disabled")
 	destButton.classList.remove("disabled")
 }
@@ -160,7 +174,7 @@ function resetStates() {
 //methods for buttons
 function show_path(event) {
 	bfsManager(source, destination, waypoints) //all methods combined
-	if (pathFound) highLightPath()
+
 	resetStates() //need to reset after every bfs call
 	//we can't reset universalPath here as it will clear previous paths
 	//inturn removing the feature of multiple path and theming of multiple paths

@@ -10,7 +10,7 @@ let destVisited = new Array(vertex).fill(false)
 let universalPaths = new Array()    //universal path 
                                     //not resets until reset button or swap map pressed
 let pathColor
-
+let segmentColorVal = 150
 
 function bfsManager(source, destination, waypoints) {
     let BfsSource = source
@@ -239,7 +239,7 @@ function colorImagePixels(x, y, size, colorR, colorG, colorB) {
 //to compare two color values
 function compareColorValues(x, y, currentPathColor) {
     pixel = context.getImageData(x, y, 1, 1)
-    if (pixel.data[0] >= 250 && pixel.data[1] >= 250 && pixel.data[2] >= 250)
+    if (pixel.data[0] >= segmentColorVal && pixel.data[1] >= segmentColorVal && pixel.data[2] >= segmentColorVal)
         return true
     //support to ignore previously drawn paths
     else if(pixel.data[0] === hexToRgb(currentPathColor).r && pixel.data[1] === hexToRgb(currentPathColor).g 
