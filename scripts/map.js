@@ -90,6 +90,11 @@ function pick(event) {
 	let hotCell = findVertexAtCoordinate(mx, my)
 
 	if (destSet === false && destButtonOn === true) {
+		M.toast({
+			html: "<i class='material-icons left'>edit_location</i>Now you can add unlimited STOPS! Click on the map to add them.",
+			classes: "rounded pink",
+			displayLength: "5000",
+		})
 		destination = hotCell
 		colorImagePixels(mx, my, 6, 0, 255, 0)
 		destSet = true
@@ -130,29 +135,47 @@ function swapMap() {
 }
 
 resetButton.onclick = () => {
-	let img = document.getElementById("map-image")
-	let tempCustomImage = document.getElementById("map-image")
-	let newImage = document.getElementById("mapSelect")
+	if (confirm("Are you sure? Do you really want to clear the map?")) {
+		let img = document.getElementById("map-image")
+		let tempCustomImage = document.getElementById("map-image")
+		let newImage = document.getElementById("mapSelect")
 
-	if (customInputEnabled === true) {
-		tempCustomImage.src = customImageInput.src
-		canvas.width = customImageInput.width
-		canvas.height = customImageInput.height
-		tempCustomImage.onload = () => {
-			context.drawImage(tempCustomImage, 0, 0, customImageInput.width, customImageInput.height)
+		if (customInputEnabled === true) {
+			tempCustomImage.src = customImageInput.src
+			canvas.width = customImageInput.width
+			canvas.height = customImageInput.height
+			tempCustomImage.onload = () => {
+				context.drawImage(
+					tempCustomImage,
+					0,
+					0,
+					customImageInput.width,
+					customImageInput.height
+				)
+			}
+		} else {
+			img.src = newImage.value
+			canvas.width = img.width
+			canvas.height = img.height
+			img.onload = () => {
+				context.drawImage(img, 0, 0, img.width, img.height)
+			}
 		}
-	}
-	else {
-		img.src = newImage.value
-		canvas.width = img.width
-		canvas.height = img.height
-		img.onload = () => {
-			context.drawImage(img, 0, 0, img.width, img.height)
-		}
-	}
 
-	resetStates()
-	universalPaths = new Array() //universalPaths is to be cleared separately for reset button
+		resetStates()
+		universalPaths = new Array() //universalPaths is to be cleared separately for reset button
+		M.toast({
+			html: "<i class='material-icons left'>refresh</i>Map cleared successfully!",
+			classes: "rounded green",
+			displayLength: "1500",
+		})
+	} else {
+		M.toast({
+			html: "<i class='material-icons left'>error</i>Reset cancelled.",
+			classes: "rounded red",
+			displayLength: "1500",
+		})
+	}
 }
 
 function resetStates() {
@@ -197,7 +220,11 @@ srcButton.onclick = (e) => {
 
 showPathButton.onclick = (event) => {
 	if (sourceSet && destSet) show_path(event)
-	else M.toast({ html: "Add source and destination first", classes: "rounded" })
+	else
+		M.toast({
+			html: "Add source and destination first",
+			classes: "rounded blue-grey",
+		})
 }
 
 fullScreenButton.onclick = (e) => {
@@ -1377,13 +1404,13 @@ const easter = document.getElementById("easter")
 const audio = new Audio("sounds/party-trumpet.wav")
 const easterEgg = () => {
 	if (easter.value === "")
-		M.toast({ html: "Write Something First!", classes: "rounded" })
+		M.toast({ html: "Write Something First!", classes: "rounded red" })
 	else if (easter.value === "Mapify") {
 		audio.play()
 		easterEggMaterialYou()
 		easter.value = ""
 	} else {
-		M.toast({ html: "Better luck next time!", classes: "rounded" })
+		M.toast({ html: "Better luck next time!", classes: "rounded orange" })
 		easter.value = ""
 	}
 }
@@ -1395,7 +1422,8 @@ const easterEggMaterialYou = () => {
 	materialUActionButton.removeAttribute("style")
 	M.toast({
 		html: "Material You Limitless Unlocked! Check Theme Now.",
-		classes: "rounded",
+		classes: "rounded green",
+		displayLength: 6000,
 	})
 }
 

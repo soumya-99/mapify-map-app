@@ -212,7 +212,7 @@ let pathSize = 1
 pathSizeElement.value = pathSize
 badgePathSize.innerHTML = pathSize
 
-pathSizeElement.addEventListener("input", function (e) {
+pathSizeElement.addEventListener("input", (e) => {
 	pathSize = e.target.value
 	badgePathSize.innerHTML = pathSize
 })
@@ -259,7 +259,8 @@ let green = hexToRgb(newColor.value).g
 let blue = hexToRgb(newColor.value).b
 const settingsIcon = document.getElementById("settings-icon")
 
-newColor.addEventListener("input", function (e) {
+newColor.addEventListener("input", (e) => {
+	newColor.value = e.target.value
 	red = hexToRgb(e.target.value).r
 	green = hexToRgb(e.target.value).g
 	blue = hexToRgb(e.target.value).b
@@ -270,14 +271,36 @@ function saveSettings() {
 	console.log("save", red, green, blue)
 }
 
+function resetDefault() {
+	if (confirm("Are you sure? All your changes will be lost.")) {
+		newColor.value = "#fafafa"
+		red = hexToRgb(newColor.value).r
+		green = hexToRgb(newColor.value).g
+		blue = hexToRgb(newColor.value).b
+		settingsIcon.style.color = newColor.value
+
+		pathSize = 1
+		pathSizeElement.value = pathSize
+		badgePathSize.innerText = pathSize
+
+		sensitivity = 5
+		sensitivityRange.value = sensitivity
+		badgeSensitivity.innerText = sensitivity
+
+		M.toast({ html: "Settings reset to default", classes: "green rounded" })
+	} else {
+		M.toast({ html: "Your settings are safe.", classes: "blue rounded" })
+	}
+}
+
 // sensitivity
-let sensitivity = 6
+let sensitivity = 5
 const sensitivityRange = document.getElementById("sensitivity")
 const badgeSensitivity = document.getElementById("badge-sensitivity")
 sensitivityRange.value = sensitivity
 badgeSensitivity.innerText = sensitivity
 
-sensitivityRange.addEventListener("input", function (e) {
+sensitivityRange.addEventListener("input", (e) => {
 	sensitivity = e.target.value
 	badgeSensitivity.innerText = sensitivity
 })
