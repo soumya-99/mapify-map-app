@@ -9,12 +9,14 @@ let destVisited = new Array(vertex).fill(false)
 let universalPaths = new Array() //universal path
 //not resets until reset button or swap map pressed
 let pathColor
+let copyOfWaypoints = new Array()
 
 function bfsManager(source, destination, waypoints) {
 	let BfsSource = source
 	let BfsDestination = destination
 	let interMediatePoints = new Array()
 	interMediatePoints.push(...waypoints)
+	copyOfWaypoints = interMediatePoints
 	pathColor = materialYouPathColor
 
 	if (interMediatePoints.length === 0) {
@@ -219,6 +221,9 @@ pathSizeElement.addEventListener("input", (e) => {
 })
 
 function redrawPath() {
+	if(isReset == true)
+		return 	//not the condition for redrawing
+
 	//clear the image and then in onload redraw the src and dest
 	let img = document.getElementById("map-image")
 	let tempCustomImage = document.getElementById("map-image")
@@ -231,6 +236,7 @@ function redrawPath() {
 			context.drawImage(tempCustomImage, 0, 0, customImageInput.width, customImageInput.height)
 			highLightPath()
 			reDrawSrcDest()
+			reDrawStops()
 		}
 	}
 	else {
@@ -241,6 +247,7 @@ function redrawPath() {
 			context.drawImage(img, 0, 0, img.width, img.height)
 			highLightPath()
 			reDrawSrcDest()
+			reDrawStops()
 		}
 	}
 }
@@ -250,6 +257,13 @@ function reDrawSrcDest() {
 	let destCoord = findCoordinateOfVertex(destination)
 	colorImagePixels(srcCoord[0], srcCoord[1], 6, 0, 0, 255)
 	colorImagePixels(destCoord[0], destCoord[1], 6, 0, 255, 0)
+}
+
+function reDrawStops() {
+	for(let i=0;i<copyOfWaypoints.length;i++) {
+		wayPointCoord = findCoordinateOfVertex(copyOfWaypoints[i])
+		colorImagePixels(wayPointCoord[0], wayPointCoord[1], 6, 255, 0, 0)
+	}
 }
 
 function highLightPath() {

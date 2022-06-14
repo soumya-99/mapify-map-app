@@ -24,6 +24,8 @@ let sourceSet = false,
 	destSet = false
 let srcButtonOn = false,
 	destButtonOn = false //state of buttons
+let isReset = true	//for realtime updation of pathSize
+					//used as a flag if in reset state or not
 let source, destination
 let waypoints = new Array() //array for multiple stops or way points
 
@@ -107,6 +109,7 @@ function pick(event) {
 		colorImagePixels(mx, my, 6, 0, 255, 0)
 		destSet = true
 		destButtonOn = false
+		isReset = false
 		return
 	}
 	if (sourceSet === false && srcButtonOn === true) {
@@ -114,6 +117,7 @@ function pick(event) {
 		colorImagePixels(mx, my, 6, 0, 0, 255)
 		sourceSet = true
 		srcButtonOn = false
+		isReset = false
 		return
 	}
 
@@ -126,6 +130,8 @@ function pick(event) {
 //////////////////////////////////
 
 function swapMap() {
+	isReset = true
+
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
 	canvas.width = img.width
@@ -145,6 +151,7 @@ function swapMap() {
 
 resetButton.onclick = () => {
 	if (confirm("Are you sure? Do you really want to clear the map?")) {
+		isReset = true
 		let img = document.getElementById("map-image")
 		let tempCustomImage = document.getElementById("map-image")
 		let newImage = document.getElementById("mapSelect")
