@@ -215,7 +215,42 @@ badgePathSize.innerHTML = pathSize
 pathSizeElement.addEventListener("input", (e) => {
 	pathSize = e.target.value
 	badgePathSize.innerHTML = pathSize
+	redrawPath()	//reloads the image and redraws the path with new pathsize
 })
+
+function redrawPath() {
+	//clear the image and then in onload redraw the src and dest
+	let img = document.getElementById("map-image")
+	let tempCustomImage = document.getElementById("map-image")
+	let newImage = document.getElementById("mapSelect")
+	if (customInputEnabled === true) {
+		tempCustomImage.src = customImageInput.src
+		canvas.width = customImageInput.width
+		canvas.height = customImageInput.height
+		tempCustomImage.onload = () => {
+			context.drawImage(tempCustomImage, 0, 0, customImageInput.width, customImageInput.height)
+			highLightPath()
+			reDrawSrcDest()
+		}
+	}
+	else {
+		img.src = newImage.value
+		canvas.width = img.width
+		canvas.height = img.height
+		img.onload = () => {
+			context.drawImage(img, 0, 0, img.width, img.height)
+			highLightPath()
+			reDrawSrcDest()
+		}
+	}
+}
+
+function reDrawSrcDest() {
+	let srcCoord = findCoordinateOfVertex(source)
+	let destCoord = findCoordinateOfVertex(destination)
+	colorImagePixels(srcCoord[0], srcCoord[1], 6, 0, 0, 255)
+	colorImagePixels(destCoord[0], destCoord[1], 6, 0, 255, 0)
+}
 
 function highLightPath() {
 	let pathColor = materialYouPathColor
@@ -268,7 +303,7 @@ newColor.addEventListener("input", (e) => {
 })
 
 function saveSettings() {
-	console.log("save", red, green, blue)
+	//console.log("save", red, green, blue)
 }
 
 function resetDefault() {
