@@ -29,7 +29,7 @@ let waypoints = new Array() //array for multiple stops or way points
 
 let materialYouPathColor = "ff0000"
 
-const box_dimensions = 2
+let box_dimensions = 2
 let maxX = canvas.width / box_dimensions //image loading needs to be done before this
 let maxY = canvas.height / box_dimensions //cause accessing the canvas element here
 let vertex = maxX * maxY //maximum possible number of veritces
@@ -49,6 +49,14 @@ inputImage.addEventListener("change", (e) => {
 		image.onload = () => {
 			canvas.width = image.width
 			canvas.height = image.height
+
+			if((image.width > 2000 && image.width < 3000) || (image.height > 2000 && image.height < 3000))
+				box_dimensions = 4
+			else if ((image.width > 3000 && image.width < 5000) || (image.height > 3000 && image.height < 5000))
+				box_dimensions = 6
+			else
+				box_dimensions = 2
+
 			maxX = Math.trunc(canvas.width / box_dimensions)
 			maxY = Math.trunc(canvas.height / box_dimensions)
 			vertex = maxX * maxY
@@ -122,6 +130,7 @@ function swapMap() {
 	img.src = newImage.value
 	canvas.width = img.width
 	canvas.height = img.height
+	box_dimensions = 2
 	maxX = Math.trunc(canvas.width / box_dimensions)
 	maxY = Math.trunc(canvas.height / box_dimensions)
 	vertex = maxX * maxY
