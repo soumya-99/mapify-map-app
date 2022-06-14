@@ -27,6 +27,9 @@ let srcButtonOn = false,
 let isReset = true	//for realtime updation of pathSize
 					//used as a flag if in reset state or not
 let source, destination
+let universalSources = new Array()	//stores values until map is reloaded or changes
+let universalDests = new Array()
+let univarsalWaypoints = new Array()
 let waypoints = new Array() //array for multiple stops or way points
 
 let materialYouPathColor = "ff0000"
@@ -101,11 +104,12 @@ function pick(event) {
 
 	if (destSet === false && destButtonOn === true) {
 		M.toast({
-			html: "<i class='material-icons left'>edit_location</i>Now you can add unlimited STOPS! Click on the map to add them.",
+			html: "<i class='material-icons left'>edit_location</i>Now you can add intermediate STOPS! Click on the map to add them.",
 			classes: "rounded pink",
 			displayLength: "5000",
 		})
 		destination = hotCell
+		universalDests.push(destination)
 		colorImagePixels(mx, my, 6, 0, 255, 0)
 		destSet = true
 		destButtonOn = false
@@ -114,6 +118,7 @@ function pick(event) {
 	}
 	if (sourceSet === false && srcButtonOn === true) {
 		source = hotCell
+		universalSources.push(source)
 		colorImagePixels(mx, my, 6, 0, 0, 255)
 		sourceSet = true
 		srcButtonOn = false
@@ -124,6 +129,7 @@ function pick(event) {
 	if (sourceSet && destSet) {
 		colorImagePixels(mx, my, 6, 255, 0, 0)
 		waypoints.push(hotCell)
+		univarsalWaypoints.push(hotCell)
 	}
 }
 
@@ -147,6 +153,9 @@ function swapMap() {
 	customInputEnabled = false
 	resetStates()
 	universalPaths = new Array() //universalPaths is to be cleared separately for swap map button
+	universalSources = new Array()
+	universalDests = new Array()
+	univarsalWaypoints = new Array()
 }
 
 resetButton.onclick = () => {
@@ -180,6 +189,9 @@ resetButton.onclick = () => {
 
 		resetStates()
 		universalPaths = new Array() //universalPaths is to be cleared separately for reset button
+		universalSources = new Array()
+		universalDests = new Array()
+		univarsalWaypoints = new Array()
 		M.toast({
 			html: "<i class='material-icons left'>refresh</i>Map cleared successfully!",
 			classes: "rounded green",

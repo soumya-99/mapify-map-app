@@ -16,7 +16,7 @@ function bfsManager(source, destination, waypoints) {
 	let BfsDestination = destination
 	let interMediatePoints = new Array()
 	interMediatePoints.push(...waypoints)
-	copyOfWaypoints = interMediatePoints
+	copyOfWaypoints = univarsalWaypoints
 	pathColor = materialYouPathColor
 
 	if (interMediatePoints.length === 0) {
@@ -253,10 +253,16 @@ function redrawPath() {
 }
 
 function reDrawSrcDest() {
-	let srcCoord = findCoordinateOfVertex(source)
-	let destCoord = findCoordinateOfVertex(destination)
-	colorImagePixels(srcCoord[0], srcCoord[1], 6, 0, 0, 255)
-	colorImagePixels(destCoord[0], destCoord[1], 6, 0, 255, 0)
+	//for sources
+	for(let i=0;i<universalSources.length;i++) {
+		let srcCoord = findCoordinateOfVertex(universalSources[i])
+		colorImagePixels(srcCoord[0], srcCoord[1], 6, 0, 0, 255)
+	}
+	//for destinations
+	for(let i=0;i<universalDests.length;i++) {
+		let destCoord = findCoordinateOfVertex(universalDests[i])
+		colorImagePixels(destCoord[0], destCoord[1], 6, 0, 255, 0)
+	}
 }
 
 function reDrawStops() {
