@@ -130,7 +130,7 @@ canvas:active {
 	overflow: scroll; /* Overflows the map */
 }
 
-body::-webkit-scrollbar {
+::-webkit-scrollbar {
 	width: 0;
 	background: transparent;
 }
@@ -156,8 +156,9 @@ body > div > div.col.s7 {
 }
 
 footer {
-	border-radius: 60px;
+	border-radius: 80px;
 	margin-bottom: 50px !important;
+	transition: 0.2s ease-in-out;
 }
 
 footer:hover {
@@ -166,8 +167,8 @@ footer:hover {
 }
 
 #aboutus > div.footer-copyright {
-	border-bottom-left-radius: 60px !important;
-	border-bottom-right-radius: 60px !important;
+	border-bottom-left-radius: 80px !important;
+	border-bottom-right-radius: 80px !important;
 }
 
 #body-right {
@@ -180,11 +181,12 @@ footer:hover {
 }
 
 .card {
-	border-radius: 30px;
+	border-radius: 40px;
+	transition: 0.2s ease-in-out;
 }
 
 .card:hover {
-	border-radius: 10px;
+	border-radius: 15px;
 	transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
 }
 

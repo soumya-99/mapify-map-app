@@ -85,11 +85,16 @@
             <div class="row">
                 <div class="col s7">
                     <ol class="helpText">
-                        <li class="src">To add source, please click on the source button and click anywhere on the path!</li>
-                        <li class="dest">To add a destination, please click on the destination button and click anywhere on the path!</li>
-                        <li class="return">To find your shortest path, please click on the show path button. Make sure you don't forget to add source and destination before!</li>
-                        <li class="reset">You can select any location or add your own map using add your map! It's so easy!</li>
-                        <li class="toggle">Have you change your mind and wanna go somewhere else? Don't worry! Just click on reset and add new destination keeping all your customisation as it is!</li>
+                        <li class="src">To add source, please click on the source button and click anywhere on the path!
+                        </li>
+                        <li class="dest">To add a destination, please click on the destination button and click anywhere
+                            on the path!</li>
+                        <li class="return">To find your shortest path, please click on the show path button. Make sure
+                            you don't forget to add source and destination before!</li>
+                        <li class="reset">You can select any location or add your own map using add your map! It's so
+                            easy!</li>
+                        <li class="toggle">Have you change your mind and wanna go somewhere else? Don't worry! Just
+                            click on reset and add new destination keeping all your customization as it is!</li>
                     </ol>
                 </div>
                 <div class="col s5">
@@ -137,6 +142,7 @@
             </div>
         </div>
         <div class="modal-footer">
+            <a onclick="resetAll()" class="modal-close waves-effect waves-red btn-flat">Reset All</a>
             <a onclick="resetDefault()" class="modal-close waves-effect waves-orange btn-flat">Reset Settings</a>
             <a onclick="saveSettings()" class="modal-close waves-effect waves-green btn-flat">Save All</a>
         </div>
@@ -230,13 +236,14 @@
                 </div>
             </div>
 
-            <div class="carousel s12">
+            <div class="carousel">
                 <a class="carousel-item" href="#one!">
                     <div class="card red darken-2" id="card-1">
                         <div class="card-content white-text">
                             <span class="card-title">Your Mapify</span>
                             <div class="divider"></div>
-                            <p>Introducing Google's latest Material You. It's all about you. Change the colours, change the themes as you want! We follow how you feel! Make it yours!</p>
+                            <p>Introducing Google's latest Material You. It's all about you. Change the colors, change
+                                the themes as you want! We follow how you feel! Make it yours!</p>
                         </div>
                     </div>
                 </a>
@@ -245,7 +252,8 @@
                         <div class="card-content white-text">
                             <span class="card-title">Add Any Map</span>
                             <div class="divider"></div>
-                            <p>Your Mapify supports colour images, grayscale images, red, white, green paths and many more..! Add any map you want, we got your back!</p>
+                            <p>Your Mapify supports color images, grayscale images, red, white, green paths and many
+                                more..! Add any map you want, we got your back!</p>
                         </div>
                     </div>
                 </a>
@@ -254,7 +262,18 @@
                         <div class="card-content white-text">
                             <span class="card-title">Stops In The Middle</span>
                             <div class="divider"></div>
-                            <p>Got more than one place to visit in a go? Add as many intermediate stops as you need! Mapify will navigate through all!</p>
+                            <p>Got more than one place to visit in a go? Add as many intermediate stops as you need!
+                                Mapify will navigate through all!</p>
+                        </div>
+                    </div>
+                </a>
+                <a class="carousel-item" href="#four!">
+                    <div class="card orange darken-2" id="card-4">
+                        <div class="card-content white-text">
+                            <span class="card-title">Easter Egg</span>
+                            <div class="divider"></div>
+                            <p>Write a secret word (Related to our app) in the search box, and voila! A limitless visual
+                                treat is waiting for you.</p>
                         </div>
                     </div>
                 </a>
@@ -282,18 +301,20 @@
                     <h5 class="white-text">Links</h5>
                     <div class="divider"></div>
                     <ul>
-                        <li style="padding-top: 6px;"><a class="grey-text text-lighten-3"
-                                href="https://www.facebook.com/soumyadeep.mondal.984/"><button
-                                    class="btn waves-effect blue pulse" id="link-fb">Facebook</button></a></li>
+                        <li><a class="grey-text text-lighten-3" target="_blank"
+                                href="https://www.facebook.com/profile.php?id=100056571030622"><button
+                                    class="btn waves-effect blue pulse" id="link-fb" href="">Facebook</button></a></li>
                         <br>
-                        <li><a class="grey-text text-lighten-3"
-                                href="https://www.instagram.com/m0ndal.s0umyadeep/"><button
+                        <li><a class="grey-text text-lighten-3" target="_blank"
+                                href="https://www.instagram.com/_s_o_u_v_i_k__m_o_n_d_a_l_/"><button
                                     class="btn waves-effect red pulse" id="link-insta">Instagram</button></a></li>
                         <br>
-                        <li><a class="grey-text text-lighten-3" href="https://github.com/soumya-99"><button
-                                    class="btn waves-effect green pulse" id="link-github">GitHub</button></a></li>
+                        <li><a class="grey-text text-lighten-3" target="_blank"
+                                href="https://github.com/soumya-99"><button class="btn waves-effect green pulse"
+                                    id="link-github">Github</button></a></li>
                         <br>
-                        <li><a class="grey-text text-lighten-3" href="#!"><button class="btn waves-effect orange pulse"
+                        <li><a class="grey-text text-lighten-3" target="_blank"
+                                href="https://twitter.com/Soumyadeep5000"><button class="btn waves-effect orange pulse"
                                     id="link-twitter">Twitter</button></a></li>
                     </ul>
                 </div>
@@ -306,8 +327,11 @@
             </div>
         </div>
     </footer>
-    <script src="./scripts/map.js"></script>
-    <script src="./scripts/algorithm.js"></script>
+    <!-- <script src="./scripts/map.js"></script>
+    <script src="./scripts/algorithm.js"></script> -->
+    
+    <script src="./scripts/map.min.js"></script>
+    <script src="./scripts/algorithm.min.js"></script>
 </body>
 
 </html>

@@ -20,23 +20,28 @@ canvas.height = img.height
 let context = canvas.getContext("2d")
 
 // algo related
-let sourceSet = false, 						//flags for source and dest button
+let sourceSet = false, //flags for source and dest button
 	destSet = false
-let srcButtonOn = false, 					//state of buttons
+let srcButtonOn = false, //state of buttons
 	destButtonOn = false
-let isReset = true							//for realtime updation of pathSize
+let isReset = true //for realtime updation of pathSize
 //used as a flag if in reset state or not
 let source, destination
-let universalSources = new Array()			//stores values until map is reloaded or changes
+let universalSources = new Array() //stores values until map is reloaded or changes
 let universalDests = new Array()
 let univarsalWaypoints = new Array()
-let waypoints = new Array() 				//array for multiple stops or way points
+let waypoints = new Array() //array for multiple stops or way points
 let materialYouPathColor = "ff0000"
 
-let box_dimensions = 2						//segment dimension
-let maxX = canvas.width / box_dimensions 	//image loading needs to be done before this
-let maxY = canvas.height / box_dimensions 	//cause accessing the canvas element here
-let vertex = maxX * maxY 					//maximum possible number of veritces
+let box_dimensions = 2 //segment dimension
+let maxX = canvas.width / box_dimensions //image loading needs to be done before this
+let maxY = canvas.height / box_dimensions //cause accessing the canvas element here
+let vertex = maxX * maxY //maximum possible number of veritces
+
+const clickAudio = new Audio(
+	"./sounds/mixkit-cool-interface-click-tone-2568.wav"
+)
+const errAudio = new Audio("./sounds/mixkit-click-error-1110.wav")
 
 if ("serviceWorker" in navigator) {
 	window.addEventListener("load", () => {
@@ -46,7 +51,8 @@ if ("serviceWorker" in navigator) {
 	})
 }
 
-inputImage.addEventListener("change", (e) => {	//loading of user given images
+inputImage.addEventListener("change", (e) => {
+	//loading of user given images
 	var reader = new FileReader()
 	reader.onload = (event) => {
 		var image = new Image()
@@ -55,12 +61,17 @@ inputImage.addEventListener("change", (e) => {	//loading of user given images
 			canvas.height = image.height
 
 			//change the segment dimension according to the image resolution
-			if ((image.width > 2000 && image.width < 3000) || (image.height > 2000 && image.height < 3000))
+			if (
+				(image.width > 2000 && image.width < 3000) ||
+				(image.height > 2000 && image.height < 3000)
+			)
 				box_dimensions = 4
-			else if ((image.width > 3000 && image.width < 5000) || (image.height > 3000 && image.height < 5000))
+			else if (
+				(image.width > 3000 && image.width < 5000) ||
+				(image.height > 3000 && image.height < 5000)
+			)
 				box_dimensions = 6
-			else
-				box_dimensions = 2
+			else box_dimensions = 2
 
 			maxX = Math.trunc(canvas.width / box_dimensions)
 			maxY = Math.trunc(canvas.height / box_dimensions)
@@ -72,7 +83,7 @@ inputImage.addEventListener("change", (e) => {	//loading of user given images
 		universalPaths = new Array() //universalPaths is to be cleared separately for swap map button
 
 		image.src = event.target.result
-		customImageInput = image	 //storing the source of custom image
+		customImageInput = image //storing the source of custom image
 	}
 	reader.readAsDataURL(e.target.files[0])
 })
@@ -82,7 +93,8 @@ const drawMap = () => {
 	context.drawImage(img, 0, 0, img.width, img.height)
 }
 
-window.onload = () => {	//loading image for the first time
+window.onload = () => {
+	//loading image for the first time
 	drawMap()
 	localStorage.dark === "true"
 		? document.getElementById("switch-dark").click()
@@ -94,11 +106,11 @@ window.onload = () => {	//loading image for the first time
 
 //this is called everytime mouse is clicked
 function pick(event) {
-	var rect = canvas.getBoundingClientRect() 	// get the canvas' bounding rectangle
-	let mx = event.clientX - rect.left 		 	// get the mouse's x coordinate
-	let my = event.clientY - rect.top 			// get the mouse's y coordinate
+	var rect = canvas.getBoundingClientRect() // get the canvas' bounding rectangle
+	let mx = event.clientX - rect.left // get the mouse's x coordinate
+	let my = event.clientY - rect.top // get the mouse's y coordinate
 	if (compareColorValues(mx, my, materialYouPathColor) === false) {
-		return	//don't let add src or dest outside paths
+		return //don't let add src or dest outside paths
 	}
 
 	let hotCell = findVertexAtCoordinate(mx, my)
@@ -107,7 +119,7 @@ function pick(event) {
 		M.toast({
 			html: "<i class='material-icons left'>edit_location</i>Now you can add intermediate STOPS! Click on the map to add them.",
 			classes: "rounded pink",
-			displayLength: "5000",
+			displayLength: "2500",
 		})
 		destination = hotCell
 		universalDests.push(destination)
@@ -136,14 +148,15 @@ function pick(event) {
 
 //////////////////////////////////
 
-function swapMap() { 	//invoek when swap map button pressed
-	isReset = true		//set reset (for realtime pathSize updation)
+function swapMap() {
+	//invoke when swap map button pressed
+	isReset = true //set reset (for realtime pathSize updation)
 
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
 	canvas.width = img.width
 	canvas.height = img.height
-	box_dimensions = 2	//reset segment size to 2 for built-in maps
+	box_dimensions = 2 //reset segment size to 2 for built-in maps
 	maxX = Math.trunc(canvas.width / box_dimensions)
 	maxY = Math.trunc(canvas.height / box_dimensions)
 	vertex = maxX * maxY
@@ -153,13 +166,14 @@ function swapMap() { 	//invoek when swap map button pressed
 	}
 	customInputEnabled = false
 	resetStates()
-	universalPaths = new Array() 	//These are to be cleared separately for swap map button
+	universalPaths = new Array() //These are to be cleared separately for swap map button
 	universalSources = new Array()
 	universalDests = new Array()
 	univarsalWaypoints = new Array()
 }
 
 resetButton.onclick = () => {
+	clickAudio.play()
 	if (confirm("Are you sure? Do you really want to clear the map?")) {
 		isReset = true
 		let img = document.getElementById("map-image")
@@ -168,7 +182,7 @@ resetButton.onclick = () => {
 
 		if (customInputEnabled === true) {
 			//if there is a custom image
-			//not affecting img and creating new local variables 
+			//not affecting img and creating new local variables
 			tempCustomImage.src = customImageInput.src
 			canvas.width = customImageInput.width
 			canvas.height = customImageInput.height
@@ -191,7 +205,7 @@ resetButton.onclick = () => {
 		}
 
 		resetStates()
-		universalPaths = new Array() 	//These are to be cleared separately for reset map button
+		universalPaths = new Array() //These are to be cleared separately for reset map button
 		universalSources = new Array()
 		universalDests = new Array()
 		univarsalWaypoints = new Array()
@@ -236,6 +250,7 @@ function show_path(event) {
 }
 
 destButton.onclick = (e) => {
+	clickAudio.play()
 	destSet = false
 	destButtonOn = true
 	destButton.classList.add("disabled")
@@ -243,6 +258,7 @@ destButton.onclick = (e) => {
 }
 
 srcButton.onclick = (e) => {
+	clickAudio.play()
 	sourceSet = false
 	srcButtonOn = true
 	srcButton.classList.add("disabled")
@@ -250,19 +266,25 @@ srcButton.onclick = (e) => {
 }
 
 showPathButton.onclick = (event) => {
-	if (sourceSet && destSet) show_path(event)
-	else
+	if (sourceSet && destSet) {
+		clickAudio.play()
+		show_path(event)
+	} else {
+		errAudio.play()
 		M.toast({
 			html: "Add source and destination first",
 			classes: "rounded blue-grey",
 		})
+	}
 }
 
 fullScreenButton.onclick = (e) => {
+	clickAudio.play()
 	canvas.requestFullscreen()
 }
 
 downloadButton.onclick = () => {
+	clickAudio.play()
 	downloadButton.download = img.src
 	downloadButton.href = canvas.toDataURL()
 }
@@ -276,6 +298,7 @@ const mapContainer = document.getElementById("map-container")
 
 let isZoomOn = true
 zoomButton.onclick = () => {
+	clickAudio.play()
 	if (isZoomOn === true) {
 		bodyLeft.style.flexGrow = 1
 		bodyLeft.style.transition = "0.8s ease-in-out"
@@ -366,8 +389,9 @@ const SOCIAL_BUTTONS = [
 const card1 = document.getElementById("card-1")
 const card2 = document.getElementById("card-2")
 const card3 = document.getElementById("card-3")
+const card4 = document.getElementById("card-4")
 
-const CARDS = [card1, card2, card3]
+const CARDS = [card1, card2, card3, card4]
 
 const srcIcon = document.getElementById("src-icon")
 const destIcon = document.getElementById("dest-icon")
@@ -1336,6 +1360,7 @@ materialColorful.onclick = () => {
 				CARDS[0].classList.add("blue", "darken-2")
 				CARDS[1].classList.add("red", "darken-2")
 				CARDS[2].classList.add("green", "darken-2")
+				CARDS[3].classList.add("orange", "darken-2")
 			}
 		})
 	} else {
@@ -1407,6 +1432,7 @@ materialColorful.onclick = () => {
 				CARDS[0].classList.add("blue", "darken-2")
 				CARDS[1].classList.add("red", "darken-2")
 				CARDS[2].classList.add("green", "darken-2")
+				CARDS[3].classList.add("orange", "darken-2")
 			}
 
 			floatingActionButton.removeAttribute("style")
@@ -1418,7 +1444,6 @@ materialColorful.onclick = () => {
 }
 
 // dark mode
-
 const switchTheme = () => {
 	localStorage.theme === "0" && materialColorful.click()
 	localStorage.theme === "1" && materialBlue.click()
@@ -1541,6 +1566,8 @@ const tooltip = document.querySelectorAll(".tooltipped")
 const floatingActionButton = document.querySelector(".fixed-action-btn")
 const sideNav = document.querySelector(".sidenav")
 const carousel = document.querySelector(".carousel")
+const tabs = document.querySelector(".tabs")
+const collapsible = document.querySelectorAll(".collapsible")
 
 // Don't change the order of the following elements
 const instanceActions = [
@@ -1551,6 +1578,7 @@ const instanceActions = [
 	floatingActionButton,
 	sideNav,
 	carousel,
+	tabs,
 ]
 
 for (let i = 0; i < instanceActions.length; i++) {
@@ -1560,11 +1588,12 @@ for (let i = 0; i < instanceActions.length; i++) {
 	M.Tooltip.init(instanceActions[3])
 	M.FloatingActionButton.init(instanceActions[4])
 	M.Sidenav.init(instanceActions[5])
+	M.Tabs.init(instanceActions[7])
 
 	const carouselInstance = M.Carousel.init(instanceActions[6])
 	setInterval(() => {
 		carouselInstance.next()
-	}, 1500)
+	}, 3700)
 }
 
 // preloader done

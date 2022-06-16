@@ -5,10 +5,9 @@ let sourceQueue = new Array()
 let destQueue = new Array()
 let sourceVisited = new Array(vertex).fill(false)
 let destVisited = new Array(vertex).fill(false)
-let universalPaths = new Array()	//not resets until reset button or swap map pressed
-let pathColor						//to support materialYou path color
-let copyOfWaypoints = new Array()	//copy to manage realtime pathSize update for waypoints
-
+let universalPaths = new Array() //not resets until reset button or swap map pressed
+let pathColor //to support materialYou path color
+let copyOfWaypoints = new Array() //copy to manage realtime pathSize update for waypoints
 
 function bfsManager(source, destination, waypoints) {
 	//handles the case for multiple way points
@@ -37,7 +36,7 @@ function bfsManager(source, destination, waypoints) {
 		//manage source and dest for each way points
 		currentSource = currDestination
 		currDestination = interMediatePoints[i]
-		resetBfsManagerStates()	//clearing states for re-execution
+		resetBfsManagerStates() //clearing states for re-execution
 		BfsSingleRun(currentSource, currDestination)
 	}
 	//for last iteration
@@ -57,25 +56,25 @@ function BfsSingleRun(currentSource, currDestination) {
 	destVisited[currDestination] = true
 	destQueue.push(currDestination)
 
-	let sourceBfsFlag = -1, destBfsFlag = -1		//states of each bfs call
+	let sourceBfsFlag = -1,
+		destBfsFlag = -1 //states of each bfs call
 	while (sourceBfsFlag === -1 && destBfsFlag === -1) {
 		//will return values != -1 if ended somehow (path found/not found)
 		sourceBfsFlag = sourceBfs()
 		destBfsFlag = destBfs()
-	}	//these flags will contain the meeting point 
+	} //these flags will contain the meeting point
 
-	let currentPath = getPath(sourceBfsFlag, destBfsFlag)	//reconstruct the shortest path
+	let currentPath = getPath(sourceBfsFlag, destBfsFlag) //reconstruct the shortest path
 	if (currentPath.length === 0)
 		M.toast({ html: "No path exists in between", classes: "rounded" })
 	else {
 		universalPaths.push(...currentPath)
-		highLightPath()		//draw the path on the map
+		highLightPath() //draw the path on the map
 	}
 }
 
 function sourceBfs() {
-	if (sourceQueue.length === 0)
-		return 0
+	if (sourceQueue.length === 0) return 0
 
 	let x = sourceQueue.shift() // already popped front
 	x = Math.trunc(x)
@@ -92,23 +91,21 @@ function sourceBfs() {
 			sourceVisited[vNum] = true
 			sourceQueue.push(vNum)
 			predFromSource.set(vNum, x)
-			if (predFromDest.has(vNum) === true)
-				return vNum
+			if (predFromDest.has(vNum) === true) return vNum
 		}
 	}
 	return -1
 }
 
 function destBfs() {
-	if (destQueue.length === 0)
-		return 0
+	if (destQueue.length === 0) return 0
 
 	let x = destQueue.shift() // already popped front
 	x = Math.trunc(x)
 	let coords = findCoordinateOfVertex(x)
 	let boxPixlX = coords[0]
 	let boxPixlY = coords[1]
-	let queueTemp = getN8Adjacents(x, boxPixlX, boxPixlY)	//returns N8 adjacents
+	let queueTemp = getN8Adjacents(x, boxPixlX, boxPixlY) //returns N8 adjacents
 
 	//now all the adjacents of x are in queueTemp and can be used
 	//as an alternative of any supporting data structure for bfs.
@@ -118,8 +115,7 @@ function destBfs() {
 			destVisited[vNum] = true
 			destQueue.push(vNum)
 			predFromDest.set(vNum, x)
-			if (predFromSource.has(vNum) === true)
-				return vNum
+			if (predFromSource.has(vNum) === true) return vNum
 		}
 	}
 	return -1
@@ -235,20 +231,19 @@ function highLightPath() {
 const pathSizeElement = document.getElementById("path-size")
 const badgePathSize = document.getElementById("badge-pathSize")
 
-let pathSize = 1	//default values
+let pathSize = 1 //default values
 pathSizeElement.value = pathSize
 badgePathSize.innerHTML = pathSize
 
 pathSizeElement.addEventListener("input", (e) => {
 	pathSize = e.target.value
 	badgePathSize.innerHTML = pathSize
-	redrawPath()	//reloads the image and redraws the path with new pathsize
+	redrawPath() //reloads the image and redraws the path with new pathsize
 })
 
 function redrawPath() {
 	//handles realtime pathSize updation
-	if (isReset == true)
-		return 	//not the condition for redrawing
+	if (isReset == true) return //not the condition for redrawing
 
 	//clear the image and then in onload redraw the src and dest and.... path
 	let img = document.getElementById("map-image")
@@ -259,13 +254,18 @@ function redrawPath() {
 		canvas.width = customImageInput.width
 		canvas.height = customImageInput.height
 		tempCustomImage.onload = () => {
-			context.drawImage(tempCustomImage, 0, 0, customImageInput.width, customImageInput.height)
+			context.drawImage(
+				tempCustomImage,
+				0,
+				0,
+				customImageInput.width,
+				customImageInput.height
+			)
 			highLightPath()
 			reDrawSrcDest()
 			reDrawStops()
 		}
-	}
-	else {
+	} else {
 		img.src = newImage.value
 		canvas.width = img.width
 		canvas.height = img.height
@@ -352,9 +352,34 @@ function resetDefault() {
 		sensitivityRange.value = sensitivity
 		badgeSensitivity.innerText = sensitivity
 
-		M.toast({ html: "Settings reset to default", classes: "green rounded" })
+		M.toast({
+			html: "Settings reset to default",
+			classes: "green rounded",
+			displayLength: 1000,
+		})
 	} else {
-		M.toast({ html: "Your settings are safe.", classes: "blue rounded" })
+		M.toast({
+			html: "Your settings are safe.",
+			classes: "blue rounded",
+			displayLength: 1000,
+		})
+	}
+}
+
+function resetAll() {
+	if (
+		confirm(
+			"Are you sure? All your changes will be lost. This will reload app."
+		)
+	) {
+		localStorage.clear()
+		location.reload()
+	} else {
+		M.toast({
+			html: "Your settings are safe.",
+			classes: "blue rounded",
+			displayLength: 1000,
+		})
 	}
 }
 
@@ -373,7 +398,8 @@ sensitivityRange.addEventListener("input", (e) => {
 //to compare two color values
 function compareColorValues(x, y, currentPathColor) {
 	pixel = context.getImageData(x, y, 1, 1)
-	if (	//comparing a range of colours
+	if (
+		//comparing a range of colours
 		pixel.data[0] >= red - sensitivity &&
 		pixel.data[0] <= red + sensitivity &&
 		pixel.data[1] >= green - sensitivity &&
@@ -397,8 +423,7 @@ function compareColorValues(x, y, currentPathColor) {
 	//support for pure red for stop markers
 	else if (pixel.data[0] >= 255 && pixel.data[1] == 0 && pixel.data[2] == 0)
 		return true
-	else
-		return false
+	else return false
 }
 
 function findVertexAtCoordinate(x, y) {
@@ -423,10 +448,10 @@ function hexToRgb(hex) {
 	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
 	return result
 		? {
-			r: parseInt(result[1], 16),
-			g: parseInt(result[2], 16),
-			b: parseInt(result[3], 16),
-		}
+				r: parseInt(result[1], 16),
+				g: parseInt(result[2], 16),
+				b: parseInt(result[3], 16),
+		  }
 		: null
 }
 

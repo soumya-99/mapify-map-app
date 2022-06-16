@@ -1,6 +1,6 @@
 var GHPATH = "/mapify-map-app"
 var APP_PREFIX = "mapify_"
-var VERSION = "version_003"
+var VERSION = "version_005"
 var CACHE_NAME = APP_PREFIX + VERSION
 const assets = [
 	`${GHPATH}/`,
