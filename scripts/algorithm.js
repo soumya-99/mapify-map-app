@@ -1,17 +1,19 @@
-//these all are required now
-//made them global to preseve states within function calls
+//These needs to be global to preseve states within function calls
 let predFromSource = new Map()
 let predFromDest = new Map()
 let sourceQueue = new Array()
 let destQueue = new Array()
 let sourceVisited = new Array(vertex).fill(false)
 let destVisited = new Array(vertex).fill(false)
-let universalPaths = new Array() //universal path
-//not resets until reset button or swap map pressed
-let pathColor
-let copyOfWaypoints = new Array()
+let universalPaths = new Array()	//not resets until reset button or swap map pressed
+let pathColor						//to support materialYou path color
+let copyOfWaypoints = new Array()	//copy to manage realtime pathSize update for waypoints
+
 
 function bfsManager(source, destination, waypoints) {
+	//handles the case for multiple way points
+	//fetching data from map.js
+
 	let BfsSource = source
 	let BfsDestination = destination
 	let interMediatePoints = new Array()
@@ -29,13 +31,13 @@ function bfsManager(source, destination, waypoints) {
 	let currentSource = BfsSource
 	let currDestination = interMediatePoints[0]
 	BfsSingleRun(currentSource, currDestination)
-	//for all way points
+	//for all way points in between
 	for (let i = 1; i < interMediatePoints.length; i++) {
 		//run bfs until all waypoints are visited
 		//manage source and dest for each way points
 		currentSource = currDestination
 		currDestination = interMediatePoints[i]
-		resetBfsManagerStates()
+		resetBfsManagerStates()	//clearing states for re-execution
 		BfsSingleRun(currentSource, currDestination)
 	}
 	//for last iteration
@@ -46,37 +48,41 @@ function bfsManager(source, destination, waypoints) {
 }
 
 function BfsSingleRun(currentSource, currDestination) {
+	//handles bidirection BFS
+	//in turn calls SourceBFS() and destBFS()
+
 	sourceVisited[currentSource] = true
 	sourceQueue.push(currentSource)
 
 	destVisited[currDestination] = true
 	destQueue.push(currDestination)
 
-	let sourceBfsFlag = -1,
-		destBfsFlag = -1
+	let sourceBfsFlag = -1, destBfsFlag = -1		//states of each bfs call
 	while (sourceBfsFlag === -1 && destBfsFlag === -1) {
+		//will return values != -1 if ended somehow (path found/not found)
 		sourceBfsFlag = sourceBfs()
 		destBfsFlag = destBfs()
-	}
+	}	//these flags will contain the meeting point 
 
-	let currentPath = getPath(sourceBfsFlag, destBfsFlag)
+	let currentPath = getPath(sourceBfsFlag, destBfsFlag)	//reconstruct the shortest path
 	if (currentPath.length === 0)
 		M.toast({ html: "No path exists in between", classes: "rounded" })
 	else {
 		universalPaths.push(...currentPath)
-		highLightPath()
+		highLightPath()		//draw the path on the map
 	}
 }
 
 function sourceBfs() {
-	if (sourceQueue.length === 0) return 0
+	if (sourceQueue.length === 0)
+		return 0
 
 	let x = sourceQueue.shift() // already popped front
 	x = Math.trunc(x)
 	let coords = findCoordinateOfVertex(x)
 	let boxPixlX = coords[0]
 	let boxPixlY = coords[1]
-	let queueTemp = getN8Adjacents(x, boxPixlX, boxPixlY)
+	let queueTemp = getN8Adjacents(x, boxPixlX, boxPixlY) //returns N8 adjacents
 
 	//now all the adjacents of x are in queueTemp and can be used
 	//as an alternative of any supporting data structure for bfs.
@@ -86,21 +92,23 @@ function sourceBfs() {
 			sourceVisited[vNum] = true
 			sourceQueue.push(vNum)
 			predFromSource.set(vNum, x)
-			if (predFromDest.has(vNum) === true) return vNum
+			if (predFromDest.has(vNum) === true)
+				return vNum
 		}
 	}
 	return -1
 }
 
 function destBfs() {
-	if (destQueue.length === 0) return 0
+	if (destQueue.length === 0)
+		return 0
 
 	let x = destQueue.shift() // already popped front
 	x = Math.trunc(x)
 	let coords = findCoordinateOfVertex(x)
 	let boxPixlX = coords[0]
 	let boxPixlY = coords[1]
-	let queueTemp = getN8Adjacents(x, boxPixlX, boxPixlY)
+	let queueTemp = getN8Adjacents(x, boxPixlX, boxPixlY)	//returns N8 adjacents
 
 	//now all the adjacents of x are in queueTemp and can be used
 	//as an alternative of any supporting data structure for bfs.
@@ -110,7 +118,8 @@ function destBfs() {
 			destVisited[vNum] = true
 			destQueue.push(vNum)
 			predFromDest.set(vNum, x)
-			if (predFromSource.has(vNum) === true) return vNum
+			if (predFromSource.has(vNum) === true)
+				return vNum
 		}
 	}
 	return -1
@@ -206,11 +215,27 @@ function getPath(sourceFlag, destFlag) {
 	return temp
 }
 
+function highLightPath() {
+	let pathColor = materialYouPathColor
+	const pathWidth = parseInt(pathSize)
+	for (let p = 0; p < universalPaths.length; p++) {
+		let coords = findCoordinateOfVertex(universalPaths[p])
+		colorImagePixels(
+			coords[0],
+			coords[1],
+			pathWidth,
+			hexToRgb(pathColor).r,
+			hexToRgb(pathColor).g,
+			hexToRgb(pathColor).b
+		)
+	}
+}
+
 // path size
 const pathSizeElement = document.getElementById("path-size")
 const badgePathSize = document.getElementById("badge-pathSize")
 
-let pathSize = 1
+let pathSize = 1	//default values
 pathSizeElement.value = pathSize
 badgePathSize.innerHTML = pathSize
 
@@ -221,10 +246,11 @@ pathSizeElement.addEventListener("input", (e) => {
 })
 
 function redrawPath() {
-	if(isReset == true)
+	//handles realtime pathSize updation
+	if (isReset == true)
 		return 	//not the condition for redrawing
 
-	//clear the image and then in onload redraw the src and dest
+	//clear the image and then in onload redraw the src and dest and.... path
 	let img = document.getElementById("map-image")
 	let tempCustomImage = document.getElementById("map-image")
 	let newImage = document.getElementById("mapSelect")
@@ -252,44 +278,28 @@ function redrawPath() {
 	}
 }
 
+////////////////////////utility functions/////////////////
 function reDrawSrcDest() {
 	//for sources
-	for(let i=0;i<universalSources.length;i++) {
+	for (let i = 0; i < universalSources.length; i++) {
 		let srcCoord = findCoordinateOfVertex(universalSources[i])
 		colorImagePixels(srcCoord[0], srcCoord[1], 6, 0, 0, 255)
 	}
 	//for destinations
-	for(let i=0;i<universalDests.length;i++) {
+	for (let i = 0; i < universalDests.length; i++) {
 		let destCoord = findCoordinateOfVertex(universalDests[i])
 		colorImagePixels(destCoord[0], destCoord[1], 6, 0, 255, 0)
 	}
 }
 
 function reDrawStops() {
-	for(let i=0;i<copyOfWaypoints.length;i++) {
+	for (let i = 0; i < copyOfWaypoints.length; i++) {
 		wayPointCoord = findCoordinateOfVertex(copyOfWaypoints[i])
 		colorImagePixels(wayPointCoord[0], wayPointCoord[1], 6, 255, 0, 0)
 	}
 }
 
-function highLightPath() {
-	let pathColor = materialYouPathColor
-	const pathWidth = parseInt(pathSize)
-	for (let p = 0; p < universalPaths.length; p++) {
-		let coords = findCoordinateOfVertex(universalPaths[p])
-		colorImagePixels(
-			coords[0],
-			coords[1],
-			pathWidth,
-			hexToRgb(pathColor).r,
-			hexToRgb(pathColor).g,
-			hexToRgb(pathColor).b
-		)
-	}
-}
-
-//utility functions
-//created a colored box to the given coordinate with given boxSize and rgb values
+//creates a colored box to the given coordinate with given boxSize and rgb values
 function colorImagePixels(x, y, size, colorR, colorG, colorB) {
 	let xLow = x - size
 	let xHigh = x + size
@@ -307,7 +317,7 @@ function colorImagePixels(x, y, size, colorR, colorG, colorB) {
 	}
 }
 
-// custom color
+// custom color (color picker)
 const newColor = document.getElementById("custom-color")
 let red = hexToRgb(newColor.value).r
 let green = hexToRgb(newColor.value).g
@@ -348,7 +358,7 @@ function resetDefault() {
 	}
 }
 
-// sensitivity
+// sensitivity controller
 let sensitivity = 5
 const sensitivityRange = document.getElementById("sensitivity")
 const badgeSensitivity = document.getElementById("badge-sensitivity")
@@ -363,7 +373,7 @@ sensitivityRange.addEventListener("input", (e) => {
 //to compare two color values
 function compareColorValues(x, y, currentPathColor) {
 	pixel = context.getImageData(x, y, 1, 1)
-	if (
+	if (	//comparing a range of colours
 		pixel.data[0] >= red - sensitivity &&
 		pixel.data[0] <= red + sensitivity &&
 		pixel.data[1] >= green - sensitivity &&
@@ -387,19 +397,20 @@ function compareColorValues(x, y, currentPathColor) {
 	//support for pure red for stop markers
 	else if (pixel.data[0] >= 255 && pixel.data[1] == 0 && pixel.data[2] == 0)
 		return true
-	else return false
+	else
+		return false
 }
 
-//find the logical vertex number from the coordinates
 function findVertexAtCoordinate(x, y) {
+	//find the logical vertex number from the coordinates
 	let boxJ = Math.trunc(x / box_dimensions)
 	let boxI = Math.trunc(y / box_dimensions)
 	let hotCell = Math.trunc(boxI * maxX + boxJ)
 	return hotCell
 }
 
-//find the coordinates from the logical vertex number
 function findCoordinateOfVertex(vertexNumber) {
+	//find the coordinates from the logical vertex number
 	let currCell = vertexNumber
 	let i = Math.trunc(currCell / maxX)
 	let j = Math.trunc(currCell - i * maxX)
@@ -412,14 +423,15 @@ function hexToRgb(hex) {
 	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
 	return result
 		? {
-				r: parseInt(result[1], 16),
-				g: parseInt(result[2], 16),
-				b: parseInt(result[3], 16),
-		  }
+			r: parseInt(result[1], 16),
+			g: parseInt(result[2], 16),
+			b: parseInt(result[3], 16),
+		}
 		: null
 }
 
 function resetBfsManagerStates() {
+	//reseting intermediate states during bfs
 	predFromSource.clear()
 	predFromDest.clear()
 	sourceQueue = new Array()

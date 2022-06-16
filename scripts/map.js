@@ -20,24 +20,23 @@ canvas.height = img.height
 let context = canvas.getContext("2d")
 
 // algo related
-let sourceSet = false,
+let sourceSet = false, 						//flags for source and dest button
 	destSet = false
-let srcButtonOn = false,
-	destButtonOn = false //state of buttons
-let isReset = true	//for realtime updation of pathSize
-					//used as a flag if in reset state or not
+let srcButtonOn = false, 					//state of buttons
+	destButtonOn = false
+let isReset = true							//for realtime updation of pathSize
+//used as a flag if in reset state or not
 let source, destination
-let universalSources = new Array()	//stores values until map is reloaded or changes
+let universalSources = new Array()			//stores values until map is reloaded or changes
 let universalDests = new Array()
 let univarsalWaypoints = new Array()
-let waypoints = new Array() //array for multiple stops or way points
-
+let waypoints = new Array() 				//array for multiple stops or way points
 let materialYouPathColor = "ff0000"
 
-let box_dimensions = 2
-let maxX = canvas.width / box_dimensions //image loading needs to be done before this
-let maxY = canvas.height / box_dimensions //cause accessing the canvas element here
-let vertex = maxX * maxY //maximum possible number of veritces
+let box_dimensions = 2						//segment dimension
+let maxX = canvas.width / box_dimensions 	//image loading needs to be done before this
+let maxY = canvas.height / box_dimensions 	//cause accessing the canvas element here
+let vertex = maxX * maxY 					//maximum possible number of veritces
 
 if ("serviceWorker" in navigator) {
 	window.addEventListener("load", () => {
@@ -47,7 +46,7 @@ if ("serviceWorker" in navigator) {
 	})
 }
 
-inputImage.addEventListener("change", (e) => {
+inputImage.addEventListener("change", (e) => {	//loading of user given images
 	var reader = new FileReader()
 	reader.onload = (event) => {
 		var image = new Image()
@@ -55,7 +54,8 @@ inputImage.addEventListener("change", (e) => {
 			canvas.width = image.width
 			canvas.height = image.height
 
-			if((image.width > 2000 && image.width < 3000) || (image.height > 2000 && image.height < 3000))
+			//change the segment dimension according to the image resolution
+			if ((image.width > 2000 && image.width < 3000) || (image.height > 2000 && image.height < 3000))
 				box_dimensions = 4
 			else if ((image.width > 3000 && image.width < 5000) || (image.height > 3000 && image.height < 5000))
 				box_dimensions = 6
@@ -68,10 +68,11 @@ inputImage.addEventListener("change", (e) => {
 			context.drawImage(image, 0, 0, image.width, image.height)
 		}
 		resetStates()
-		universalPaths = new Array() //universalPaths is to be cleared separately for swap map button
-		image.src = event.target.result
-		customImageInput = image
 		customInputEnabled = true
+		universalPaths = new Array() //universalPaths is to be cleared separately for swap map button
+
+		image.src = event.target.result
+		customImageInput = image	 //storing the source of custom image
 	}
 	reader.readAsDataURL(e.target.files[0])
 })
@@ -81,7 +82,7 @@ const drawMap = () => {
 	context.drawImage(img, 0, 0, img.width, img.height)
 }
 
-window.onload = () => {
+window.onload = () => {	//loading image for the first time
 	drawMap()
 	localStorage.dark === "true"
 		? document.getElementById("switch-dark").click()
@@ -93,11 +94,11 @@ window.onload = () => {
 
 //this is called everytime mouse is clicked
 function pick(event) {
-	var rect = canvas.getBoundingClientRect() // get the canvas' bounding rectangle
-	let mx = event.clientX - rect.left // get the mouse's x coordinate
-	let my = event.clientY - rect.top // get the mouse's y coordinate
+	var rect = canvas.getBoundingClientRect() 	// get the canvas' bounding rectangle
+	let mx = event.clientX - rect.left 		 	// get the mouse's x coordinate
+	let my = event.clientY - rect.top 			// get the mouse's y coordinate
 	if (compareColorValues(mx, my, materialYouPathColor) === false) {
-		return //don't let add src or dest outside paths
+		return	//don't let add src or dest outside paths
 	}
 
 	let hotCell = findVertexAtCoordinate(mx, my)
@@ -135,14 +136,14 @@ function pick(event) {
 
 //////////////////////////////////
 
-function swapMap() {
-	isReset = true
+function swapMap() { 	//invoek when swap map button pressed
+	isReset = true		//set reset (for realtime pathSize updation)
 
 	let newImage = document.getElementById("mapSelect")
 	img.src = newImage.value
 	canvas.width = img.width
 	canvas.height = img.height
-	box_dimensions = 2
+	box_dimensions = 2	//reset segment size to 2 for built-in maps
 	maxX = Math.trunc(canvas.width / box_dimensions)
 	maxY = Math.trunc(canvas.height / box_dimensions)
 	vertex = maxX * maxY
@@ -152,7 +153,7 @@ function swapMap() {
 	}
 	customInputEnabled = false
 	resetStates()
-	universalPaths = new Array() //universalPaths is to be cleared separately for swap map button
+	universalPaths = new Array() 	//These are to be cleared separately for swap map button
 	universalSources = new Array()
 	universalDests = new Array()
 	univarsalWaypoints = new Array()
@@ -166,6 +167,8 @@ resetButton.onclick = () => {
 		let newImage = document.getElementById("mapSelect")
 
 		if (customInputEnabled === true) {
+			//if there is a custom image
+			//not affecting img and creating new local variables 
 			tempCustomImage.src = customImageInput.src
 			canvas.width = customImageInput.width
 			canvas.height = customImageInput.height
@@ -188,7 +191,7 @@ resetButton.onclick = () => {
 		}
 
 		resetStates()
-		universalPaths = new Array() //universalPaths is to be cleared separately for reset button
+		universalPaths = new Array() 	//These are to be cleared separately for reset map button
 		universalSources = new Array()
 		universalDests = new Array()
 		univarsalWaypoints = new Array()
