@@ -1,6 +1,6 @@
 var GHPATH = "/mapify-map-app"
 var APP_PREFIX = "mapify_"
-var VERSION = "version_005"
+var VERSION = "version_006"
 var CACHE_NAME = APP_PREFIX + VERSION
 const assets = [
 	`${GHPATH}/`,
@@ -28,6 +28,8 @@ const assets = [
 	`${GHPATH}/maps/Industries/indMap2.jpg`,
 	`${GHPATH}/maps/Industries/indMap3.png`,
 	`${GHPATH}/sounds/party-trumpet.wav`,
+	`${GHPATH}/sounds/mixkit-cool-interface-click-tone-2568.wav`,
+	`${GHPATH}/sounds/mixkit-click-error-1110.wav`,
 ]
 
 self.addEventListener("install", (e) => {
